@@ -1,0 +1,21 @@
+<div class="fragment-container">
+    <div class="footer-container container-fluid">
+        <div class="row">
+            <div class="col-xs-4 menu-item" ng-class="{active: $state.includes('layout.view.index')}" ui-sref="layout.view.index">
+                <img ng-show="!$state.includes('layout.view.index')" height="100%" src="/style/images/home.png" />
+                <img ng-show="$state.includes('layout.view.index')" height="100%" src="/style/images/home_active.png" />
+                <span class="menu-item-text">首页</span>
+            </div>
+            <div class="col-xs-4 menu-item" ng-class="{active: ($state.includes('layout.view.cash') || $state.includes('layout.view.cash-detail'))}" ui-sref="layout.view.cash">
+                <img ng-show="!($state.includes('layout.view.cash') || $state.includes('layout.view.cash-detail'))" height="100%" src="/style/images/coupon.png" />
+                <img ng-show="($state.includes('layout.view.cash') || $state.includes('layout.view.cash-detail'))" height="100%" src="/style/images/coupon_active.png" />
+                <span class="menu-item-text">我的惠券</span>
+            </div>
+            <div class="col-xs-4 menu-item" ng-class="{active: $state.includes('layout.view.contact-us')}" ui-sref="layout.view.contact-us">
+                <img ng-show="!$state.includes('layout.view.contact-us')" height="100%" src="/style/images/us.png" />
+                <img ng-show="$state.includes('layout.view.contact-us')" height="100%" src="/style/images/us_active.png" />
+                <span class="menu-item-text">免费拍摄</span>
+            </div>
+        </div>
+    </div>
+</div>

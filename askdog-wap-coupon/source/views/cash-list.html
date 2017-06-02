@@ -1,0 +1,62 @@
+<div class="fragment-container" wechat-share>
+    <div oc-lazy-load="['module/CashListController']">
+        <div class="cash-list-container" ng-controller="CashListController">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="col-xs-4" ng-class="{active: state == 'NOT_USED'}"
+                    ng-click="showCouponList('NOT_USED')">
+                    <a href="#tab-panel" aria-controls="home" role="tab" data-toggle="tab">
+                        <span>未使用</span>
+                    </a>
+                </li>
+                <li role="presentation" class="col-xs-4" ng-class="{active: state == 'USED'}"
+                    ng-click="showCouponList('USED')">
+                    <a href="#tab-panel" aria-controls="profile" role="tab" data-toggle="tab">
+                        <span>已使用</span>
+                    </a>
+                </li>
+                <li role="presentation" class="col-xs-4" ng-class="{active: state == 'EXPIRED'}"
+                    ng-click="showCouponList('EXPIRED')">
+                    <a href="#tab-panel" aria-controls="profile" role="tab" data-toggle="tab">
+                        <span>已过期</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content box-border cash-list">
+                <div class="store-empty" ng-if="viewList.total == 0">
+                    <div class="empty-font">
+                        <i class="iconfont icon-tixian-list"></i>
+                    </div>
+                    无记录
+                </div>
+                <div role="tabpanel" class="row channels tab-pane active" id="tab-panel">
+                    <div class="coupon-list-item" ng-repeat="item in viewList.result" ng-if="viewList.result.length > 0 " ui-sref="layout.view.cash-detail({'id':item.id})" class="clearfix">
+                        <div class="coupon-value">{{::item.rule}}元</div>
+                        <div class="coupon-info">
+                            <div class="coupon-info-storename">{{::item.store_basic.name}}</div>
+                            <div class="coupon-info-type">{{::item.name}}</div>
+                            <div class="coupon-info-expire">
+                                <span ng-if="item.coupon_state == 'NOT_USED'">有效期至：{{::item.expire_time | date:"yyyy.MM.dd"}}</span>
+                                <span ng-if="item.coupon_state == 'USED'">使用日期：{{::item.use_time | date:"yyyy.MM.dd"}}</span>
+                                <span ng-if="item.coupon_state == 'EXPIRED'">过期日期：{{::item.expire_time | date:"yyyy.MM.dd"}}</span>
+                            </div>
+                        </div>
+                        <div class="coupon-watermark">券</div>
+                        <div class="coupon-arrow"></div>
+                        <div class="tag-bg" ng-class="{'used': item.coupon_state == 'USED' || item.coupon_state == 'EXPIRED'}"> </div>
+                        <div class="tag-text">
+                            <span ng-if="item.coupon_state == 'NOT_USED'">未使用</span>
+                            <span ng-if="item.coupon_state == 'USED'">已使用</span>
+                            <span ng-if="item.coupon_state == 'EXPIRED'">已过期</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="retry" class="store-empty" style="display: none">
+                    <a ng-click="refresh()" style="color:#8792A4;">加载失败，请重试</a>
+                </div>
+                <div ng-if="!loadingCompleted">
+                    <div class="loading"><span></span> <span></span> <span></span> <span></span> <span></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

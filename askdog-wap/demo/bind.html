@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1">
+    <title>ASKDOG | 让知识触手可及</title>
+
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+    <script src="js/askdog-exp.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
+</head>
+<body>
+<script>
+
+    $(function() {
+        $.ajax({
+            method: "GET",
+            url: "/api/users/me",
+            statusCode: {
+                403: function() {
+                    $(".forbidden").toggleClass("hide").find("a").each(function() {
+                        var jn = $(this);
+                        jn.attr("href", jn.attr("href") + "?request=" + encodeURIComponent(window.location.href));
+                    });
+                }
+            }
+        }).done(function(data) {
+            $("#result").text(JSON.stringify(data, null, "\t"));
+            alert(JSON.stringify(AskDogExp.URL.param("token")));
+            $.ajax({
+                url: "/api/users/bind/" + AskDogExp.URL.param("token"),
+                method: "PUT",
+                complete: function(jqXHR, textStatus) {
+                    alert(JSON.stringify(jqXHR));
+                }
+            });
+        }).fail(function(jqXHR, textStatus) {
+            $("#result").text("status is: " + jqXHR.statusText);
+        });
+    });
+
+</script>
+<pre id="result"></pre>
+<div class="forbidden hide">
+    <div><a href="/login/wechat">LOGIN WITH WECHAT</a></div>
+    <div><a href="/login/wechat/connect">LOGIN WITH WECHAT CONNECT</a></div>
+    <div><a href="/login/weibo">LOGIN WITH WEIBO <b>(CONFIGURATION NOT RIGHT)</b></a></div>
+    <div><a href="/login/qq">LOGIN WITH QQ <b>(CONFIGURATION NOT RIGHT)</b></a></div>
+    <div><a href="/login/github">LOGIN WITH GITHUB <b>(CONFIGURATION NOT RIGHT)</b></a></div>
+</div>
+</body>
+</html>

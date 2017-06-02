@@ -1,0 +1,16 @@
+<div class="fragment-container" oc-lazy-load="['module/common/HeaderController']">
+    <div ng-controller="HeaderController">
+        <div class="header-container">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="brand">
+                    <img class="logo" src="style/images/logo.png" />
+                    <span class="slogan">用影像力 <span style="font-size: 12px; display: inline-block; margin-top: 8px; vertical-align: top;">|</span> 创影响力</span>
+                    <a class="dropdown-address pull-right" ng-click="toggle($state.includes('layout.view.city-list'))" >
+                        <span>{{address ? address.name : '全国'}}</span>
+                        <span class="iconfont icon-load" style="font-size: 12px;"></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+<div oc-lazy-load="['module/ZoneController']">
+    <div class="hot-container" ng-controller="ZoneController">
+        <div class="main-box new-channel-box">
+            <div class="jumbotron box-border">
+                <div class="channel-user-box">
+                    <div class="user-pic-box">
+                        <img ng-src="{{(user.avatar || 'images/user/avatar.png') | picTrans: '72w_72h_1e_1c.png'}}"
+                             class="img-circle" alt=""/>
+                        <i class="iconfont icon-v" ng-if="user.tags[0] == 'VIP'"></i>
+                    </div>
+                    <h2>{{user.name}}</h2>
+                    <p>{{user.signature}}</p>
+                </div>
+                <ul class="nav nav-tabs" role="tablist" ng-init="ownedActive=true">
+                    <li role="presentation" class="active" ng-click="ownedActive = true">
+                        <a href="#owned-channels-tab" aria-controls="home" role="tab" data-toggle="tab">
+                            <span>{{ myzone ? '我的频道' : '自建频道'}}</span>
+                            <span>{{ownedChannels.total}}</span>
+                        </a>
+                    </li>
+                    <li role="presentation" ng-click="ownedActive = false">
+                        <a href="#subscribed-channels-tab" aria-controls="profile" role="tab" data-toggle="tab">
+                            <span>订阅频道</span>
+                            <span>{{subscribedChannels.total}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content box-border">
+                <div role="tabpanel" class="row channels tab-pane active" id="owned-channels-tab">
+                    <div class="channel-item" ng-repeat="item in ownedChannels.result">
+                        <div class="channel-item-content">
+                            <a href="#/channel/{{item.id}}" class="channel-thumbnail" target="_blank">
+                                <img ng-src="{{(item.thumbnail|| 'images/channel/channel.png') | picTrans: '120w_120h_1e_1c.png'}}"
+                                     alt="{{item.name}}"/>
+                            </a>
+                            <a href="#/channel/{{item.id}}" class="channel-heading" target="_blank"
+                               title="{{item.name}}">{{item.name|ellipsis:'...':14}}</a>
+                            <p class="subscribe-info">
+                                <span>订阅数：</span>
+                                <span>{{item.subscriber_count}}</span>
+                            </p>
+                            <div ng-if="myzone && item.deletable" class="dropdown">
+                                <a class="btn btn-link btn-sm link-info" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="iconfont icon-delete"></i>
+                                    <span>删除频道</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dLabel">
+                                    <a class="btn btn-link btn-confirm"
+                                       ng-click="deleteChannel(item.id)">
+                                        确定
+                                    </a>
+                                    <a class="btn btn-link btn-cancel">取消</a>
+                                </div>
+                            </div>
+                            <button class="btn btn-link btn-sm link-info deleteTooltipBtn" type="button"
+                                    tool-tip
+                                    tip_title="请先删除频道内容"
+                                    tip_trigger="hover"
+                                    tip_placement="bottom"
+                                    ng-if="myzone && !item.deletable">
+                                <i class="iconfont icon-delete"></i>
+                                <span>删除频道</span>
+                            </button>
+                            <!--button ng-if="myzone" class="btn btn-icon btn-edit" ng-click="showUpdateChannel(item.id)">
+                                <i class="iconfont icon-pen"></i>
+                            </button-->
+
+                            <button ng-if="!myzone && item.subscribed" class="btn btn-info btn-sm cancel-subscribe"
+                                    ng-click="unsubscribe(item.id)"
+                                    ng-mouseover="placeHolder=true"
+                                    ng-mouseout="placeHolder=false"
+                                    ng-init="placeHolder=false"
+                                    auth-required>
+                                <i class="iconfont"
+                                   ng-class="{true:'icon-quxiaodingyue',false:'icon-yidingyue'}[placeHolder]"></i>
+                                <span>{{placeHolder? '取消订阅' : '已订阅'}}</span>
+                            </button>
+                            <button ng-if="!myzone && !item.subscribed" class="btn btn-info btn-sm"
+                                    ng-click="subscribe(item.id)"
+                                    auth-required>
+                                <i class="iconfont icon-subscribe"></i>
+                                <span>订阅频道</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="channel-item" ng-if="myzone">
+                        <div class="channel-item-content">
+                            <a href="javascript:void(0);" class="btn-new channel-thumbnail"
+                               ng-click="showCreateChannel()">
+                                <i class="iconfont icon-noun23256cc"></i>
+                                <span>创建新频道</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="no-box box-border" ng-if="!myzone && ownedChannels.total == 0">
+                        <p class="no-info">
+                            <i class="iconfont icon-myshare"></i>还没有创建频道<br/>
+                        </p>
+                    </div>
+                </div><!--End of owned-channels-tab-->
+                <div role="tabpanel" class="row channels tab-pane" id="subscribed-channels-tab">
+                    <div class="channel-item" ng-repeat="item in subscribedChannels.result">
+                        <div class="channel-item-content">
+                            <a href="#/channel/{{item.id}}" class="channel-thumbnail" target="_blank">
+                                <img ng-src="{{(item.thumbnail||'images/channel/channel.png') | picTrans: '120w_120h_1e_1c.png'}}"
+                                     alt="{{item.name}}"/>
+                            </a>
+                            <a href="#/channel/{{item.id}}" class="channel-heading" target="_blank"
+                               title="{{item.name}}">{{item.name|ellipsis:'...':14}}</a>
+                            <p class="subscribe-info">
+                                <span>订阅数：</span>
+                                <span>{{item.subscriber_count}}</span>
+                            </p>
+
+                            <!-- TODO should make is as a directive -->
+                            <button ng-if="item.subscribed" class="btn btn-info btn-sm cancel-subscribe"
+                                    ng-click="unsubscribe(item.id)"
+                                    ng-mouseover="placeHolder=true"
+                                    ng-mouseout="placeHolder=false"
+                                    ng-init="placeHolder=false"
+                                    auth-required>
+                                <i class="iconfont"
+                                   ng-class="{true:'icon-quxiaodingyue',false:'icon-yidingyue'}[placeHolder]"></i>
+                                <span>{{placeHolder? '取消订阅' : '已订阅'}}</span>
+                            </button>
+                            <button ng-if="!item.subscribed" class="btn btn-info btn-sm"
+                                    ng-click="subscribe(item.id)"
+                                    ng-disabled="item.mine"
+                                    auth-required>
+                                <i class="iconfont icon-subscribe"></i>
+                                <span>订阅频道</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="no-box box-border" ng-if="subscribedChannels.total == 0">
+                        <p class="no-info">
+                            <i class="iconfont icon-myshare"></i>还没有订阅频道<br/>
+                        </p>
+                    </div>
+                </div><!--End of subscribed-channels-tab-->
+            </div>
+
+            <!-- Paging -->
+            <div class="clearfix text-center" ng-if="ownedActive && !ownedChannels.last">
+                <button class="btn btn-ghost" ng-click="ownedChannelsPaging()" ng-show="loadingCompleted">
+                    <span>查看更多</span>
+                </button>
+                <button class="btn btn-ghost" ng-hide="loadingCompleted">
+                    <img src="images/loading.gif" alt="..."/>
+                    <span>正在加载</span>
+                </button>
+            </div>
+
+            <div class="clearfix text-center" ng-if="!ownedActive && !subscribedChannels.last">
+                <button class="btn btn-ghost" ng-click="subscribedChannelsPaging()"
+                        ng-show="loadingCompleted">
+                    <span>查看更多</span>
+                </button>
+                <button class="btn btn-ghost" ng-hide="loadingCompleted">
+                    <img src="images/loading.gif" alt="..."/>
+                    <span>正在加载</span>
+                </button>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

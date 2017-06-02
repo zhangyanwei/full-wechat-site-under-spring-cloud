@@ -1,0 +1,56 @@
+<div oc-lazy-load="['module/dialog/ChannelDialogController']">
+    <div class="channel-container" ng-controller="ChannelDialogController">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">创建频道</h4>
+            </div>
+            <div class="modal-body">
+                <div class="media">
+                    <div class="media-left"
+                         ng-mouseover="selectShow=true"
+                         ng-mouseout="selectShow=false"
+                         ng-init="selectShow=false;uploadCompleted=true;">
+                        <img class="media-object"
+                             ng-src="{{(thumbnail || 'images/channel/channel.png') | picTrans: '120w_120h_1e_1c.png'}}">
+                        <div class="channel-pic-layer" ng-show="selectShow || !uploadCompleted">
+                            <a type="button" class="btn btn-link" ng-show="uploadCompleted"
+                               ng-click="openImageCropDialog()">上传图标</a>
+                            <img src="images/loading.gif" alt="..." ng-show="!uploadCompleted"/>
+                            <div class="layer-bg-b"></div>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <form name="channelForm" after-render="bindValidator">
+                            <div class="form-group" ng-show="error">
+                                <div class="alert alert-warning text-center alert-shake">{{error}}</div>
+                            </div>
+                            <div class="form-group">
+                                <input name="subject" type="text" class="form-control"
+                                       placeholder="标题"
+                                       required="required"
+                                       ng-model="pureChannel.name"/>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="description" class="form-control"
+                                          placeholder="频道描述"
+                                          onpropertychange="this.style.height = this.scrollHeight + 'px';"
+                                          oninput="if(this.scrollHeight>75){this.style.height = this.scrollHeight + 'px';}"
+                                          ng-model="pureChannel.description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right" ng-disabled="prevented">
+                                    创建
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+            <i class="iconfont icon-xxxxx"></i>
+        </button>
+
+    </div>
+</div>

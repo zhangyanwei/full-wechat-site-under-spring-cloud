@@ -1,0 +1,20 @@
+{
+  "name": "askdog-wap-coupon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://121.41.46.69:8081/ask.dog/askdog-wap-coupon.git"
+  },
+  "author": "AskDog",
+  "license": "ISC"
+}

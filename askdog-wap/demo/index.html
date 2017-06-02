@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title>ASKDOG - 经验分享社区</title>
+    <meta name="keywords"
+          content="让知识变得触手可及,AskDog,ASKDOG,APP,APP下载,经验狗,狗狗,经验,学习,教程,才艺比拼,手把手教,经验分享社区,经验分享,经验分享社区,经验指南,经验教程,经验视频,教程视频,视频经验,工作经验分享,生活经验,工作技巧视频,视频分享">
+    <meta name="description"
+          content="ASKDOG - 经验分享社区是一个分享生活经验、工作技巧为主的视频分享网站，为您快速的找到视频经验分享，提供高质量的原创内容；同时如果您擅长于某个领域的经验分享，技能传授；我们ASKDOG经验分享社区愿为您打造优质的自媒体传播平台！">
+    <!-- build:css -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="iconfont/iconfont.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- endbuild -->
+
+</head>
+
+<body>
+<!-- Main view  -->
+<div ui-view style="height:100%"></div>
+
+<!-- build:js -->
+<script src="lib/require.js" data-main="js/main.js"></script>
+<script>
+    require.config({
+        urlArgs: function(id, url) {
+            var args = 'v=3';
+            return (url.indexOf('?') === -1 ? '?' : '&') + args;
+        }
+    });
+</script>
+<!-- endbuild -->
+</body>
+</html>

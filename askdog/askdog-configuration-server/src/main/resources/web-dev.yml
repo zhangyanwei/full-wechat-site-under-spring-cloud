@@ -1,0 +1,37 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.socket: DEBUG
+    org.springframework.data.mongodb.core.index: ERROR
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  # for session
+  redis:
+    host: dev.ask.dog
+    port: 6379
+  # for oauth2 client
+  datasource:
+    #platform: postgresql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dev.ask.dog:5432/askdog.coupon
+    username: dog
+    password: askdog
+
+wx:
+  client:
+    clientId: wx6d916f5fe28d72c3
+    clientSecret: 11bf9b017f08bfcdd643cb6b5017816a
+  notice:
+    templateId: i634DdDd7nKh_IsG9mGEXEurKB8xJJNW8w9tnd9Mllg
+    topColor: "#FF0000F"
+    url: "http://ellenchia.tunnel.qydev.com/#/cash-detail/{targetId}"

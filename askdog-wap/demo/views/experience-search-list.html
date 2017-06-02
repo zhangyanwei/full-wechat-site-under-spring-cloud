@@ -1,0 +1,38 @@
+<div oc-lazy-load="['module/experience/ExperienceSearchListController']">
+	<div class="container card-list experience-list experience-search" ng-controller="ExperienceSearchListController">
+		<div class="search-result-box box-border">
+			{{viewList.total}}个<mark>"{{viewList.key}}"</mark>搜索结果
+		</div>
+		<div class="media" ng-repeat="searchResult in viewList.result" ng-repeat="list in viewList.result" ng-if="viewList.total > 0">
+			<a ui-sref="index.detail({id:searchResult.id})">
+				<div class="media-left" ui-sref="index.detail({id:searchResult.id})">
+					<original-tag tags="searchResult.tags"></original-tag>
+					 <span class="video-duration"
+						   ng-if="searchResult.content_type=='VIDEO'">{{searchResult.video_duration | durationFix}}</span>
+					<a class="btn btn-icon btn-play" ng-if="searchResult.content_type=='VIDEO'">
+						<img src="images/play.png">
+					</a>
+					<img class="media-object" ng-src="{{searchResult.content_pic_url | picTrans: '120w_68h_1e_1c.png'}}" alt="..." ng-if="searchResult.content_pic_url">
+					<img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[searchResult.category.category_code].abstract | picTrans: '120w_68h_1e_1c.png'}}" alt="..." ng-if="!searchResult.content_pic_url">
+				</div>
+				<div class="media-body" ui-sref="index.detail({id:searchResult.id})">
+					<h4 class="media-heading" ng-bind-html="searchResult.subject | trusted"></h4>
+					<div class="from-info">
+						<span class="user-name">{{searchResult.author.name}} <i class="iconfont icon-vv hidden"></i></span>
+						<span class="channel-name">> {{searchResult.channel.channel_name}}</span>
+					</div>
+					<div vip-approve vip="searchResult.author"></div>
+					<div class="other-info">
+						<span>{{searchResult.creation_date | created}} ·</span>
+						<span>浏览数 {{searchResult.view_count | count}}</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="clearfix text-center" ng-if="!viewList.last">
+			<button class="btn btn-link" ng-show="loadingCompleted"></button>
+			<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+		</div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

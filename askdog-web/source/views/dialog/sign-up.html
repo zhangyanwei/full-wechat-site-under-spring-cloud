@@ -1,0 +1,139 @@
+<div oc-lazy-load="['module/dialog/RegisterController']">
+    <div class="login-container" ng-controller="RegisterController">
+
+        <div class="user-head-wrap">
+            <div class="user-head">
+                <i class="iconfont icon-dog"></i>
+            </div>
+        </div>
+
+        <div class="modal-body modal-login-body box-border" ng-hide="registerSuccess"
+             ng-init="phoneRegister=true;registerSuccess=false">
+            <h1>注册</h1>
+            <form class="form-horizontal" name="registerForm" after-render="bindValidator">
+                <div class="form-group" ng-show="error">
+                    <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="iconfont icon-user1 form-control-feedback"></span>
+                    <input type="text" name="name" class="form-control"
+                           placeholder="姓名"
+                           required="required"
+                           ng-model="userInfo.name"/>
+                </div>
+
+                <div class="form-group has-feedback" ng-if="phoneRegister">
+                    <span class="iconfont icon-mobile form-control-feedback"></span>
+                    <input type="text" name="phone" class="form-control"
+                           placeholder="手机号"
+                           required="required"
+                           ng-model="userInfo.phone"/>
+                </div>
+
+                <div class="form-group has-feedback" ng-if="!phoneRegister">
+                    <span class="iconfont icon-email form-control-feedback"></span>
+                    <input type="email" name="mail" class="form-control"
+                           placeholder="邮件地址"
+                           required="required"
+                           ng-model="userInfo.mail"/>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <span class="iconfont icon-password form-control-feedback"></span>
+                    <input name="password" type="password" class="form-control"
+                           placeholder="密码"
+                           required="required"
+                           ng-model="userInfo.password">
+                </div>
+
+                <div class="form-group" ng-if="phoneRegister">
+                    <div class="col-sm-7 col-fix has-feedback">
+                        <span class="iconfont icon-favourite form-control-feedback"></span>
+                        <input name="code" type="text" class="form-control"
+                               placeholder="验证码"
+                               required="required"
+                               maxlength="6"
+                               ng-model="userInfo.code">
+                    </div>
+                    <div class="col-sm-4 col-fix pull-right">
+                        <button class="btn btn-primary" onclick="return false;" ng-click="getIdentifyingCode();"
+                                ng-disabled="identifyingCodeDisabled">
+                            <span ng-if="identifyingCodeDisabled==undefined">获取验证码</span>
+                            <span ng-if="identifyingCodeDisabled==false">重新发送</span>
+                            <span ng-if="identifyingCodeDisabled">等待{{countdown}}秒</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-init="disallow=true" ng-model="disallow">
+                        <span>阅读并接受</span>
+                        <a class="c-bule" target="_blank" href="/agreement.html">《ASKDOG用户协议》</a>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" ng-disabled="!disallow">注册</button>
+                </div>
+
+                <div class="checkbox">
+                    <a class="btn btn-link" ng-show="phoneRegister" ng-click="phoneRegister=false;error=undefined;">使用邮箱注册</a>
+                    <a class="btn btn-link" ng-show="!phoneRegister" ng-click="phoneRegister=true;error=undefined;">使用手机号注册</a>
+                </div>
+            </form>
+
+            <div class="other-way">
+                <p>第三方账户登录</p>
+                <a href="{{qqLoginLink}}"><i class="iconfont icon-qq"></i></a>
+                <a href="{{wechatLoginLink}}"><i class="iconfont icon-weixin01"></i></a>
+                <a href="{{weiboLoginLink}}"><i class="iconfont icon-sina"></i></a>
+            </div>
+        </div>
+        <div class="modal-footer" ng-hide="registerSuccess">
+            <div class="link-register">
+                <span>使用已有的账号</span><a href="javascript:void(0);" id="btn-toreg" ng-click="goSignIn()">登录</a>
+            </div>
+            <button type="button" class="close" ng-click="cancel()">
+                <i class="iconfont icon-xxxxx"></i>
+            </button>
+        </div>
+
+        <!--Register success-->
+        <div class="modal-body modal-login-body box-border reg-success-modal"
+             ng-show="phoneRegister && registerSuccess">
+            <div class="reg-success">
+                <div>
+                    <b>注册成功!</b>
+                </div>
+                <div>
+                    <span>感谢您注册ASKDOG</span>
+                </div>
+                <p>
+                    <a href="javascript:void(0);" class="btn btn-primary" ng-click="goSignIn()">立即登录</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="modal-body modal-login-body box-border reg-success-modal"
+             ng-show="!phoneRegister && registerSuccess">
+            <div class="reg-success">
+                <div>
+                    <b>注册成功!</b>
+                </div>
+                <p>
+                    <span>验证邮件已发送至</span>
+                    <br>
+                    <a href="javascript:void(0);" class="btn-link link-primary"
+                       style="cursor:default">{{userInfo.mail}}</a>
+                    <br>
+                    <span>请登录邮箱点击链接激活账号。</span>
+                </p>
+            </div>
+        </div>
+        <div class="modal-footer" ng-show="registerSuccess">
+            <button type="button" class="close" ng-click="cancel()">
+                <i class="iconfont icon-xxxxx"></i>
+            </button>
+        </div>
+    </div>
+</div>

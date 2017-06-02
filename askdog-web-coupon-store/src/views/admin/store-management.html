@@ -1,0 +1,32 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/StoreManagementController']">
+        <div class="row" ng-controller="StoreManagementController">
+            <div class="main a-fadeinR">
+                <h1 class="page-header">商户管理 <small>(点击商户查看详细)</small></h1>
+                <button style="margin-bottom: 20px;" type="button" class="btn btn-default btn-primary" ng-click="addStore()">添加商户</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="store-tile" ng-repeat="item in data.result" ui-sref="store.coupon({'storeId': item.id})">
+                            <img class="store-cover" ng-src="{{item.cover_image + '@150h_1e_1c.png'}}" alt="">
+                            <div class="store-toolbar">
+                                <span class="store-toolbar-item" ng-click="showQrcode(item, $event)"><span class="glyphicon glyphicon-qrcode"></span></span>
+                                <span class="store-toolbar-item" ng-click="updateStore(item.id, $event)"><span class="glyphicon glyphicon-edit"></span></span>
+                                <span class="store-toolbar-item" ng-click="configStore(item.id, $event)"><span class="glyphicon glyphicon-cog"></span></span>
+                                <span class="store-toolbar-item" ng-click="deleteStore(item.id, $event)"><span class="glyphicon glyphicon-trash"></span></span>
+                            </div>
+                            <div class="store-description">
+                                <div class="store-name">{{item.name}}</div>
+                                <div class="store-description-item">电话： {{item.phone}}</div>
+                                <div class="store-description-item">地址： {{item.address}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="pagination-wrapper">
+                    <ul ng-if="data.total" uib-pagination boundary-links="true" total-items="data.total" items-per-page="data.size" ng-model="page" ng-change="goPage(page - 1)" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

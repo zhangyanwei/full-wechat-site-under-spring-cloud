@@ -1,0 +1,23 @@
+.qr-code-container {
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    color: #ff7b00;
+    text-align: center;
+}
+
+.qr-code-container > h1 {
+    font-size: 18px;
+    margin-top: 124px;
+}
+
+.qr-code-container > small {
+    font-size: 16px;
+}
+
+.qr-code-border > img {
+    width: 100%;
+}

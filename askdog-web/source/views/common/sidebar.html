@@ -1,0 +1,54 @@
+<div oc-lazy-load="['module/common/SidebarController']">
+    <div class="sidebar-container" ng-controller="SidebarController">
+        <div class="nav-bar">
+            <!-- not login -->
+            <ul class="nav nav-pills nav-stacked box-border nav-unlogin" ng-if="!userSelf">
+                <li role="presentation" ui-sref="layout.view-index.index" ui-sref-active="active">
+                    <a href="javascript:void(0);"><i class="iconfont icon-home"></i><span>首页</span></a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-index.hot" ui-sref-active="active">
+                    <a href="javascript:void(0);"><i class="iconfont icon-hot"></i><span>热门</span></a></li>
+                <hr/>
+                <!--Category-->
+                <li role="presentation" ng-repeat="item in sysCategories">
+                    <a href="javascript:void(0);" ui-sref="layout.view-index.category({category: item.code})"
+                       ui-sref-active="active">
+                        <i class="iconfont icon-shenghuo" ng-if="item.code=='CATE'"></i>
+                        <i class="iconfont icon-guitar" ng-if="item.code=='GUITAR'"></i>
+                        <i class="iconfont icon-wenhua" ng-if="item.code=='SET'"></i>
+                        <span>{{item.name}}</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- has been login -->
+            <ul class="nav nav-pills nav-stacked box-border" ng-if="userSelf">
+                <li role="presentation" ui-sref="layout.view-index.index" ui-sref-active="active">
+                    <a href="javascript:void(0);"><i
+                            class="iconfont icon-home"></i><span>首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</span></a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-default.zone({userId: userSelf.id})"
+                    ui-sref-active="active">
+                    <a href="javascript:void(0);"><i class="iconfont icon-user1"></i><span>我的空间</span></a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-index.hot" ui-sref-active="active">
+                    <a href="javascript:void(0);"><i class="iconfont icon-hot"></i><span>热门分享</span></a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-default.recommend" ui-sref-active="active">
+                    <a href="javascript:void(0);"><i class="iconfont icon-noun13533"></i><span>为我推荐</span></a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-default.history" ui-sref-active="active">
+                    <a href="javascript:void(0);"><i class="iconfont icon-cookies01"></i><span>历史记录</span></a>
+                </li>
+                <hr ng-if="subscribedChannels && subscribedChannels.length > 0"/>
+                <li class="nav-channel" ng-repeat="item in subscribedChannels"
+                    ui-sref="layout.view-default.channel({channelId: item.id})" ui-sref-active="active">
+                    <span class="badge" ng-if="item.unread_exp_count > 0">&nbsp</span>
+                    <a href="javascript:void(0);" ng-click="item.unread_exp_count=0">
+                        <img ng-src="{{(item.thumbnail || 'images/channel/channel.png') | picTrans: '25w_25h_1e_1c.png'}}"/>
+                        <span>{{item.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

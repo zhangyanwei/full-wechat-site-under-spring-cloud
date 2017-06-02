@@ -1,0 +1,25 @@
+<div oc-lazy-load="['module/experience/SearchController']">
+    <div ng-controller="SearchController">
+        <div ng-include="'views/common/search-box.html'"></div>
+        <div class="search-history" ng-hide="haveSearch">
+            搜索记录
+        </div>
+        <div class="search-box" ng-show="haveSearch">
+            <div class="list-group">
+                <ul class="nav">
+                    <li ng-repeat="question in searchResult">
+                        <a ui-sref="view.detail({id:question.id})" class="list-group-item"
+                            ng-bind-html="question.subject | trusted" ng-click="showSearch()"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group" ng-if="searchResult.length > 0">
+                <a ui-sref="view.search-result({searchKey:searchKey})" class="btn btn-link link-primary" ng-click="showSearch()">查看全部搜索结果</a>
+            </div>
+            <div class="btn-group" ng-if="searchKey && searchResult.length == 0">
+                <a class="btn btn-link link-primary">没有关于{{searchKey}}的搜索结果</a>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

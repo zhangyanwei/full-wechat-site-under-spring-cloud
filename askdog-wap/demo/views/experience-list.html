@@ -1,0 +1,80 @@
+<div oc-lazy-load="['module/experience/ExperienceListController']">
+	<div class="container card-list experience-list" ng-controller="ExperienceListController">
+		<div class="channel-box box-border" ng-if="viewList.total == 0">
+			<p class="no-info">
+				<i class="iconfont icon-myshare"></i>还没有内容<br/>
+			</p>
+		</div>
+		<!--<div class="autumn-activity">-->
+			<!--<div class="media " ng-if="activity">-->
+				<!--<a href="/events/201609/">-->
+					<!--<div class="pull-left autumn-btn">-->
+						<!--<img src="images/activity/autumn-moon.png"><br>-->
+						<!--<button class="btn btn-default">点击参加活动</button>-->
+					<!--</div>-->
+					<!--<div class="pull-left autumn-content">-->
+						<!--<img src="images/activity/autumn-font.png">-->
+					<!--</div>-->
+				<!--</a>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="media gold-bucket" ng-if="activity">-->
+			<!--<a  ui-sref="index.activity()">-->
+				<!--<div class="gold-bucket-con">-->
+					<!--<div class="pull-left">-->
+						<!--<span class="gold-bucket-title">一桶金计划</span>-->
+						<!--<div>-->
+							<!--<button class="gold-bucket-btn">查看详情</button>-->
+						<!--</div>-->
+
+					<!--</div>-->
+					<!--<div class="pull-right">-->
+						<!--<img class="media-object" src="images/gold-main.png">-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</a>-->
+		<!--</div>-->
+		<div class="media" ng-repeat="list in viewList.result" ng-if="viewList.total > 0" ui-sref="index.detail({id:list.id})">
+			<p class="from-channel" ng-if="!user">来自于 {{list._from}}</p>
+			<p class="from-channel" ng-if="user">来自于 {{list._from}}</p>
+			<div class="media-left">
+				<original-tag tags="list.tags"></original-tag>
+				 <span class="video-duration"
+					   ng-if="list.content_type=='VIDEO'">{{list.video_duration | durationFix}}</span>
+				<a class="btn btn-icon btn-play" ng-if="list.content_type=='VIDEO'">
+					<img src = "images/play.png" class="play">
+				</a>
+				<img class="media-object" ng-src="{{list.content_pic_url | picTrans: '120w_68h_1e_1c.png'}}" alt="..." ng-if="list.content_pic_url">
+				<img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[list.category.category_code].abstract | picTrans: '120w_68h_1e_1c.png'}}"  ng-if="!list.content_pic_url">
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading"><a>{{list.subject}}</a></h4>
+				<div class="from-info">
+					<span class="user-name" ng-click="mySubscribe(list.author)">{{list.author.name }} </span>
+					<i class="iconfont icon-vv hidden"></i>
+					<span class="channel-name">> {{list.channel.channel_name }}</span>
+				</div>
+				<div vip-approve vip="list.author"></div>
+				<div class="other-info">
+					<span>{{list.creation_date | created}} ·</span>
+					<span>浏览数 {{list.view_count}}</span>
+				</div>
+			</div>
+
+		</div>
+		<div class="text-center" ng-if="!viewList.last && !loadFail">
+			<button class="btn btn-link" ng-show="loadingCompleted"></button>
+			<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+		</div>
+		<div class="table-box" ng-if="loadFail">
+			<div class="table-cell-box">
+				<div class="system-info" ng-click="refreshList()">
+					<i class="iconfont icon-load-error"></i>
+					<p>加载时出错</p>
+				</div>
+			</div>
+		</div>
+		<div we-share detail="listDetail"></div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

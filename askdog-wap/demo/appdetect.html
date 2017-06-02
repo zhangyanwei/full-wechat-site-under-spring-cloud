@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <!-- Page title set in pageTitle directive -->
+    <title page-title>ASKDOG - 经验分享社区</title>
+    <meta name="keywords" content="让知识变得触手可及,AskDog,ASKDOG,APP,APP下载,经验狗,狗狗,经验,学习,教程,才艺比拼,手把手教,经验分享社区,经验分享,经验分享社区,经验指南,经验教程,经验视频,教程视频,视频经验,工作经验分享,生活经验,工作技巧视频,视频分享">
+    <meta name="description" content="ASKDOG - 经验分享社区是一个分享生活经验、工作技巧为主的视频分享网站，为您快速的找到视频经验分享，提供高质量的原创内容；同时如果您擅长于某个领域的经验分享，技能传授；我们ASKDOG经验分享社区愿为您打造优质的自媒体传播平台！">
+
+    <!--<script src="lib/jquery/jquery.min.js"></script>-->
+    <!--<script src="lib/jquery-plugin/grumble/jquery.grumble.min.js"></script>-->
+
+    <!--<style type="text/css">-->
+        <!--#indicator {-->
+            <!--position: absolute;-->
+            <!--width: 10px;-->
+            <!--height: 10px;-->
+            <!--/*background-color: red;*/-->
+            <!--top: -5px;-->
+            <!--right: 25px;-->
+        <!--}-->
+
+        <!--#logo {-->
+            <!--width: 80%;-->
+            <!--height: 100%;-->
+            <!--position: absolute;-->
+            <!--background: url("images/logo.png") no-repeat;-->
+            <!--top: 40%;-->
+            <!--background-size: contain;-->
+            <!--left: 10%;-->
+        <!--}-->
+
+        <!--.grumble-text .outer {-->
+            <!--font-family: "Microsoft YaHei";-->
+            <!--line-height: 1.4em;-->
+        <!--}-->
+    <!--</style>-->
+    <!--<link href="lib/jquery-plugin/grumble/css/grumble.min.css" rel="stylesheet">-->
+</head>
+<body>
+<script>
+
+    var mobileDetection = {
+        windows: function() {
+            return /IEMobile/i.test(navigator.userAgent);
+        },
+        android: function() {
+            return /Android/i.test(navigator.userAgent);
+        },
+        blackBerry: function() {
+            return /BlackBerry/i.test(navigator.userAgent);
+        },
+        iOS: function() {
+            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        },
+        wechat: function() {
+            return /microMessenger/i.test(navigator.userAgent);
+        },
+        any: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+        }
+    };
+
+    if (mobileDetection.wechat()) {
+        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.askdog.android";
+    } else if (mobileDetection.iOS()) {
+        window.location.href = "https://itunes.apple.com/us/app/askdog-jing-yan-fen-xiang/id1144422327?l=zh&ls=1&mt=8";
+    } else {
+        window.location.href = "https://www.pgyer.com/app/install/d5f47d31fd125a1ccee81a86000d2309";
+    }
+</script>
+
+<!--<div id="guide">-->
+    <!--<div id="indicator"></div>-->
+    <!--<div id="logo"></div>-->
+<!--</div>-->
+
+<!--<script type="application/javascript">-->
+    <!--mobileDetection.wechat() && $('#indicator').grumble(-->
+            <!--{-->
+                <!--text: '点击这里，选择“在浏览器中打开”就可以下载',-->
+                <!--angle: 220,-->
+                <!--distance: 0-->
+            <!--}-->
+    <!--);-->
+<!--</script>-->
+</body>
+</html>

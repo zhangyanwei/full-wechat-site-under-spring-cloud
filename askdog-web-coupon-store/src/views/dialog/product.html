@@ -1,0 +1,141 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/dialog/ProductController']">
+        <div class="dialog-container" ng-controller="ProductController">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="cancel()">×</button>
+                    <h4 class="modal-title">{{message.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" after-render="bindValidator">
+                        <div class="form-group" ng-if="validationMessage">
+                            <div class="alert alert-warning text-center">{{validationMessage}}</div>
+                        </div>
+                        <div class="form-group" ng-show="errorMessage">
+                            <div class="alert alert-danger text-center alert-shake">{{errorMessage}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="product_name">商品名</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" id="product_name" placeholder="请添加商品名"
+                                       name="productName" ng-model="product.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">指定优惠券</label>
+                            <div class="col-sm-4">
+                                <select class="form-control"
+                                        ng-options="item.id as item.name for item in couponNormalList"
+                                        name="couponNormal" ng-model="product.couponNormal.id">
+                                    <option value="">请选择普通优惠券</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control"
+                                        ng-options="item.id as item.name for item in couponForwardList"
+                                        name="couponForward" ng-model="product.couponForward.id">
+                                    <option value="">请选择转发优惠券</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">视频文件</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" id="video-file" name="productVideo"
+                                       onchange="angular.element(this).scope().videoLoad()">
+                            </div>
+                            <div class="col-sm-4" style="margin-top:7px;">
+                                <div class="progress" id="video-progress" ng-if="uploadComplete!=undefined">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                                         aria-valuenow="0"
+                                         aria-valuemin="0"
+                                         aria-valuemax="0"
+                                         style="width: 0%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">视频封面</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" class="product-image"
+                                       onchange="angular.element(this).scope().imageLoad(0)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">特色菜1</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" class="product-image"
+                                       onchange="angular.element(this).scope().imageLoad(1)">
+                            </div>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="text" placeholder="菜品名" ng-model="product.pictures.name1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">特色菜2</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" class="product-image"
+                                       onchange="angular.element(this).scope().imageLoad(2)">
+                            </div>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="text" placeholder="菜品名" ng-model="product.pictures.name2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">特色菜3</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" class="product-image"
+                                       onchange="angular.element(this).scope().imageLoad(3)">
+                            </div>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="text" placeholder="菜品名" ng-model="product.pictures.name3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">特色菜4</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" class="product-image"
+                                       onchange="angular.element(this).scope().imageLoad(4)">
+                            </div>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="text" placeholder="菜品名" ng-model="product.pictures.name4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">特色菜5</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="file" class="product-image"
+                                       onchange="angular.element(this).scope().imageLoad(5)">
+                            </div>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="text" placeholder="菜品名" ng-model="product.pictures.name5">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="video-file">特色菜</label>
+                            <div class="col-sm-4" style="margin-top:5px;">
+                                <input type="checkbox" ng-model="product.special" ng-checked="product.special">特色菜
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_description">描述</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" rows="5" id="coupon_description"
+                                          name="description" ng-model="product.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <a type="button" class="btn btn-default" ng-click="cancel()">取消</a>
+                            <button type="submit" class="btn btn-primary" ng-click="create()"
+                                    ng-disabled="uploadComplete==false">{{message.button}}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

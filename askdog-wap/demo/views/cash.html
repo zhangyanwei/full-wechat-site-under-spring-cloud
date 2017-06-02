@@ -1,0 +1,41 @@
+<div oc-lazy-load="['module/my/CashController']">
+	<div class="cash-box" ng-controller="CashController" style="margin-top:43px">
+		<div class="common-header">
+			<a href="#">
+				<i class="iconfont icon-logo pull-left"></i>
+			</a>
+			<span>提现</span>
+		</div>
+		<div class="panel panel-default box-border" ng-hide="cashSuccess || cashFail">
+			<div class="panel-heading">
+				<h2><span>可提现金额：</span>{{revenue.balance | number:2}}<b style="margin-left:16px;font-weight: normal">元</b></h2>
+			</div>
+			<div class="panel-body">
+				<form  after-render="bindValidator">
+					<div class="form-group">
+						<label class="control-label">提现金额：</label>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="输入金额" aria-describedby="basic-addon2" ng-model="cash.money" ng-change="clearNoNum(cash,'money')"
+								name="money">
+							<span class="input-group-addon">元</span>
+						</div>
+					</div>
+					<p>提现金额不能少于1元，当日提现金额不得超过5,0000元</p>
+				</form>
+			</div>
+		</div>
+		<button class="btn btn-primary btn-lg btn-block" ng-click="cash(cash.money)" ng-hide="cashSuccess || cashFail">确认提现</button>
+		<div class="form-group" ng-show="error">
+			<div class="alert alert-danger text-center alert-shake">{{error}}</div>
+		</div>
+		<div class="table-box" ng-show="cashSuccess">
+			<div class="table-cell-box">
+				<div class="system-info">
+					<i class="iconfont icon-logo"></i>
+					<b>提现成功</b>
+				</div>
+			</div>
+		</div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

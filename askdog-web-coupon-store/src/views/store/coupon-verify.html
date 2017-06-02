@@ -1,0 +1,54 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/store/CouponVerifyController']">
+        <div class="row" ng-controller="CouponVerifyController">
+            <div class="main a-fadeinR">
+                <h1 class="page-header">优惠券核销</h1>
+                <div class="verify row text-center">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <form role="form" after-render="bindValidator">
+                            <div class="form-group" ng-if="errorMessage">
+                                <div class="alert alert-warning">{{errorMessage}}</div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="couponNO" placeholder="请输入优惠券号码" ng-focus="errorMessage=undefined" ng-model="couponNO">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary" ng-click="errorMessage=undefine">核销</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--<h2 class="sub-header">最近核销优惠券</h2>-->
+                <div class="table-responsive">
+                    <table class="coupon history table table-striped">
+                        <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>优惠券编号</th>
+                            <th>优惠券金额</th>
+                            <th>拥有者</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in verifyList">
+                            <td>{{item.usage_time | date:"yyyy/MM/dd"}}</td>
+                            <td>{{item.id}}</td>
+                            <td>￥{{item.rule}}元</td>
+                            <td>
+                                <!--<img ng-src="{{item.owner.avatar || 'http://pinegrow.com/placeholders/img4.jpg'}}"
+                                     class="img-circle">-->
+                                <span>{{item.user_basic.name}}</span>
+                            </td>
+                            <td>
+                                <span ng-if="item.coupon_state=='USED'">已使用</span>
+                                <span ng-if="item.coupon_state!='USED'">未使用</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

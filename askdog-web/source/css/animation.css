@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@import url("lib/csshake.min.css");
+
+@keyframes full-rotate {
+    from {  transform: translate(0, 0) rotate(0deg);  }
+    to {  transform: translate(0, 0) rotate(360deg);  }
+}
+
+.loading-rotate {
+    animation: full-rotate 1500ms linear infinite;
+    margin-right: 0.5em;
+}
+
+.iconfont {
+    display: inline-block;
+}

@@ -1,0 +1,331 @@
+@charset "utf-8";
+.plan-banner {
+    height: 560px;
+    background: #586ce9;
+    overflow: hidden;
+    text-align: center;
+    padding-top:0;
+}
+
+.plan-banner .plan-banner-con {
+    margin: 145px 0 0 590px;
+    overflow: hidden;
+    width: 520px;
+}
+
+.plan-banner .btn-box .btn-join{
+    padding:20px 26px;
+    font-size:22px;
+}
+
+.plan-banner h2 {
+    line-height: 85px;
+    font-size: 64px;
+    color: #eecc32;
+    border-bottom: 2px solid #eecc32;
+    text-align: center;
+}
+
+.plan-banner p {
+    overflow: hidden;
+    line-height: 25px;
+    font-size: 20px;
+    color: #fff;
+    text-align: left;
+}
+
+.plan-banner .pic-box {
+    float: left;
+    width: 510px;
+    overflow: hidden;
+}
+
+.plan-banner .pic-box img {
+    width: 100%;
+}
+
+.plan-banner .btn-box {
+    clear: both;
+    text-align: center;
+    width: 100%;
+}
+
+.plan-reward {
+    position: relative;
+    padding: 60px 0 80px 0;
+    background: #f3f4f9;
+    width: 100%;
+}
+
+.plan-title {
+    margin-bottom: 20px;
+    line-height: 45px;
+    text-align: center;
+    color: #2e455e;
+    letter-spacing: 5px;
+    font-size: 34px;
+}
+
+.plan-reward .time-bar {
+    position: relative;
+}
+
+.plan-reward .row {
+    padding: 30px 0;
+    margin: 0;
+}
+
+.plan-reward .col-md-6 {
+    padding: 0;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.plan-reward .col-md-6 .icon-circle {
+    position: absolute;
+    display: block;
+    top: 31px;
+    width: 18px;
+    height: 18px;
+    line-height: 0;
+    font-size: 0;
+    background: #586be9;
+    border-radius: 100%;
+}
+
+.plan-reward .col-md-6 .icon {
+    display: block;
+    width: 80px;
+    height: 80px;
+}
+
+.plan-reward .col-md-6 .icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.plan-reward .col-md-6 .text {
+    display: block;
+    overflow: hidden;
+}
+
+.plan-reward .col-md-6 .text span {
+    display: block;
+    padding-top: 15px;
+    font-size: 22px;
+    color: #2e455e;
+}
+
+.plan-reward .col-md-6 .text em {
+    display: block;
+    padding-top: 10px;
+    font-size: 16px;
+    color: #bbc2cc;
+    font-style: normal;
+}
+
+.plan-reward .pull-left .icon, .plan-reward .pull-left .text {
+    float: right;
+    text-align: right;
+}
+
+.plan-reward .pull-left .icon {
+    margin: 0 34px 0 15px;
+}
+
+.plan-reward .pull-left .icon-circle {
+    right: -9px;
+}
+
+.plan-reward .pull-right .icon, .plan-reward .pull-right .text {
+    float: left;
+    text-align: left;
+}
+
+.plan-reward .pull-right .icon {
+    margin: 0 15px 0 34px;
+}
+
+.plan-reward .pull-right .icon-circle {
+    left: -9px;
+}
+
+.plan-reward .timeline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.plan-reward .timeline .icon-circle {
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #e2e2ea;
+    line-height: 0;
+    font-size: 0;
+}
+
+.plan-reward .timeline span:first-child {
+    top: 0;
+}
+
+.plan-reward .timeline span:last-child {
+    bottom: 0;
+}
+
+.plan-reward .timeline .line {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -1px;
+    width: 2px;
+    height: 100%;
+    background: #e2e2ea;
+}
+
+.plan-case {
+    background: #f3f4f9;
+    height: 450px;
+    position: relative;
+    padding-top:0;
+}
+
+.plan-case .plan-case-bg {
+    position: absolute;
+    width: 100%;
+    height: 360px;
+    background: #2d455d;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    box-shadow: 0px 0px 10px #2d455d;
+}
+
+.plan-case .container {
+    position: relative;
+    z-index: 2;
+}
+
+.plan-case .pic-box {
+    float: left;
+    margin: 0 0 0 65px;
+    width: 410px;
+    height: 350px;
+    box-shadow: 0px 0px 15px #2d455d;
+}
+
+.plan-case .pic-box img {
+    width: 100%;
+}
+
+.plan-case-con {
+    margin: 150px 0 0 510px;
+    width: 590px;
+}
+
+.plan-case h1 {
+    font-size: 34px;
+    line-height: 40px;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.plan-case p {
+    color: #fff;
+    font-size: 18px;
+    line-height: 34px;
+}
+
+.plan-case p b {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.plan-requirements {
+    overflow: hidden;
+    background: #f2f4f9;
+    height: 656px;
+    width: 100%;
+}
+
+.plan-requirements .plan-title {
+    margin: 169px 0 0;
+}
+
+.plan-requirements .row {
+    margin: 70px -40px 0;
+}
+
+.plan-requirements .col-md-3 {
+    padding: 0 40px;
+}
+
+.plan-requirements .col-md-3 .icon {
+    display: block;
+    height: 105px;
+}
+
+.plan-requirements .col-md-3 .icon img {
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+}
+
+.plan-requirements .col-md-3 .til {
+    margin: 20px 0 0;
+    display: block;
+    font-size: 24px;
+    color: #2e455e;
+    text-align: center;
+}
+
+.plan-requirements .col-md-3 .desc {
+    margin: 15px 0 0;
+    display: block;
+    font-size: 16px;
+    line-height: 25px;
+    color: #2e455e;
+    opacity: .5;
+    text-align: center;
+}
+
+.plan-conclusion {
+    padding: 130px 0;
+    overflow: hidden;
+    background: #fff;
+    text-align: center;
+    width: 100%;
+}
+
+.plan-conclusion .container .btn-join{
+    padding:20px 26px;
+    font-size:22px;
+}
+
+.plan-conclusion p {
+    margin: 45px 0 0;
+    text-align: center;
+    font-size: 22px;
+    color: #2e455e;
+}
+
+.plan-footer {
+    background: #2e455e;
+    z-index: 10;
+    color: #fff;
+    position: relative;
+}
+
+.plan-footer a {
+    color: #fff !important;
+}

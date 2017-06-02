@@ -1,0 +1,11 @@
+<div oc-lazy-load="['module/experience/SearchController']">
+    <div ng-controller="SearchController">
+        <form ng-submit="showSearchResult()">
+            <div class="search-contain">
+                <input type="text" placeholder="搜索经验" class="form-control" ng-change="relateSearch()" ng-model="searchKey" ng-focus="returnSearch()">
+                <button class="searchButton" ><i class="iconfont icon-search"></i></button>
+                <a class="btn btn-default search-cancel" ui-sref="view-default.index">取消</a>
+            </div>
+        </form>
+    </div>
+</div>

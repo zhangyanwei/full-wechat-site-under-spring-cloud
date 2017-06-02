@@ -1,0 +1,43 @@
+<div oc-lazy-load="['module/channel/FindController']">
+    <div ng-controller="FindController">
+        <div class="container-fluid container-fluid1">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control form-control1" id="searchInput" placeholder="搜索经验"
+                           ng-focus="showSearch()">
+                    <button type="submit" class="i-search i-search1"><i class="iconfont icon-search sea-exp"
+                                                                        type="submit"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="recommend">
+            <p>推荐频道</p>
+        </div>
+        <div class="nav nav-pills nav-stacked">
+            <ul>
+                <li ng-repeat="list in viewList.result">
+                    <a ui-sref="view.myChannel({id:list.id})">
+                        <img ng-src="{{list.channel_pic_url | picTrans: '34w_34h_1e_1c.png' }}" class="" alt=""
+                             ng-if="list.channel_pic_url"/>
+                        <img src="images/channel58.png" class="" alt="" ng-if="!list.channel_pic_url"/>
+                        <div class="cha-name">{{list.subject}}</div>
+                    </a>
+                    <button type="button" class="btn btn-default btn2" ng-click="findSubscribe(list.id)"
+                            ng-hide="list.subscribed" auth-required>
+                        <span class="glyphicon glyphicon1">订阅</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn1" ng-show="list.subscribed"
+                            ng-click="cancelSubscribe(list.id)">
+                        <span class="glyphicon glyphicon1">已订阅</span>
+                    </button>
+                </li>
+            </ul>
+            <div class="text-center" ng-if="!viewList.last && !loadFail">
+                <button class="btn btn-link" ng-show="loadingCompleted"></button>
+                <button class="btn btn-link btn-load" ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/>
+                    正在加载
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

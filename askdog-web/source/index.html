@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <!-- Page title set in pageTitle directive -->
+    <title page-title>ASKDOG - 经验分享社区</title>
+    <meta name="keywords"
+          content="askdog,经验分享,经验分享社区,经验狗,经验指南,经验教程,经验视频,教程视频,视频经验,视频分享,吉他教程,吉他视频,美食制作">
+    <meta name="description"
+          content="ASKDOG - 经验分享社区是一个分享经验、技巧为主的视频分享网站，为您快速的找到视频经验分享，提供高质量的原创内容；同时如果您擅长于某个领域的经验分享，技能传授；我们ASKDOG经验分享社区愿为您打造优质的自媒体传播平台！">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/ico">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <!-- build:css -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="iconfont/iconfont.css" rel="stylesheet">
+    <link href="css/add.css" rel="stylesheet">
+    <link href="css/animation.css" rel="stylesheet">
+    <!-- end build -->
+
+</head>
+
+<body>
+<script type="text/javascript">
+    if (navigator.userAgent.match(/android|webos|ip(hone|ad|od)|opera (mini|mobi|tablet)|iemobile|windows.+phone|mobile|fennec|kindle (Fire)|Silk|maemo|blackberry|playbook|bb10\\; (touch|kbd)|Symbian(OS)|Ubuntu Touch/i)) {
+        window.location.href = window.location.href.replace(new RegExp("^http(?:s)?:\/\/" + window.location.hostname), "http://m.askdog.com");
+    }
+</script>
+
+<!--[if lte IE 9]>
+<div class="container text-center">
+    <div class="upgrade"><img src="images/upgrade/group.png"/></div>
+    <div>您的浏览器版本太低，存在安全隐患，建议您升级浏览器或者使用其他浏览器。</div>
+    <div class="browser-list">
+        <a href="https://support.microsoft.com"><img src="images/upgrade/ie.png"/><span>IE</span></a>
+        <a href="http://www.google.cn/chrome/browser/"><img src="images/upgrade/chrome.png"/><span>Chrome</span></a>
+        <a href="http://www.firefox.com.cn/"> <img src="images/upgrade/firefox.png"/><span>Firefox</span></a>
+        <a href="http://www.opera.com/"><img src="images/upgrade/opera.png"/><span>Opera</span></a>
+        <a href="https://support.apple.com/"><img src="images/upgrade/safari.png"/><span>Safari</span></a>
+    </div>
+</div>
+<![endif]-->
+
+<!-- Main view  -->
+<div ui-view id="main">
+    <span style="position: fixed;top: 10px; left:10px;">加载中...</span>
+</div>
+
+<!-- build:js -->
+<script src="lib/require.js" data-main="js/main.js"></script>
+<!-- endbuild -->
+<script>
+    require.config({
+        urlArgs: function (id, url) {
+            var args = 'v=3';
+            return (url.indexOf('?') === -1 ? '?' : '&') + args;
+        }
+    });
+</script>
+
+<a href="/page.html" class="hidden">Experiences</a>
+</body>
+</html>

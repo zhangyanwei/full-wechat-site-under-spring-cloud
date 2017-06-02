@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ask.dog
+          zkNodes: ask.dog
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ask.dog:8761/eureka
+  instance:
+    hostname: 192.168.1.123
+    lease-renewal-interval-in-seconds: 3
+    metadata-map:
+      instanceId: ${spring.application.name}:${random.value}
+      prefer-ip-address: false
+askdog:
+  elasticsearch:
+    hosts:
+      - address: 192.168.1.123
+        port: 9300

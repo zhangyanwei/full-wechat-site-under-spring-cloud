@@ -1,0 +1,10 @@
+.DS_Store
+.project
+.tmp
+node_modules
+*.sublime-project
+*.sublime-workspace
+.idea
+*.iml
+.build
+build/

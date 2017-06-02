@@ -1,0 +1,9 @@
+<div oc-lazy-load="['module/dialog/ConfirmController']">
+    <div class="modal-content" ng-controller="ConfirmController">
+        <div class="modal-body">
+            <button class="btn btn-default btn-block color-alert" type="button" ng-click="close()" ng-show="!confirmInfo">删除评论</button>
+            <button class="btn btn-default btn-block color-alert" type="button" ng-click="close()" ng-show="confirmInfo">删除回复</button>
+            <button class="btn btn-default btn-block color-blue" ng-click="cancel()" type="button">取消</button>
+        </div>
+    </div>
+</div>

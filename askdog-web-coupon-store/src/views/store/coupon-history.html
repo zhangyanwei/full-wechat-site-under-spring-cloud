@@ -1,0 +1,89 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/store/CouponHistoryController', '../css/lib/bootstrap-datetimepicker.min.css']">
+        <div class="row" ng-controller="CouponHistoryController">
+            <div class="main a-fadeinR">
+                <h1 class="page-header">优惠券核销记录</h1>
+                <div class="verify row">
+                    <div class="col-xs-12 col-sm-12">
+                        <form class="form-horizontal" role="form" after-render="bindValidator">
+                            <div class="form-group" ng-if="error">
+                                <div class="alert alert-danger">{{error}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">核销期间</label>
+                                <div class="col-md-10 form-inline">
+                                    <div after-render="datetimepicker" class="input-group date" data-date-format="yyyy/mm/dd hh:ii" data-link-field="datetime_from" data-link-format="yyyymmddhhii">
+                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                    <div after-render="datetimepicker" class="input-group date" data-date-format="yyyy/mm/dd hh:ii" data-link-field="datetime_to" data-link-format="yyyymmddhhii">
+                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                    <input  name="from" type="hidden" id="datetime_from" value="" />
+                                    <input name="to" type="hidden" id="datetime_to" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">核销人</label>
+                                <div class="col-md-10">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" style="min-width: 5em;height: 34px;position: relative;padding-right: 25px;" type="button" id="employees_list" data-toggle="dropdown">
+                                            {{verifier.nickname}}<span class="caret" style="position: absolute;right: 10px;top: 15px;"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="employees_list">
+                                            <li role="presentation" ng-repeat="employee in employees"><a role="menuitem" tabindex="-1" style="cursor: default;" ng-click="selectEmployee(employee)">{{employee.nickname}}</a></li>
+                                        </ul>
+                                    </div>
+                                    <input name="verifier" type="hidden" id="verify_user" value="{{verifier.id}}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">商户流水号</label>
+                                <div class="col-md-10">
+                                    <input name="posId" type="text" class="form-control" style="max-width: 20em" placeholder="商户系统的流水单号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn btn-primary" ng-click="search()">搜索</button>
+                                    <button class="btn btn-default" ng-click="export(page)">导出</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="coupon history table table-striped">
+                        <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>商户流水号</th>
+                            <th>优惠券编号</th>
+                            <th>优惠券金额</th>
+                            <th>持有者</th>
+                            <th>核销人</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in data.result">
+                            <td>{{item.verify_time | date:"yyyy/MM/dd HH:mm"}}</td>
+                            <td>{{item.order_id}}</td>
+                            <td>{{item.user_coupon_id}}</td>
+                            <td>{{item.rule}}元</td>
+                            <td>{{item.owner}}</td>
+                            <td>{{item.verifier}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <nav class="pagination-wrapper">
+                        <ul ng-if="data.total" uib-pagination boundary-links="true" total-items="data.total" items-per-page="data.size" ng-model="page" ng-change="goPage(page - 1)" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

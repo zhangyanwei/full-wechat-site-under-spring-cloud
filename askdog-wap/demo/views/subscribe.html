@@ -1,0 +1,66 @@
+<div class="container" oc-lazy-load="['module/experience/SubscribeController']">
+    <div ng-controller="SubscribeController">
+        <div class="common-header">
+            <a href="#">
+                <i class="iconfont icon-logo pull-left"></i>
+            </a>
+            <span>订阅</span>
+            <!--<a class="pull-right common-header-button">保存</a>-->
+        </div>
+        <div class="subscribe-header" ng-hide="haveNoChannel">
+            <div class="subscribe-list">
+                <ul class="nav">
+                    <li ng-repeat="list in subscribedChannels">
+                        <a ui-sref="view.myChannel({id:list.id})"><img ng-src="{{list.thumbnail | picTrans: '40w_40h_1e_1c.png'}}" ng-if="list.thumbnail">
+                            <img src="images/channel58.png" ng-if="!list.thumbnail">
+                        </a>
+                        <span class="badge" ng-if="item.unread_exp_count > 0">&nbsp</span>
+                    </li>
+                </ul>
+            </div>
+            <a ui-sref="view.channel({channel:'subscribe'})">
+                <i class="iconfont icon-more1"></i>
+            </a>
+        </div>
+        <div class="container card-list experience-list" ng-hide="haveNoChannel">
+            <div ng-repeat="list in viewList.result" ng-if="viewList.total > 0" ui-sref="view.detail({id:list.id})" class="list-main">
+                <div class="list-top">
+                    <original-tag tags="list.tags"></original-tag>
+				 <span class="video-duration"
+                       ng-if="list.content.type=='VIDEO'">{{list.content.video.duration | durationFix}}</span>
+                    <a class="btn btn-icon btn-play" ng-if="list.content.type=='VIDEO'">
+                        <img src = "images/play.png" class="play">
+                    </a>
+                    <img class="media-object" ng-src="{{list.thumbnail | picTrans: '375w_210h_1e_1c.png'}}" alt="..." ng-if="list.thumbnail">
+                    <img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[list.category_detail.code].abstract | picTrans: '375w_210h_1e_1c.png'}}"  ng-if="!list.thumbnail">
+                </div>
+                <div class="list-body">
+                    <h4 class="media-heading"><a>{{list.subject}}</a></h4>
+                </div>
+                <div class="list-bottom">
+                    <span class="channel-name">{{list.experience_detail_channel_ro.name }} ·</span>
+                    <span>{{list.creation_time | created}} ·</span>
+                    <span>浏览数 {{list.view_count}}</span>
+                </div>
+            </div>
+            <div class="text-center" ng-if="!viewList.last && !loadFail">
+                <button class="btn btn-link" ng-show="loadingCompleted"></button>
+                <button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+            </div>
+            <div class="table-box" ng-if="loadFail">
+                <div class="table-cell-box">
+                    <div class="system-info" ng-click="refreshList()">
+                        <i class="iconfont icon-load-error"></i>
+                        <p>加载时出错</p>
+                    </div>
+                </div>
+            </div>
+            <div we-share detail="listDetail"></div>
+            <ad-analytics></ad-analytics>
+        </div>
+        <div class="subscribe-no-content" ng-show="haveNoChannel">
+            <span>当前没有频道订阅，订阅频道<br>查看更多精彩内容!</span><br>
+            <button class="btn btn-default show-more" ui-sref="view-profile.find">查看更多精彩</button>
+        </div>
+    </div>
+</div>

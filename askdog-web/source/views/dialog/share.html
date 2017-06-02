@@ -1,0 +1,42 @@
+<div oc-lazy-load="['module/dialog/ShareController']">
+    <div class="share-container" ng-controller="ShareController">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">分享</h4>
+            </div>
+            <div class="modal-body">
+                <h2>分享经验到</h2>
+                <div class="btn-group">
+                    <a href="javascript:void(0)" role="button" data-toggle="dropdown" class="btn btn-lg btn-default"
+                       ng-click="shareToQZone()">
+                        <i class="iconfont icon-qqicon"></i>
+                        <span>QQ空间</span>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <a href="javascript:void(0)" role="button" data-toggle="dropdown" class="btn btn-lg btn-default"
+                       ng-click="shareToWeChat()">
+                        <i class="iconfont icon-weixin"></i>
+                        <span>微信</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-top weixin-menu">
+                        <div class="dropdown-top-con">
+                            <div id="experience-qrcode"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="javascript:void(0)" role="button" data-toggle="dropdown" class="btn btn-lg btn-default"
+                       ng-click="shareToWeiBo()">
+                        <i class="iconfont icon-weibo"></i>
+                        <span>微博</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel();">
+            <i class="iconfont icon-xxxxx"></i>
+        </button>
+
+    </div>
+</div>

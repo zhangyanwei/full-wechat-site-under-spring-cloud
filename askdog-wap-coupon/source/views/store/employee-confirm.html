@@ -1,0 +1,35 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/store/EmployeeConfirmController']">
+        <div ng-controller="EmployeeConfirmController" class="single-page">
+            <div class="row">
+                <div class="col-md-12 text-center text-muted single-page-title">
+                    <h1>{{detail.name || '雇员绑定'}}</h1>
+                </div>
+            </div>
+            <div ng-if="!invalidToken" class="row">
+                <div class="col-md-12 description-block description-block-mute">
+                    <span>将绑定您的微信号到该店铺，是否立即绑定？</span>
+                </div>
+            </div>
+            <div ng-if="!invalidToken && !success" class="row">
+                <div class="col-md-12">
+                    <div ng-if="failed" class="alert alert-danger text-center" role="alert">{{error}}</div>
+                    <button type="button" class="btn btn-lg btn-block btn-primary-orange" ng-click="confirm()">立即绑定</button>
+                    <button type="button" class="btn btn-lg btn-block btn-default-orange" ng-click="cancel()">取消</button>
+                </div>
+            </div>
+            <div ng-if="success" class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success text-center" role="alert">绑定成功！</div>
+                    <button type="button" class="btn btn-lg btn-block btn-default-orange" ng-click="cancel()">关闭</button>
+                </div>
+            </div>
+            <div ng-if="invalidToken" class="row">
+                <div class="col-md-12 description-block">
+                    <div class="alert alert-danger text-center" role="alert">URL无效或已经失效，请重新在商户后台扫描二维码绑定您的微信帐号。</div>
+                    <button type="button" class="btn btn-lg btn-block btn-default-orange" ng-click="cancel()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

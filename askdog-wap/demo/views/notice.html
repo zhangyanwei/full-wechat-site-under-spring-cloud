@@ -1,0 +1,33 @@
+<div oc-lazy-load="['module/my/NoticeController']">
+    <div class="notice-box" ng-controller="NoticeController" style="margin-top:43px">
+        <div class="common-header">
+            <a href="#">
+                <i class="iconfont icon-logo pull-left"></i>
+            </a>
+            <span>通知</span>
+            <!--<a class="pull-right common-header-button">保存</a>-->
+        </div>
+        <div class="container card-list" ng-if="viewList.total == 0">
+            <div class="system-info">
+                <i class="iconfont icon-combinedshape"></i>
+                <p>暂无通知</p>
+            </div>
+        </div>
+        <div class="notice-box" ng-if="viewList.total > 0">
+            <div class="panel panel-default box-border" ng-repeat="item in viewList.result">
+                <div class="panel-heading">{{item.group_date.y}}.{{item.group_date.m}}.{{item.group_date.d}}</div>
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="child in item.group_data">
+                            <a ui-sref="view.subscribe({id:child.content.user.id})" class="user-link">{{child.content.user.name}}</a>{{child.content.typeName}}了<a href="{{child.content.link}}">{{child.content.target.description}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center" ng-if="!viewList.last && !loadFail">
+                <button class="btn btn-link" ng-show="loadingCompleted"></button>
+                <button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+            </div>
+        </div>
+    </div>
+</div>

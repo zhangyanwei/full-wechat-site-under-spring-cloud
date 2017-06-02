@@ -1,0 +1,50 @@
+<div class="fragment-container" wechat-share>
+    <div oc-lazy-load="['module/DetailController']">
+        <div class="detail-container" ng-controller="DetailController">
+            <div class="text-center" ng-if="!detail">
+                <a class="btn btn-link btn-load">
+                    正在努力加載
+                    <img src="style/images/loading-fail.gif" lt="" class="loading"/>
+                </a>
+            </div>
+            <div class="business">
+                <div class="business-contain">
+                    <div class="business-item store-contain">
+                        <div class="video-layout">
+                            <video-view content="detail"></video-view>
+                        </div>
+                        <div class="store-detail-title">
+                            {{::detail.name}}
+                        </div>
+                        <div class="store-detail-describe">
+                            {{::detail.description}}
+                        </div>
+                        <div class="store-detail-info clearfix">
+                            <div>{{::detail.store.address}}</div>
+                            <div>
+                                <a href="tel:{{::detail.store.phone}}"> {{::detail.store.phone}}</a>
+                            </div>
+                        </div>
+
+                        <div class="detail-footer" ng-if="detail.coupon_normal || detail.coupon_forwarded">
+                            <div class="detail-footer-cen">
+                                <span ng-if="detail.coupon_normal">
+                                    <span class="detail-footer-icon">￥</span><span class="detail-footer-number">{{::detail.coupon_normal}}</span><span
+                                        class="detail-footer-coupon">优惠券</span>
+                                    <button class="btn detail-footer-receive" ng-click="receiveCoupon(detail.id)"
+                                            auth-required>立即领取
+                                    </button>
+                                </span>
+                                <div class="pull-right detail-footer-content" ng-if="detail.coupon_forwarded">
+                                    转发视频领取
+                                    <br>
+                                    {{::detail.coupon_forwarded}}元优惠券
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

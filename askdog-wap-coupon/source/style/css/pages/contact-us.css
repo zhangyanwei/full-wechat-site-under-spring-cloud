@@ -1,0 +1,166 @@
+.contact-us-container .store-guide {
+   width:91%;
+    background-color:#fed95e;
+    color:#ff7b00;
+    margin:43px auto 0 auto;
+    font-size:22px;
+    text-align:center;
+    padding:5px 0 5px 0;
+    border:1px solid #fab619;
+}
+.store-guide-video .store-guide-videoimg{
+    width:46%;
+    float:left;
+}
+.store-guide-video .store-guide-videoimg img{
+    width:100%;
+    height:17%;
+    margin-top:25px;
+}
+.store-guide-video .wenzi{
+    float:right;
+    text-align:center;
+    width:54%;
+    margin-top:45px;
+}
+
+.store-guide-video .wenzi h4{
+    font-size:20px;
+    color:#325779;
+}
+.store-guide-video .wenzi p{
+    color:#91b2c5;
+    font-size:12px;
+}
+.store-guide-dashed{
+    width:16%;
+    margin-left:40%;
+}
+.store-guide-dashed img{
+    width:100%;
+}
+.store-guide-coupon .wenzi{
+    width:61%;
+    float:left;
+    text-align:center;
+}
+.store-guide-coupon .wenzi h4{
+    font-size:20px;
+    color:#325779;
+}
+.store-guide-coupon .wenzi p{
+    color:#91b2c5;
+    font-size:12px;
+}
+.store-guide-couponimg {
+    width:39%;
+    float:right;
+}
+.store-guide-couponimg img{
+    width:100%;
+}
+.store-guide-publish .store-guide-dashed02 img{
+    width:32.8%;
+    margin-left:30%;
+}
+.store-guide-publish .store-guide-publishvideo img{
+    width:39%;
+    float:left;
+}
+.store-guide-publish .wenzi{
+    width:61%;
+    float:right;
+    text-align:center;
+}
+.store-guide-publish .wenzi h4{
+    font-size:20px;
+    color:#325779;
+    margin-top:28px;
+}
+.store-guide-publish .wenzi p{
+    color:#91b2c5;
+    font-size:12px;
+}
+.contact-us-container .store-user{
+    width:91%;
+    background-color:#fed95e;
+    color:#ff7b00;
+    margin:150px auto 0 auto;
+    font-size:22px;
+    text-align:center;
+    padding:5px 0 5px 0;
+    border:1px solid #fab619;
+}
+.store-guide-receive .store-guide-receivecoupon{
+    float:left;
+    width:36%;
+}
+.store-guide-receive .store-guide-receivecoupon img{
+    width:100%;
+    margin-top:44px;
+}
+.store-guide-receive .wenzi{
+    width:64%;
+    text-align: center;
+    float:right;
+    margin-top:50px;
+}
+.store-guide-receive h4{
+    font-size:20px;
+    color:#325779;
+
+}
+.store-guide-receive p{
+    color:#91b2c5;
+    font-size:12px;
+
+}
+.store-guide-receive .store-guide-dashed03 img{
+    width:27.2%;
+    margin-left:40%;
+}
+.store-guide-update img{
+    width:100%;
+}
+.store-guide-update h4{
+    font-size:20px;
+    color:#325779;
+    margin:10px auto;
+    text-align:center;
+}
+.store-guide-update p{
+    color:#91b2c5;
+    font-size:12px;
+    margin:7px auto;
+    text-align:center;
+}
+.store-guide-agent{margin:91px auto 0 auto;text-align: center;}
+.store-guide-agent h4{
+    font-size:16px;
+    color:#325779;
+
+}
+.store-guide-agent p{
+    color:#91b2c5;
+    font-size:12px;
+}
+.store-guide-agent a{
+    font-size:16px;
+    color:#325779;
+}
+.store-guide-enter{
+    margin:30px auto;
+    text-align: center;
+}
+.store-guide-enter h4{
+    font-size:16px;
+    color:#325779;
+}
+.store-guide-enter p{
+    color:#91b2c5;
+    font-size:12px;
+}
+.store-guide-enter a{
+    font-size:16px;
+    color:#325779;
+}

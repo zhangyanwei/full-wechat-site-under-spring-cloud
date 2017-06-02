@@ -1,0 +1,87 @@
+<div oc-lazy-load="['module/my/ProfileController']">
+    <div class="safe-center-box " ng-controller="ProfileController" ng-cloak>
+        <form after-render="bindValidator">
+            <div >
+                <div class="personal-box">
+                    <div class="common-header">
+                        <a href="#">
+                            <i class="iconfont icon-logo pull-left"></i>
+                        </a>
+                        <span>个人信息</span>
+                        <button class="pull-right common-header-button" type="submit">保存</button>
+                    </div>
+                    <div class="box-border">
+                        <ul class="list-group">
+                            <li class="list-group-item personal-pic-box">
+                                <span class="item-til">头像</span>
+                            <span class="item-con">
+                                 <img src="images/user/user32.png" class="img-circle" alt="" ng-if="!avatar.avatar"/>
+                                 <img ng-src="{{avatar.avatar | picTrans: '32w_32h_1e_1c'}}" class="img-circle" alt="" ng-if="avatar.avatar"/>
+                                 <i class="iconfont icon-vv hidden"></i>
+                            </span>
+                            </li>
+                            <div vip-approve vip="personalInfo"></div>
+                        </ul>
+                    </div>
+                    <div class="list-group box-border nav-list-group" style="position:relative">
+                        <a class="list-group-item">
+                            <span class="item-til">姓名</span>
+                            <span class="item-con" ng-show="!personalInfo.name">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.name" ng-show="personalInfo.name" name="zhanghao">
+                        </a>
+                        <a class="list-group-item" style="padding-right:33px">
+                            <select id="genderSelect" class="btn btn-link profile-select" type="button" ng-model="personalInfo.gender" ng-change="updateGender()" style="width:120%;-webkit-appearance: none;">
+                                <option value="MALE">男</option>
+                                <option value="FEMALE">女</option>
+                            </select>
+                            <span class="item-til">性别</span>
+                            <i class="iconfont icon-you"></i>
+                            <span class="item-con" ng-if="!personalInfo.gender">未选择</span>
+                            <span class="item-con" ng-if="personalInfo.gender=='MALE'">男</span>
+                            <span class="item-con" ng-if="personalInfo.gender=='FEMALE'">女</span>
+                        </a>
+                        <a class="list-group-item">
+                            <span class="item-til">手机号</span>
+                            <span class="item-con" ng-show="!personalInfo.phone">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.phone" ng-show="personalInfo.phone" name="phone">
+                        </a>
+                        <a class="list-group-item" >
+                            <span class="item-til">职业</span>
+                            <span class="item-con" ng-show="!personalInfo.occupation">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.occupation" ng-show="personalInfo.occupation">
+                        </a>
+                        <a class="list-group-item" >
+                            <span class="item-til">学校</span>
+                            <span class="item-con" ng-show="!personalInfo.school">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.school" ng-show="personalInfo.school">
+                        </a>
+                        <a class="list-group-item" >
+                            <span class="item-til">专业</span>
+                            <span class="item-con" ng-show="!personalInfo.major">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.major" ng-show="personalInfo.major">
+                        </a>
+                        <a class="list-group-item" >
+                            <span class="item-til">所在省份</span>
+                            <span class="item-con" ng-show="!personalInfo.address.province">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.address.province" ng-show="personalInfo.address.province">
+                        </a>
+                        <a class="list-group-item" >
+                            <span class="item-til">所在城市</span>
+                            <span class="item-con" ng-show="!personalInfo.address.city">未填写</span>
+                            <input class="item-con" ng-model="personalInfo.address.city" ng-show="personalInfo.address.city">
+                        </a>
+                    </div>
+                    <div class="list-group box-border nav-list-group" ui-sref="view.profileEdit({'type':'signature'})">
+                        <a class="list-group-item" style="padding-right:33px">
+                            <span class="item-til">个性签名</span>
+                            <i class="iconfont icon-you"></i>
+                            <span class="item-con" ng-show="!personalInfo.signature">未填写</span>
+                            <span class="item-con" ng-show="personalInfo.signature">{{personalInfo.signature}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

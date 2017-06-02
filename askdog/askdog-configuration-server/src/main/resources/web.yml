@@ -1,0 +1,153 @@
+server:
+  port: ${ASK_DOG_SERVER_PORT:8080}
+
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  # for session
+  redis:
+    host: dev.ask.dog
+    port: 6379
+  # for oauth2 client
+  datasource:
+    #platform: postgresql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dev.ask.dog:5432/askdog.coupon
+    username: dog
+    password: askdog
+  freemarker:
+    checkTemplateLocation: false
+    template-loader-path: classpath:/templates/view
+    prefix: /
+    suffix: .ftl
+  cloud:
+    stream:
+      bindings:
+        notification:
+          destination: topic.notification
+          group: web
+        event:
+          destination: topic.event
+          group: web
+      kafka:
+        binder:
+          brokers: dev.ask.dog
+          zkNodes: dev.ask.dog
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+feign:
+  hystrix:
+    enabled: false
+
+github:
+  client:
+    id: GITHUB
+    clientId: 09da135fbbbb10ef03a4
+    clientSecret: 40932119d78824941f03b16c76db039059b940a8
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+    authenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+  definition:
+    id: id
+    nickname: login
+    avatar: avatar_url
+
+askdog:
+  web:
+    cors-mappings:
+      - http://www.askdog.com
+      - http://wwwdev.askdog.com
+      - http://m.askdog.com
+      - http://mdev.askdog.com
+      - http://api.askdog.com
+      - http://apidev.askdog.com
+      - http://ops.askdog.com
+      - http://coupon.askdog.com
+      - http://askdog.imwork.net
+    cookie-domain-name-pattern: ^(?:.+\.)?(askdog\.com)$
+    remember-me-cookie-domain: askdog.imwork.net
+  cache:
+    defaultExpireTime: 720
+
+weibo:
+  client:
+    id: WEIBO
+    clientId: 2706904596
+    clientSecret: 15fbddd4fcb8975ba81014f13be86714
+    accessTokenUri: https://api.weibo.com/oauth2/access_token
+    userAuthorizationUri: https://api.weibo.com/oauth2/authorize
+    clientAuthenticationScheme: form
+    authenticationScheme: form
+  resource:
+    userIdUri: https://api.weibo.com/2/account/get_uid.json
+    userInfoUri: https://api.weibo.com/2/users/show.json?uid=%s
+  definition:
+    id: uid
+    nickname: screen_name
+    avatar: avatar_large
+
+qq:
+  client:
+    id: QQ
+    clientId: 101319287
+    clientSecret: 5f590c8e44f03deeb7bae867f0b438aa
+    accessTokenUri: https://graph.qq.com/oauth2.0/token
+    userAuthorizationUri: https://graph.qq.com/oauth2.0/authorize
+    clientAuthenticationScheme: form
+    authenticationScheme: form
+  resource:
+    userIdUri: https://graph.qq.com/oauth2.0/me
+    userInfoUri: https://graph.qq.com/user/get_user_info?openid=%s&oauth_consumer_key=%s
+  definition:
+    id: openid
+    nickname: nickname
+    avatar: figureurl_qq_1
+
+wx:
+  base-url: https://api.weixin.qq.com/cgi-bin
+  token: token
+  client:
+    id: WECHAT
+    clientAuthenticationScheme: query
+    clientId: wx276caf297368b80d
+    clientSecret: 0e34dc9c412a8180271e00f72c1207c7
+    accessTokenUri: https://api.weixin.qq.com/sns/oauth2/access_token
+    userAuthorizationUri: https://open.weixin.qq.com/connect/oauth2/authorize
+    scope: snsapi_userinfo
+  definition:
+    id: unionid
+    nickname: nickname
+    avatar: headimgurl
+  template-message:
+    gain-coupon:
+      templateId: Q_y1XkU6PXCzhtaukAzga0fb1XPzrS4x9V-6UMoLU-s
+      topColor: "#FF0000F"
+      url: "http://coupon.askdog.com/#/cash-detail/{targetId}"
+    verification:
+      templateId: wO2M0pCSytZamp0-ObSx9iYr_QtnpShmoTG9VGPO0CM
+      topColor: "#FF0000F"
+      url: "http://coupon.askdog.com/#/cash-detail/{targetId}"
+
+wx-web:
+  client:
+    id: WECHAT_CONNECT
+    clientAuthenticationScheme: query
+    clientId: wx14c1e0ac4144abed
+    clientSecret: 1e369fd9eb48166171ddb2528b24de64
+    accessTokenUri: https://api.weixin.qq.com/sns/oauth2/access_token
+    userAuthorizationUri: https://open.weixin.qq.com/connect/qrconnect
+    scope: snsapi_login
+  definition:
+    id: unionid
+    nickname: nickname
+    avatar: headimgurl

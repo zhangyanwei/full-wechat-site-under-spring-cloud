@@ -1,0 +1,42 @@
+<div oc-lazy-load="['module/dialog/shareController']">
+    <div ng-controller="shareController">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" ng-hide="phoneShare">
+                <div class="modal-header">
+                    <h4 class="modal-title color-green">分享</h4>
+                </div>
+                <div class="modal-body" >
+                    <div class="btn-group">
+                        <button role="button" class="btn btn-default" ng-click="shareToQZone()"><i
+                                class="iconfont icon-qqicon"></i>QQ
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button role="button" class="btn btn-default" ng-click="shareToWeChat()"><i
+                                class="iconfont icon-weixin"></i>微信
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button role="button" class="btn btn-default" ng-click="shareToWeiBo()"><i
+                                class="iconfont icon-weibo"></i>微博
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class=" QR-modal" id="QR-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-show="phoneShare">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body" ng-show="phoneShare">
+                            <p><span class="color-silver">扫描或保存</span></p>
+                            <div qr-code qr_link="qrLink"></div>
+                            <p><span class="color-black">长按上图保存二维码，使用微信扫一扫右上角的“相册”扫码，在分享好友或朋友圈</span></p>
+                        </div>
+                    </div>
+                    <button class="close" data-dismiss="modal" type="button" ng-click="close()"><span aria-hidden="true">×</span></button>
+                </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" ng-click="close()" ng-hide="phoneShare"><span
+                    aria-hidden="true">×</span></button>
+        </div>
+    </div>
+</div>

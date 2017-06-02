@@ -1,0 +1,67 @@
+<div oc-lazy-load="['module/CategoryController']">
+    <div class="category-container" ng-controller="CategoryController">
+        <!-- List -->
+        <div class="main-box">
+            <div ng-include="'views/common/list.html'"></div>
+
+            <div class="rig-box">
+                <div class="recommend panel panel-default box-border"
+                     ng-if="channelRecommendList && channelRecommendList.total > 0">
+                    <div class="panel-heading">{{_TOP_CATEGORY_NAME}}频道推荐</div>
+                    <div class="panel-body">
+                        <div class="media" ng-repeat="item in channelRecommendList.result">
+                            <div class="media-left">
+                                <a href="#/channel/{{item.id}}" target="_blank">
+                                    <img class="media-object" src="images/channel/channel.png" alt="{{item.subject}}"
+                                         ng-if="!item.channel_pic_url">
+                                    <img class="media-object"
+                                         ng-src="{{item.channel_pic_url | picTrans: '25w_25h_1e_1c.png'}}"
+                                         alt="{{item.subject}}"
+                                         ng-if="item.channel_pic_url">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a href="#/channel/{{item.id}}" target="_blank">{{item.subject}}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" ng-if="channelRecommendList && !channelRecommendList.last">
+                        <a href="javascript:void(0);" class="link-info"
+                           ng-click="channelRecommendPaging()">换一批</a>
+                    </div>
+                </div>
+
+                <div class="recommend panel panel-default box-border user-recommend"
+                     ng-if="userRecommendList && userRecommendList.total > 0">
+                    <div class="panel-heading">{{_TOP_CATEGORY_NAME}}用户推荐</div>
+                    <div class="panel-body">
+                        <div class="media" ng-repeat="item in userRecommendList.result">
+                            <div class="media-left">
+                                <a href="#/zone/{{item.id}}" target="_blank">
+                                    <img class="media-object"
+                                         ng-src="{{(item.user_pic_url || 'images/user/avatar.png') | picTrans: '25w_25h_1e_1c.png'}}"
+                                         alt="{{item.name}}">
+                                    <i class="iconfont icon-vv" ng-if="item.tags[0] == 'VIP'"></i>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a href="#/zone/{{item.id}}" target="_blank">{{item.name}}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" ng-if="userRecommendList && !userRecommendList.last">
+                        <a href="javascript:void(0);" class="link-info"
+                           ng-click="userRecommendPaging()">换一批</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

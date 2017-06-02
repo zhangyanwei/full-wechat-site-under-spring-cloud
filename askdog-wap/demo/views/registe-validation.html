@@ -1,0 +1,15 @@
+<div oc-lazy-load="['module/login/RegisterConfirmController']">
+    <div class="container" ng-controller="RegisterConfirmController" style="margin-top:50px">
+        <div>
+            <div class="alert alert-info" role="alert" ng-if="status == 'verifying'">
+                <i class="iconfont icon-waiting loading-rotate"></i>正在验证链接的有效性，请稍后。
+            </div>
+            <div ng-if="status == 'succeed'" class="alert alert-success"><strong>欢迎您加入 ASKDOG !</strong> 您已经成功验证了您的邮箱。
+            </div>
+            <div ng-if="status == 'failed'" class="alert alert-danger"><strong>很遗憾 !</strong> 不能验证您的邮箱，请重试或者通过<a href=""
+                                                                                                                 ng-click="findPassword()">密码找回</a>功能再次进行验证。
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

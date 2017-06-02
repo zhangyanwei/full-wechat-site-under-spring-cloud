@@ -1,0 +1,102 @@
+<div oc-lazy-load="['module/login/RegisterController']">
+    <div class="container-fluid user-login-box register-user-box" ng-controller="RegisterController" ng-init="phoneRegisterShow = true">
+        <div class="common-header">
+            <a href="#">
+                <i class="iconfont icon-logo pull-left"></i>
+            </a>
+            <span>注册</span>
+        </div>
+        <div class="system-info" ng-hide="registerSuccess"><i class="iconfont icon-logo"></i></div>
+        <form name="registerForm" ng-hide="registerSuccess || phoneRegisterShow" after-render="bindValidator">
+            <div class="form-group" ng-show="error">
+                <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+            </div>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" class="form-control" placeholder="中文/英文昵称"
+                       required="required"
+                       ng-model="userInfo.name"
+                       name="username">
+            </div>
+            <div class="form-group">
+                <label>账号</label>
+                <input type="text" class="form-control" placeholder="请输入邮箱地址"
+                       required="required"
+                       ng-model="userInfo.mail"
+                       name="email">
+            </div>
+            <div class="form-group login-eye">
+                <label>密码</label>
+                <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码"
+                       required="required"
+                       ng-model="userInfo.password"
+                       name="password">
+                <i class="iconfont icon-close1 close-pwd" ng-click="cancelPassword()"></i>
+                <i class="iconfont icon-favourite" ng-click="showPassword()"></i>
+            </div>
+            <span class="agreement">同意并接受<a href="/agreement.html">《ASKDOG 用户协议》</a></span>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg" type="submit">注册</button>
+            </div>
+
+            <div class="phone-register" ng-click="phoneRegisterShow = true">使用手机号注册</div>
+        </form>
+        <form name="phoneRegisterForm"
+              after-render="phoneRegisterValidator" ng-show="phoneRegisterShow">
+            <div class="form-group" ng-show="error">
+                <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+            </div>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" class="form-control" placeholder="中文/英文昵称"
+                       required="required"
+                       ng-model="phoneInfo.name"
+                       name="username">
+            </div>
+            <div class="form-group">
+                <label>手机</label>
+                <input type="text" class="form-control" placeholder="请输入手机号"
+                       required="required"
+                       ng-model="phoneInfo.phone"
+                       name="phone">
+            </div>
+            <div class="form-group login-eye">
+                <label>密码</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="请输入密码"
+                       required="required"
+                       ng-model="phoneInfo.password"
+                       name="password">
+                <i class="iconfont icon-close1 close-pwd" ng-click="cancelPassword()"></i>
+                <i class="iconfont icon-favourite" ng-click="showPassword()"></i>
+            </div>
+            <div class="clearfix register-phone-last">
+                <div class="form-group send-code-group">
+                    <label>验证码</label>
+                    <input type="text" class="form-control" placeholder="请输入验证码"
+                           ng-model="phoneInfo.code"
+                           name="code">
+                </div>
+                <div class="send-code phone-register-send-code">
+                    <a ng-click="phoneSendCode()" class="btn btn-default pull-right" value="发送验证码">发送验证码</a>
+                </div>
+            </div>
+            <div>
+                <span class="agreement">同意并接受<a href="/agreement.html">《ASKDOG 用户协议》</a></span>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg" type="submit">注册</button>
+            </div>
+            <div class="phone-register" ng-click="phoneRegisterShow = false">使用邮箱注册</div>
+        </form>
+        <div class="table-box" ng-show="registerSuccess">
+            <div class="table-cell-box">
+                <div class="system-info">
+                    <i class="iconfont icon-logo"></i>
+                    <b ng-show="mailRegisterSuccess">验证邮件已发送</b>
+                    <b ng-show="phoneRegisterSuccess">注册成功</b>
+                </div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

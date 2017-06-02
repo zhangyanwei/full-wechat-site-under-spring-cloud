@@ -1,0 +1,215 @@
+<div oc-lazy-load="['module/AccountController']">
+    <div class="income-container" ng-controller="AccountController">
+
+        <div class="main-box" ng-show="!withdrawOpened">
+            <div class="middle-box income-box">
+                <div class="jumbotron box-border">
+                    <div class="income-con">
+                        <p>可提现金额</p>
+                        <p>
+                            <span>
+                                <b>{{revenueDetail.balance | priceFix}}</b>
+                                元
+                            </span>
+                            <span class="balance-locked" ng-if="revenueDetail.locked>0">(有部分提现金额未达到提现条件，暂时无法提取。)</span>
+                        </p>
+                        <button type="button" class="btn btn-primary btn-lg"
+                                ng-if="!accounts || accounts.length == 0"
+                                pop-over
+                                pop_content='<p><i class="iconfont icon-weixin"></i></p><p>当前没有绑定微信号请到<a href="#/security" class="link-primary">安全中心</a>绑定</p>'
+                                pop_html='true'
+                                pop_trigger="hover focus"
+                                pop_placement="bottom"
+                                auth-required>
+                            <i class="iconfont icon-tixian"></i>
+                            <span>提现</span>
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-lg"
+                                tool-tip
+                                tip_title="当前没有收入无法提现"
+                                tip_trigger="hover"
+                                tip_placement="bottom"
+                                ng-if="accounts.length > 0 && revenueDetail.balance<=0"
+                                auth-required>
+                            <i class="iconfont icon-tixian"></i>
+                            <span>提现</span>
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-lg"
+                                ng-click="openWithdraw()"
+                                ng-if="accounts.length > 0 && revenueDetail.balance > 0"
+                                auth-required>
+                            <i class="iconfont icon-tixian"></i>
+                            <span>提现</span>
+                        </button>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist" style="padding: 0 30px;">
+                        <li role="presentation" ng-class="{active : incomeActive}">
+                            <a href="#income-list" aria-controls="income-list" role="tab" data-toggle="tab">收入明细</a>
+                        </li>
+                        <li role="presentation" ng-class="{active : withdrawalActive}">
+                            <a href="#cash_list" aria-controls="cash_list" role="tab" data-toggle="tab">提现记录</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content box-border">
+                    <div role="tabpanel" class="tab-pane" ng-class="{active : incomeActive}" id="income-list">
+                        <div class="list-heading">
+                            累计收入金额<span>{{revenueDetail.total | priceFix}}</span>元
+                        </div>
+
+                        <div class="stytem-info-box" ng-if="incomeViewData.total==0">
+                            <i class="iconfont icon-shipin"></i>
+                            <i>=</i>
+                            <i class="iconfont icon-income color-blue"></i>
+                            <p>您还没有收入<br/>发布一个视频经验赚取您的第一桶金</p>
+                        </div>
+
+                        <ul class="list-group income_list" ng-if="incomeViewData.total > 0">
+                            <li class="list-group-item" ng-repeat="item in incomeViewData.result">
+                                <span class="in-time">{{item.income_time | date:"yyyy-MM-dd HH:mm"}}</span>
+                                <span class="income-info">
+                                    <mark>{{item.experience_title}}</mark>
+                                    被<a href="#/zone/{{item.payer.id}}">{{item.payer.name}}</a>观看
+                                </span>
+                                <span class="income-value">
+                                    +{{item.price | priceFix}}元
+                                    <i ng-if="item.extra_way=='*2'" class="iconfont icon-activepageicon5"></i>
+                                </span>
+                            </li>
+                        </ul>
+                        <nav>
+                            <ul class="pager"
+                                ng-hide="!incomeViewData || incomeViewData.total/incomeViewData.size < 1">
+                                <li>
+                                    <label>
+                                        {{incomeViewData.page+1}}
+                                        /
+                                        {{incomeViewData.total | pages:incomeViewData.size}}页
+                                    </label>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                       ng-click="incomeSearch(incomeViewData.page-1)"
+                                       ng-hide="incomeViewData.page == 0">
+                                        < 上一页
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                       ng-click="incomeSearch(incomeViewData.page+1)"
+                                       ng-hide="incomeViewData.last">
+                                        下一页 >
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" ng-class="{active : withdrawalActive}" id="cash_list">
+                        <div class="list-heading">
+                            累计提现金额<span>{{revenueDetail.withdrawal_total | priceFix}}</span>元
+                        </div>
+
+                        <div class="stytem-info-box cash-no" ng-if="withdrawViewData.total==0">
+                            <i class="iconfont icon-withdrawrecordsucceed"></i>
+                            <p>您还没有提现<br/>发布一个视频经验赚取您的第一桶金</p>
+                        </div>
+
+                        <ul class="list-group" ng-if="withdrawViewData.total > 0">
+                            <li class="list-group-item" ng-repeat="item in withdrawViewData.result">
+                                <span class="in-time">{{item.withdrawal_time | date:"yyyy-MM-dd HH:mm"}}</span>
+                                <span class="income-info">提现到微信号<mark>{{item.withdrawal_to_alias}}</mark></span>
+                                <span class="income-value"> -{{item.withdrawal_amount | priceFix}}元</span>
+                            </li>
+                        </ul>
+                        <nav>
+                            <ul class="pager"
+                                ng-hide="!withdrawViewData || withdrawViewData.total/withdrawViewData.size < 1">
+                                <li>
+                                    <label>
+                                        {{withdrawViewData.page+1}}
+                                        /
+                                        {{withdrawViewData.total | pages:withdrawViewData.size}}
+                                        页</label>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                       ng-click="withdrawSearch(withdrawViewData.page-1)"
+                                       ng-hide="withdrawViewData.page == 0">
+                                        < 上一页
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                       ng-click="withdrawSearch(withdrawViewData.page+1)"
+                                       ng-hide="withdrawViewData.last">
+                                        下一页 >
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-box" ng-show="withdrawOpened">
+            <div class="middle-box cash-box">
+                <div class="panel panel-default box-border">
+                    <div class="panel-heading">
+                        <h2>提现
+                            <a href="javascript:void(0);" class="link-primary pull-right"
+                               ng-click="withdrawOpened=false; incomeActive=false; withdrawalActive=true; withdrawalError=undefined; withdrawalMessage=undefined;">
+                                提现记录
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" ng-submit="withdrawSubmit()">
+                            <div class="form-group" ng-if="withdrawalMessage">
+                                <div class="alert alert-info text-center alert-shake">{{withdrawalMessage}}</div>
+                            </div>
+                            <div class="form-group" ng-if="withdrawalError">
+                                <div class="alert alert-warning text-center alert-shake">{{withdrawalError}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">提现金额：</label>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control"
+                                               placeholder="输入金额"
+                                               aria-describedby="basic-addon2"
+                                               ng-model="withdrawal.withdrawal_amount"
+                                               ng-blur="withdrawalAmountlimit()"
+                                               ng-focus="withdrawalError=undefined;withdrawalMessage=undefined;">
+                                        <span class="input-group-addon" id="basic-addon2">元</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <span>可提现金额{{revenueDetail.balance | priceFix}}元</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">微信号：</label>
+                                <div class="col-sm-3">
+                                    <p class="form-control-static">{{currentAccount.nick_name}}</p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a href="#/security" class="btn btn-link link-primary">更换当前微信号</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <p>提现金额不能小于1元，当日提现金额不超过50,000元</p>
+                                    <button type="submit" class="btn btn-primary">确定提现</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

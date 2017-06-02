@@ -1,0 +1,376 @@
+<div oc-lazy-load="['module/ExperienceController', 'lib/editormd/css/editormd.css', 'lib/jquery/video/css/video-js.css']">
+    <div class="experience-container" ng-controller="ExperienceController">
+        <div class="main-box" ng-if="!notFound">
+            <div class="detail-box">
+                <div class="detail-card box-border">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                {{experienceDetail.subject}}
+                            </h4>
+                            <div class="vedio-box" ng-if="experienceDetail.content.type=='VIDEO'">
+                                <div class="layer-pay" ng-if="order_token_link">
+                                    <img class="qrcode-img" ng-src="{{order_token_link}}" title="点击二维码更新，支付后点击播放"
+                                         ng-click="play()"/>
+                                    <div class="white-bg">
+                                        <div class="pay-tip">{{experienceDetail.price| priceFix}} 元学经验</div>
+                                        <div class="pay-count" ng-if="experienceDetail.paid_count>0">
+                                            <i class="iconfont icon-praise02"></i>
+                                            <span>已有{{experienceDetail.paid_count}}人付费观看</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn-play" ng-click="play()" ng-show="!videoInitialized || paused">
+                                    <i class="icon-play-panel"></i>
+                                    <i class="iconfont icon-play02"></i>
+                                </a>
+                                <original-tag tags="experienceDetail.tags"></original-tag>
+                                <md-view id="experience-view" content="experienceDetail.content"></md-view>
+                            </div>
+                            <div class="media-con" ng-if="experienceDetail.content.type=='TEXT'">
+                                <md-view id="experience-view" content="experienceDetail.content"></md-view>
+                            </div>
+                            <div class="user-box">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#/zone/{{experienceDetail.author.id}}">
+                                            <img ng-src="{{(experienceDetail.author.avatar || 'images/user/avatar.png') | picTrans: '42w_42h_1e_1c.png'}}"
+                                                 class="media-object img-circle"/>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="from-info">
+                                            <a href="#/zone/{{experienceDetail.author.id}}" class="user-name pull-left">
+                                                <span>{{experienceDetail.author.name}}</span>
+                                                <i class="iconfont icon-vv"
+                                                   ng-if="experienceDetail.author.tags[0] =='VIP'"></i>
+                                            </a>
+                                            <a href="#/channel/{{experienceDetail.channel.id}}"
+                                               class="channel-name pull-right">
+                                                {{experienceDetail.channel.name}}
+                                            </a>
+                                        </div>
+                                        <div class="other-info">
+                                            <span>{{experienceDetail.creation_time|created}} ·</span>
+                                            <span>浏览数 {{experienceDetail.view_count}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-info btn-sm"
+                                        ng-disabled="experienceDetail.channel.mine"
+                                        ng-if="!experienceDetail.channel.subscribed"
+                                        ng-click="subscribe()"
+                                        auth-required>
+                                    <i class="iconfont icon-subscribe"></i>
+                                    <span>订阅频道</span>
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm cancel-subscribe"
+                                        ng-if="experienceDetail.channel.subscribed"
+                                        ng-click="subscribe()"
+                                        ng-mouseover="placeHolder=true"
+                                        ng-mouseout="placeHolder=false"
+                                        ng-init="placeHolder=false"
+                                        auth-required>
+                                    <i class="iconfont"
+                                       ng-class="{true:'icon-quxiaodingyue',false:'icon-yidingyue'}[placeHolder]"></i>
+                                    <span>{{placeHolder? '取消订阅' : '已订阅'}}</span>
+                                </button>
+                                <button type="button" class="btn btn-info btn-info-border btn-sm">
+                                    {{experienceDetail.channel.subscriber_count}}
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="btn-group detail-btn-bar" role="group" aria-label="...">
+                        <button class="btn btn-icon btn-vote" ng-click="upVote()"
+                                ng-class="{active:experienceDetail.up_voted}"
+                                auth-required
+                                animation
+                                animate-type="zoom"
+                                animate-event="animate-click"
+                                animate-duration="400"
+                                animate-selector=".animate-hand">
+                            <i class="iconfont icon-praise1 animate-hand"></i>
+                            <span>赞 {{experienceDetail.up_vote_count}}</span>
+                        </button>
+                        <button class="btn btn-icon btn-vote" ng-click="downVote()"
+                                ng-class="{active:experienceDetail.down_voted}"
+                                auth-required
+                                animation
+                                animate-type="zoom"
+                                animate-event="animate-click"
+                                animate-duration="400"
+                                animate-selector=".animate-hand">
+                            <i class="iconfont icon-tread1 animate-hand"></i>
+                            <span>踩 {{experienceDetail.down_vote_count}}</span>
+                        </button>
+                        <button class="btn btn-icon btn-vote" ng-click="share()">
+                            <i class="iconfont icon-noun221885cc"></i>
+                            <span>分享</span>
+                        </button>
+                        <button class="btn btn-icon"
+                                ng-if="experienceDetail.mine"
+                                ng-click="edit()">
+                            <i class="iconfont icon-pen"></i>
+                            <span>编辑</span>
+                        </button>
+                        <button class="btn btn-icon btn-more pull-right"
+                                ng-hide="experienceDetail.mine"
+                                ng-init="reportActive = false;"
+                                ng-click="reportActive = !reportActive">
+                            <i class="iconfont icon-anonymous-iconfont"></i>
+                        </button>
+                        <div class="more-menu" ng-show="reportActive && !experienceDetail.mine">
+                            <a class="btn btn-default" ng-click="report();reportActive=false;">
+                                <i class="iconfont icon-report"></i>
+                                <span>举报</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="remind-box box-border">
+
+                    <!-- Comment -->
+                    <div class="user-box">
+                        <div class="media main-comment-item">
+                            <div class="media-left">
+                                <a href="{{userSelf ? '#/zone/' + userSelf.id : '#'}}">
+                                    <img ng-src="{{(userSelf.avatar || 'images/user/avatar.png' )| picTrans : '42w_42h_1e_1c.png'}}"
+                                         class="media-object img-circle" alt="..."/>
+                                    <i class="iconfont icon-vv" ng-if="userSelf.tags[0] == 'VIP'"></i>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <form name="commentForm" ng-submit="comment(experienceDetail.id)"
+                                      after-render="bindValidator">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="commentText" placeholder="评论"
+                                                  required="required"
+                                                  maxlength="200"
+                                                  ng-model="pureComment.content"
+                                                  ng-focus="editing=true"
+                                                  auto-height height="56"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary pull-right" auth-required
+                                            ng-show="editing">评论
+                                    </button>
+                                    <a href="javascript:void(0);" class="btn btn-default pull-right comment-cancel-btn"
+                                       ng-show="editing" ng-click="editing=false;commentCancel()">取消</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!-- End of comment -->
+
+                    <div class="user-box">
+                        <div class="media-list">
+                            <!-- first level-->
+                            <div class="media first-level-item" ng-repeat="item in commentList.result"
+                                 ng-if="!item.deleted">
+                                <div class="media-left">
+                                    <a href="#/zone/{{item.commenter.id}}">
+                                        <img ng-src="{{(item.commenter.avatar || 'images/user/avatar.png') | picTrans : '42w_42h_1e_1c.png'}}"
+                                             class="media-object img-circle" alt=""/>
+                                        <i class="iconfont icon-vv" ng-if="item.commenter.tags[0] =='VIP'"></i>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-con">{{item.content}}</div>
+                                    <div class="other-info clearfix">
+                                        <a href="#/zone/{{item.commenter.id}}"
+                                           class="link-info pull-left">{{item.commenter.name}}</a>
+                                        <span class="pull-left">&nbsp;·&nbsp;</span>
+                                        <span class="pull-left">{{item.creation_time|created}}</span>
+                                        <a href="javascript:void(0);" class="link-info reply-btn pull-left"
+                                           ng-click="reply(item.id)">回复</a>
+                                        <div ng-if="item.mine && item.deletable" class="dropdown reply-btn pull-left">
+                                            <a class="link-info" data-toggle="dropdown"
+                                               aria-haspopup="true" aria-expanded="false">
+                                                <span>删除</span>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dLabel">
+                                                <a class="btn-confirm"
+                                                   ng-click="deleteReply(item.id)">确定</a>
+                                                <a class="btn-cancel">取消</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="media comment-child reply-container hidden"
+                                         reply-container-id="{{item.id}}">
+                                        <div class="media-left">
+                                            <a href="{{userSelf ? '#/zone/' + userSelf.id : '#'}}">
+                                                <img ng-src="{{(userSelf.avatar || 'images/user/avatar.png' )| picTrans : '36w_36h_1e_1c.png'}}"
+                                                     class="media-object img-circle" alt="..."/>
+                                                <i class="iconfont icon-vv" ng-if="userSelf.tags[0] =='VIP'"></i>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <form name="replyForm"
+                                                  ng-submit="comment(experienceDetail.id,item.id)"
+                                                  after-render="bindValidator">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="commentText"
+                                                              placeholder="@{{item.commenter.name}}"
+                                                              required="required"
+                                                              maxlength="200"
+                                                              ng-model="pureComment.reply_content"
+                                                              auto-height height="56"></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary pull-right" auth-required>
+                                                    发布
+                                                </button>
+                                                <a href="javascript:void(0);"
+                                                   class="btn btn-default pull-right comment-cancel-btn"
+                                                   ng-click="replyCancel(item.id)">
+                                                    取消
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="media-con show-more">
+                                        <a class="link-info" ng-click="openReplyList(item.id)"
+                                           ng-if="!item.comments.last">展开全部{{item.comments.total}}条回复</a>
+                                        <a class="link-info" ng-click="closeReplyList(item.id)"
+                                           ng-if="item.comments.last && item.comments.total>2">收起</a>
+                                    </div>
+                                    <!-- second level-->
+                                    <div class="media comment-child" ng-repeat="child in item.comments.result"
+                                         ng-if="!child.deleted">
+                                        <div class="media-left">
+                                            <a href="#/zone/{{child.commenter.id}}">
+                                                <img ng-src="{{ (child.commenter.avatar  || 'images/user/avatar.png') | picTrans : '36w_36h_1e_1c.png'}}"
+                                                     class="media-object img-circle" alt="..."/>
+                                                <i class="iconfont icon-vv" ng-if="child.commenter.tags[0] =='VIP'"></i>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="media-con">
+                                                <a href="javascript:void(0);"
+                                                   class="link-info">@{{child.reply_name}}</a>
+                                                <span>{{child.content}}</span>
+                                            </div>
+                                            <div class="other-info clearfix" data-id="{{child.id}}">
+                                                <a href="#/zone/{{child.commenter.id}}" class="link-info pull-left">{{child.commenter.name}}</a>
+                                                <span class="pull-left">&nbsp;·&nbsp;</span>
+                                                <span class="pull-left">{{child.creation_time|created}}</span>
+                                                <a href="javascript:void(0);" class="link-info reply-btn pull-left"
+                                                   ng-click="reply(child.id)">回复</a>
+                                                <div ng-if="child.mine && child.deletable"
+                                                     class="dropdown reply-btn pull-left">
+                                                    <a class="link-info" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false">
+                                                        <span>删除</span>
+                                                    </a>
+                                                    <div class="dropdown-menu" aria-labelledby="dLabel">
+                                                        <a class="btn-confirm"
+                                                           ng-click="deleteReply(child.id)">确定</a>
+                                                        <a class="btn-cancel">取消</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="media reply-container hidden" reply-container-id="{{child.id}}">
+                                                <div class="media-left">
+                                                    <a href="{{userSelf ? '#/zone/' + userSelf.id : '#'}}">
+                                                        <img ng-src="{{(userSelf.avatar || 'images/user/avatar.png' )| picTrans : '36w_36h_1e_1c.png'}}"
+                                                             class="media-object img-circle" alt="..."/>
+                                                        <i class="iconfont icon-vv"
+                                                           ng-if="userSelf.tags[0] =='VIP'"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <form name="replyForm"
+                                                          ng-submit="comment(experienceDetail.id,child.id)"
+                                                          after-render="bindValidator">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" name="commentText"
+                                                                      placeholder="@{{child.commenter.name}}"
+                                                                      required="required"
+                                                                      maxlength="200"
+                                                                      ng-model="pureComment.reply_content"
+                                                                      auto-height height="56"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-sm pull-right"
+                                                                auth-required>
+                                                            发布
+                                                        </button>
+                                                        <a href="javascript:void(0);"
+                                                           class="btn btn-default pull-right comment-cancel-btn"
+                                                           ng-click="replyCancel(child.id)">
+                                                            取消
+                                                        </a>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End of remind-box-->
+
+                <div class="clearfix text-center">
+                    <button class="btn btn-ghost" ng-click="commentPaging()"
+                            ng-show="commentList && !commentList.last && pagingCompleted">
+                        <span>查看更多</span>
+                    </button>
+                    <button class="btn btn-ghost" ng-show="!pagingCompleted">
+                        <img src="images/loading.gif" alt="..."/>
+                        <span>正在加载</span>
+                    </button>
+                </div>
+
+            </div><!-- End of detail-box -->
+
+            <div class="rig-box">
+                <div class="recommend panel panel-default box-border exp-recommend">
+                    <div class="panel-heading">相关分享</div>
+                    <div class="panel-body">
+                        <div class="media" ng-repeat="item in experienceRelatedList.result">
+                            <div class="media-body">
+                                <a class="btn btn-icon btn-play ng-scope" href="#/exp/{{item.id}}"
+                                   ng-if="item.content_type=='VIDEO'">
+                                    <i class="icon-play-panel"></i>
+                                    <i class="iconfont icon-play02"></i>
+                                </a>
+                                <span class="video-duration ng-binding ng-scope" ng-if="item.content_type=='VIDEO'">{{item.video_duration|durationFix}}</span>
+
+                                <a href="#/exp/{{item.id}}">
+                                    <img ng-if="item.content_pic_url" class="media-object"
+                                         ng-src="{{item.content_pic_url | picTrans: '212w_120h_1e_1c.png'}}"
+                                         alt="{{item.subject}}">
+                                    <img ng-if="!item.content_pic_url" class="media-object"
+                                         ng-src="{{CATEGORY_THUMBNAIL[item.category.category_code].abstract | picTrans: '212w_120h_1e_1c.png'}}"/>
+                                </a>
+
+                                <h4 class="media-heading">
+                                    <a href="#/exp/{{item.id}}">{{item.subject}}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" ng-if="experienceRelatedList && !experienceRelatedList.last">
+                        <a href="javascript:void(0);" class="link-info"
+                           ng-click="experienceRelatedPaging()">换一批</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-box" ng-if="notFound">
+            <div class="middle-box box-border">
+                <div class="stytem-info-box">
+                    <i class="iconfont icon-fail"></i>
+                    <p>经验已被作者删除</p>
+                </div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

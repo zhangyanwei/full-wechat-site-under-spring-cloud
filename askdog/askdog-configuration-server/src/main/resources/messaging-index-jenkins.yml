@@ -1,0 +1,19 @@
+server:
+  port: ${ASK_DOG_SERVER_PORT:9101}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ask.dog:8761/eureka
+  instance:
+    hostname: ${ASK_DOG_SERVER_IP:192.168.1.123}
+    metadata-map:
+      prefer-ip-address: false
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ask.dog
+          zkNodes: ask.dog

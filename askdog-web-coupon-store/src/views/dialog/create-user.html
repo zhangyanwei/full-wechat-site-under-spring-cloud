@@ -1,0 +1,47 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/dialog/CreateUserController']">
+        <div class="modal-content" ng-controller="CreateUserController">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()">×</button>
+                <h4 class="modal-title">创建用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" after-render="bindValidator">
+                    <div class="form-group" ng-show="error">
+                        <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user_nickname">姓名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="nickname" id="user_nickname" placeholder="请填写用户真实姓名" ng-model="user.nickname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user_name">用户名</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="username" id="user_name" placeholder="以字母开头，4到19位字符" ng-model="user.username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user_password">密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" name="password" id="user_password" placeholder="密码由6~20位字符组成" ng-model="user.password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="user_password_confirm">密码确认</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" name="confirm_password" id="user_password_confirm" placeholder="请再次输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+                            <button type="submit" class="btn btn-primary">创建</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

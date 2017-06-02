@@ -1,0 +1,82 @@
+<div oc-lazy-load="['module/WordController', 'lib/editormd/css/editormd.css']">
+    <div class="share-container" ng-controller="WordController">
+
+        <div class="edit-box" ng-if="!notFound">
+
+            <form name="wordForm" after-render="bindValidator">
+                <div class="form-group" ng-show="error">
+                    <div class="alert alert-warning text-center alert-shake">{{error}}</div>
+                </div>
+
+                <div class="form-group">
+                    <input name="subject" type="text" class="form-control"
+                           placeholder="标题"
+                           ng-model="pureExperience.subject"/>
+                </div>
+
+                <div id="word-textarea">
+                    <textarea style="display:none;" name="content"></textarea>
+                </div>
+
+                <div class="form-group text-right">
+                    <div class="btn-group btn-menu dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span ng-if="!pureExperience.channel_name">选择频道</span>
+                            <span ng-if="pureExperience.channel_name">{{pureExperience.channel_name}}</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="item in ownedChannels">
+                                <a href="javascript:void(0);" ng-click="channelSelect(item)">{{item.name}}</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="showCreateChannel()" auth-required>创建新频道</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group categories-select btn-menu dropup">
+                        <button type="button" class="btn dropdown-toggle btn-select"
+                                data-toggle="dropdown">
+                            <span ng-if="!pureExperience.category_name">选择分类</span>
+                            <span ng-if="pureExperience.category_name">{{pureExperience.category_name}}</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="drop-menu-item" ng-repeat="item in sysCategories">
+                                <a href="javascript:void(0);"
+                                   ng-mouseover="categoryOver(item,$event)">{{item.name}}</a>
+                                <span class="caret"></span>
+                                <ul class="drop-sub-menu" ng-show="item.displayChildren">
+                                    <li ng-repeat="child in item.children">
+                                        <a href="javascript:void(0);"
+                                           ng-click="categorySelect(child,$event)">{{child.name}}</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <div class="corner"></div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" ng-disabled="prevented" auth-required>发布</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="edit-box" ng-if="notFound">
+            <div class="middle-box box-border">
+                <div class="stytem-info-box">
+                    <i class="iconfont icon-fail"></i>
+                    <p>抱歉，没有找到您要访问的内容</p>
+                </div>
+            </div>
+        </div>
+
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+<div oc-lazy-load="['module/common/HeaderController']">
+    <header class="header-container" ng-controller="HeaderController">
+        <div class="header box-border">
+            <div class="container">
+                <a href="javascript:void(0);" class="logo" onclick="window.location.href='/'">
+                    <img src="images/askdog-logo.png" alt=""/>
+                </a>
+                <div class="dropdown search-box" after-render="listenDropdown">
+                    <form>
+                        <div class="form-group dropdown"
+                             ng-class="{true: 'open', false: ''}[!!(drop && key && keySimilar)]">
+                            <input type="text" class="form-control" id="" placeholder="搜索经验" data-toggle="dropdown"
+                                   ng-model="key"
+                                   ng-keyup="keyAutocomplete($event)"
+                                   ng-focus="querySimilar()">
+                            <button type="submit" class="btn btn-link btn-search" ng-click="goSearch()">
+                                <i class="iconfont icon-noun203940cc"></i>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" ng-if="keySimilar.total > 0">
+                                <li ng-repeat="item in keySimilar.result">
+                                    <a href="#/exp/{{item.id}}"
+                                       ng-click="hideDrop()">
+                                        <i class="iconfont icon-tuwen" ng-if="item.content_type=='TEXT'"></i>
+                                        <i class="iconfont icon-shipin" ng-if="item.content_type=='VIDEO'"></i>
+                                        <span ng-bind-html="item.subject | trusted"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" ng-click="hideDrop();goSearch();">
+                                        <span>查看全部搜索结果？</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="dropdown-menu" role="menu" ng-if="drop && keySimilar.total == 0">
+                                <li>
+                                    <a href="javascript:void(0);" ng-click="hideDrop()">
+                                        <span>抱歉，没有搜索到相关经验</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class="dropdown h-share">
+                    <a class="btn btn-success dropdown-toggle" id="shareDropdownMenu"
+                       href="#/experience/share/video" target="_blank">
+                        分享经验
+                    </a>
+                    <!--<a class="btn btn-success dropdown-toggle" id="shareDropdownMenu"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">分享经验
+                    </a>-->
+                    <!--<ul class="dropdown-menu" aria-labelledby="shareDropdownMenu">
+                        <li class="share-video-item" ui-sref="layout.view.share-video" auth-required>
+                            <a href="javascript:void(0);">
+                                <i class="iconfont icon-shipin"></i>
+                                <span>视频分享</span>
+                            </a>
+                        </li>
+                        <li class="share-word-item" ui-sref="layout.view.activity-video" auth-required>
+                            <a href="javascript:void(0);">
+                                <i class="iconfont icon-activepage"></i>
+                                <span>原创认证</span>
+                            </a>
+                        </li>
+                        <li class="share-activity-item" ui-sref="layout.view.activity-video" auth-required>
+                            <a href="javascript:void(0);" class="btn btn-info btn-lg">
+                                <i class="iconfont icon-activepage"></i>
+                                <span>原创认证</span>
+                            </a>
+                        </li>
+                    </ul>-->
+                </div>
+
+                <div class="btn-group" ng-if="userSelf">
+                    <div class="dropdown h-msg">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="iconfont icon-remind"></i>
+                            <span class="badge" ng-if="userSelf.notice_count > 0">{{userSelf.notice_count}}</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <h5 class="menu-heading">
+                                <a href="#/notice" ng-click="userSelf.notice_count=0">全部通知</a>
+                            </h5>
+                            <li role="separator" class="divider"></li>
+                            <li class="notice-none" ng-if="userSelf.notice_count == 0">
+                                <i class="iconfont icon-remind"></i>
+                                <div>暂无通知</div>
+                            </li>
+                            <li ng-repeat="item in notifications" ng-if="userSelf.notice_count > 0">
+                                <a href="#/notice"
+                                   title="{{item.content.user.name}}{{item.content.typeName}}了{{item.content.target.description}}"
+                                   ng-click="userSelf.notice_count=0">
+                                    <i class="iconfont icon-circle"></i>
+                                    <b>{{item.content.user.name}}</b><span>{{item.content.typeName }}了</span><b>{{item.content.target.description}}</b>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown h-user">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <img ng-src="{{(userSelf.avatar || 'images/user/avatar.png') | picTrans : '36w_36h_1e_1c.png'}}"
+                                 class="img-circle"/>
+                            <i class="iconfont icon-vv" ng-if="userSelf.tags[0]=='VIP'"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <div class="dropdown-user">
+                                <a href="#/profile" class="name" title="{{userSelf.name}}">{{userSelf.name}}</a>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="#/profile" class="btn btn-link">
+                                        <i class="iconfont icon-user1"></i>
+                                        <span>我的账户</span>
+                                    </a>
+                                </li>
+                                <hr/>
+                                <li class="list-group-item">
+                                    <a class="btn btn-link" href="javascript:void(0);"
+                                       ng-click="signOut()">
+                                        <i class="iconfont icon-tuichu"></i>
+                                        <span>退出登录</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="btn-group" ng-if="!userSelf">
+                    <a class="btn btn-link link-primary" href="javascript:void(0);" ng-click="signIn();">登录</a>
+                    <a class="btn btn-link link-primary" href="javascript:void(0);" ng-click="signUp();">注册</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

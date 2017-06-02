@@ -1,0 +1,178 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.socket: DEBUG
+    org.springframework.data.mongodb.core.index: ERROR
+    com.askdog.service.impl.vod: DEBUG
+
+server:
+  port: ${ASK_DOG_SERVER_PORT:8800}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.1.122:8761/eureka
+  instance:
+    hostname: ${ASK_DOG_SERVER_IP:192.168.1.122}
+    lease-renewal-interval-in-seconds: 3
+    metadata-map:
+      instanceId: ${spring.application.name}:${random.value}
+      prefer-ip-address: false
+
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  jpa:
+    properties:
+      javax.persistence.sharedCache.mode: ALL
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: true
+      hibernate.cache.region.factory_class: com.askdog.service.impl.cache.hibernate.redis.RedisRegionFactory
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  redis:
+    host: ask.dog
+    port: 6379
+  data:
+    mongodb:
+      host: ask.dog
+      database: askdog-coupon
+  datasource:
+    #platform: postgresql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ask.dog:5432/askdog.coupon
+    username: dog
+    password: askdog
+  mail:
+    host: smtp.exmail.qq.com
+    port: 25
+    username: test@hooying.com
+    password: Dev2016
+    nick-name: ASKDOG
+  cloud:
+    stream:
+      bindings:
+        event:
+          destination: topic.event
+          group: service
+        index:
+          destination: topic.index
+          group: service
+        notification:
+          destination: topic.notification
+          group: service
+        review_event:
+          destination: topic.event
+          group: review
+        review:
+          destination: topic.review
+          group: service
+      kafka:
+        binder:
+          brokers: 192.168.1.122
+          zkNodes: 192.168.1.122
+
+askdog:
+  base-url: http://dev.ask.dog:8280
+  mail:
+    registration:
+      url: ${askdog.base-url}/#/reg/{token}
+      token-timeout: 1
+      token-timeout-unit: DAYS
+      user-name: test@hooying.com
+      password: Dev2016
+      retry-count: 3
+      nick-name: ASKDOG
+    password:
+      url: ${askdog.base-url}/#/pwd/{token}
+      token-timeout: 30
+      token-timeout-unit: MINUTES
+      user-name: test@hooying.com
+      password: Dev2016
+      retry-count: 3
+      nick-name: ASKDOG
+  web:
+    apach-urls:
+      # this chrome extension is PostMan, we using this for test RESTful APIs
+      - chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop
+    user:
+      default-avatar: ${askdog.base-url}/image/avator.png
+  storage:
+    default:
+      url-alias: static.askdog.cn
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+      access-id: mEFBShFTJwtTLFyT
+      access-key: Kk8kV2Rx340wuKpAzH8cgyEKIczQex
+      bucket: default
+      policy:
+        expire-time: 60 * 5 #s
+        max-size: 1024 * 10 #k
+      callback:
+        url: coupon.tunnel.qydev.com/api/storage/callback
+        host: coupon.tunnel.qydev.com
+        body: '{"bucket":${bucket},"object":${object},"mimeType":${mimeType},"size":${size},"resourceId":"${resourceId}"}'
+        body-type: application/json
+    picture:
+      default:
+        url-alias: picdev.askdog.cn
+        bucket: ad-dev
+        callback:
+          body: '{"bucket":${bucket},"object":${object},"mimeType":${mimeType},"size":${size},"resourceId":"${resourceId}"}'
+      product:
+        policy:
+          base-dir: product
+      store:
+        policy:
+          base-dir: store
+      event:
+        policy:
+          base-dir: event
+    video:
+      default:
+        url-alias: vod.picdev.askdog.cn
+        bucket: ad-void-exp-in
+        callback:
+          body: '{"bucket":${bucket},"object":${object},"mimeType":${mimeType},"size":${size},"linkId":"${linkId}"}'
+        mns:
+          url: http://1154309586844710.mns.cn-hangzhou.aliyuncs.com/
+          queue-name:
+      product:
+        policy:
+          base-dir: product
+        mns:
+          queue-name: askdogcoupondev
+      event:
+        policy:
+          base-dir: event
+        mns:
+          queue-name: eventdev
+
+  location:
+    key: EIGBZ-WMIWF-M4TJ7-NPBLX-TO4SS-GHB3U
+    base-url: http://apis.map.qq.com
+    ip-location: '${askdog.location.base-url}/ws/location/v1/ip?ip={ip}&key=${askdog.location.key}&output=json'
+    geo-location: '${askdog.location.base-url}/ws/geocoder/v1/?location={lat},{lng}&key=${askdog.location.key}&get_poi={poi}&coord_type=5&output=json'
+    nearby-distance: 50 #kilometers
+    nearby-limit: 1000
+    rencent-limit: 100
+    rate-distance: 50 #kilometers
+  elasticsearch:
+    settings:
+      cluster.name: ask.dog
+    hosts:
+      - address: dev.ask.dog
+        port: 9300
+  cache:
+    expires:
+      cache:search:db:sideBarRecommend: 1080
+    defaultExpireTime: 1080
+
+ytx.sms:
+  baseUrl: https://app.cloopen.com:8883/2013-12-26
+  accountSid: aaf98f8951d38e890151d3b4f88c0079
+  subAccountSid:
+  authToken: bdecfb56fac847b1a40db5d644e06c83
+  appId: 8aaf070856d4826c0156da7a1363086d

@@ -1,0 +1,88 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/dialog/CouponController', '../css/lib/bootstrap-datetimepicker.min.css']">
+        <div class="dialog-container" ng-controller="CouponController">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="cancel()">×</button>
+                    <h4 class="modal-title">创建优惠券</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" after-render="bindValidator">
+                        <div class="form-group" ng-if="validationError">
+                            <div class="alert alert-warning text-center">{{validationError}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_name">优惠券名:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="coupon_name" placeholder="优惠券名"
+                                       name="couponName" ng-model="coupon.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_type">优惠券类别:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="couponType" id="coupon_type"
+                                        ng-model="coupon.type"
+                                        ng-options="item.type as item.typeName for item in couponTypeData">
+                                    <option value="">请选择优惠券类别</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_rule">优惠额:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="coupon_rule" placeholder="优惠额"
+                                       name="couponRule" ng-model="coupon.rule">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_expire_value">消费有效期:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="coupon_expire_value" placeholder="有效期"
+                                       name="couponExpireValue" ng-model="coupon.consume_expires.value">
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="couponExpireUnit" id="coupon_expire_unit"
+                                        ng-model="coupon.consume_expires.unit"
+                                        ng-options="item.type as item.typeName for item in couponExpireUnit">
+                                    <option value="">有效期单位</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_expire_value">优惠券有效期：</label>
+                            <div class="col-md-9 form-inline">
+                                <div after-render="datetimepicker" class="input-group date" style="width: 170px;" data-date-format="yyyy/mm/dd" data-link-field="expire_time_from" data-link-format="yyyy/mm/dd 00:00:00">
+                                    <input name="expire_time_from" class="form-control" size="16" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                </div>
+                                <span style="margin: 0px 3px;">至</span>
+                                <div after-render="datetimepicker" class="input-group date" style="width: 170px;" data-date-format="yyyy/mm/dd" data-link-field="expire_time_to" data-link-format="yyyy/mm/dd 23:59:59">
+                                    <input name="expire_time_to" class="form-control" size="16" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                </div>
+                                <input  name="from" type="hidden" id="expire_time_from" value="" />
+                                <input name="to" type="hidden" id="expire_time_to" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="coupon_description">优惠券描述</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="coupon_description" placeholder="优惠券描述"
+                                       name="couponDescription" ng-model="coupon.coupon_description">
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <a type="button" class="btn btn-default" ng-click="cancel()">取消</a>
+                            <button type="submit" class="btn btn-primary">创建</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

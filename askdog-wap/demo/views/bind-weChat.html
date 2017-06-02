@@ -1,0 +1,48 @@
+<div oc-lazy-load="['module/my/BindWeChatController']">
+    <div class="bind-wechat cash-box" ng-controller="BindWeChatController">
+        <div class="form-group" ng-show="error">
+            <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+        </div>
+        <div ng-hide="bindSuccess || bindFail || cancelBind || error">
+            <div class="panel panel-default box-border" ng-if="authed" >
+                <div class="panel-body">
+                    <img ng-src="{{userInfo.avatar | picTrans: '68w_68h_1e_1c'}}" ng-show="userInfo.avatar" class="center-block img-circle">
+                    <img src="images/user/user68.png" ng-show="!userInfo.avatar" class="center-block">
+                </div>
+                <div class="panel-heading text-center">
+                    <h4>{{userInfo.name}}</h4>
+                </div>
+            </div>
+            <div class="container content" ng-if="authed"><h4>您当前的微信账户将绑定到{{userInfo.name}}，用于提现，请确认是否绑定?</h4></div>
+            <div class="container" ng-if="authed">
+                <button class="btn btn-primary btn-lg btn-block bind" ng-click="bindWechat()">确认绑定</button>
+                <button class="btn btn-primary btn-lg btn-block cancel" ng-click="bindCancel()">取消</button>
+            </div>
+        </div>
+        <div class="table-box" ng-show="bindSuccess">
+            <div class="table-cell-box bind-wechat-success">
+                <div class="system-info">
+                    <img src="images/OK.png" class="center-block">
+                    <b>绑定成功</b>
+                </div>
+            </div>
+        </div>
+        <div class="table-box" ng-show="bindFail">
+            <div class="table-cell-box bind-wechat-success">
+                <div class="system-info">
+                    <img src="images/Failure.png" class="center-block">
+                    <b>绑定失败</b>
+                </div>
+            </div>
+        </div>
+        <div class="table-box fail-table" ng-show="cancelBind">
+            <div class="table-cell-box bind-wechat-success">
+                <div class="system-info">
+                    <img src="images/Failure.png" class="center-block">
+                    <b>您已经取消绑定</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.socket: DEBUG
+    org.springframework.data.mongodb.core.index: ERROR
+    com.askdog.service.impl.vod: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+askdog:
+  storage:
+    video:
+      product:
+        url-alias: imgdev.askdog.cn
+        endpoint: oss-cn-hangzhou.aliyuncs.com
+        access-id: hRhFuUG42AFDYlSMz
+        access-key: 3dwoTmHNaiHaxARIGchgOHXWh8vX5l
+        bucket: vod-bucket-in
+        policy:
+          base-dir: product
+        mns:
+          url: http://1621039532473892.mns.cn-hangzhou.aliyuncs.com/
+          queue-name: vodexpmq

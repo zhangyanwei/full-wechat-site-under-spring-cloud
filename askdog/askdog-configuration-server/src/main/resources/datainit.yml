@@ -1,0 +1,17 @@
+server:
+  port: 7777
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  data:
+    mongodb:
+      host: dev.ask.dog
+
+  datasource:
+    url: jdbc:postgresql://dev.ask.dog:5432/ask.dog
+    username: dog
+    password: askdog

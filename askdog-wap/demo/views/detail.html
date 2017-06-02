@@ -1,0 +1,291 @@
+<div oc-lazy-load="['module/detail/DetailController', 'lib/jquery-plugin/video/css/video-js.css']">
+    <div ng-controller="DetailController" class="detail-contain">
+        <div class="detail-box box-border" ng-hide="noDetail">
+            <div class="detail-con">
+                <div class="vedio-box" ng-if="detail.content.type=='VIDEO'">
+                    <div class="vedio-box" ng-show="notPay">
+                        <div class="layer-pay">
+                            <p>
+                                <span>{{detail.price / 100| number:2}}元学经验</span>
+                                <br>
+                                <span class="pay-number" ng-if="detail.paid_count > 0">
+                                     <i class="iconfont icon-praise02"></i>已有{{detail.paid_count}}人付费观看
+                                </span> <br>
+                                <button class="btn btn-primary btn-pay" ng-click="weChatPay(detail.id)" auth-required>
+                                    立即支付
+                                </button>
+                            </p>
+                            <div class="white-bg"></div>
+                        </div>
+                        <img src="images/2388.png" class="media-object" alt=""/>
+                    </div>
+                    <button class="btn btn-icon btn-play" ng-click="play()" ng-hide="videoInitialized">
+                        <img src="images/play.png">
+                    </button>
+                    <original-tag tags="detail.tags"></original-tag>
+                    <md-view id="experience-view" content="detail.content"></md-view>
+                </div>
+                <div class="media-con" ng-if="detail.content.type=='TEXT'">
+                    <md-view id="experience-view" content="detail.content"></md-view>
+                </div>
+            </div>
+            <h4 class="detail-heading">{{detail.subject}}</h4>
+            <div class="user-box">
+                <div class="media">
+                    <div class="media-left">
+                        <a ui-sref="view.subscribe({id:detail.author.id})">
+                            <img class="media-object img-circle"
+                                 ng-src="{{detail.author.avatar |picTrans: '34w_34h_1e_1c'}}" alt="..."
+                                 ng-if="detail.author.avatar">
+                            <img class="media-object img-circle" src="images/user/user32.png" alt="..."
+                                 ng-if="!detail.author.avatar">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="from-info">
+                            <a ui-sref="view.subscribe({id:detail.author.id})" class="user-name"
+                               ng-click="mySubscribe(detail.author)">{{detail.author.name}} <i class="iconfont icon-vv hidden"></i></a>
+                        </div>
+                        <div vip-approve vip="detail.author"></div>
+                        <div class="other-info">
+                            <span>分享于{{detail.creation_time | date:'yyyy/MM/dd'}} ·</span>
+                            <span>浏览数 {{detail.view_count | count}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="channel-info">
+                <a ui-sref="my.myChannel({id:detail.channel.id})"
+                   class="channel-name pull-left">{{detail.channel.name}}</a>
+                <div class="btn-group pull-right" role="group" aria-label="...">
+                    <button type="button" class="btn btn-info disabled subscribe" ng-show="detail.channel.mine"><i
+                            class="iconfont icon-dingyue"></i>订阅频道
+                    </button>
+                    <button type="button" class="btn btn-info subscribe" ng-click="subscribeChannel()"
+                            ng-show="!detail.channel.mine &&!detail.channel.subscribed" auth-required><i
+                            class="iconfont icon-dingyue"></i>订阅频道
+                    </button>
+                    <button type="button" class="btn btn-info cancel-subscribe subscribe" ng-click="cancelSubscribe()"
+                            ng-show="!detail.channel.mine && detail.channel.subscribed" auth-required><i
+                            class="iconfont icon-noun6156cc"></i>已订阅
+                    </button>
+                    <button class="btn btn-info btn-info-border">{{detail.channel.subscriber_count}}</button>
+                </div>
+            </div>
+            <div class="btn-group detail-btn-bar clearfix" role="group" aria-label="...">
+                <button type="button" class="btn btn-icon" ng-click="upVote()" auth-required
+                        ng-class="{active:detail.up_voted}"
+                        animation
+                        animate-type="zoom"
+                        animate-event="animate-click"
+                        animate-duration="400"
+                        animate-selector=".animate-hand">
+                    <i class="iconfont icon-praise1 animate-hand"></i><span>赞 {{detail.up_vote_count}}</span>
+                </button>
+                <button type="button" class="btn btn-icon" ng-click="downVote()" auth-required
+                        ng-class="{active:detail.down_voted}"
+                        animation
+                        animate-type="zoom"
+                        animate-event="animate-click"
+                        animate-duration="400"
+                        animate-selector=".animate-hand"><i
+                        class="iconfont icon-tread1 animate-hand"></i><span>踩 {{detail.down_vote_count}}</span>
+                </button>
+                <button type="button" class="btn btn-icon" ng-click="shareDialog()"><i class="iconfont icon-share"></i>
+                </button>
+                <button class="btn btn-icon pull-right detail-report" type="button" ng-click="showReportDialog(detail.id)" ng-hide="detail.mine"><i class="iconfont icon-ellipsis"></i></button>
+                <div we-share detail="detail"></div>
+            </div>
+        </div>
+        <button class="btn btn-collapse detail-btn" type="button" data-toggle="collapse" data-target="#collapse-share"
+                aria-controls="collapse-share" ng-hide="noDetail" ng-click="showShareButton()">
+            相关分享（{{viewList.total}}）<span ng-class="{'iconfont icon-hide':!isOpen,'iconfont icon-show':isOpen}"></span>
+        </button>
+        <div class="collapse relate-share in" id="collapse-share" ng-hide="noDetail">
+            <div class="well card-list">
+                <div class="channel-box box-border" ng-if="viewList.total == 0">
+                    <p class="no-info">
+                        <i class="iconfont icon-myshare"></i>还没有内容<br/>
+                    </p>
+                </div>
+                <div class="media" ng-repeat="list in viewList.result" ng-if="viewList.total > 0">
+                    <div class="media-left" ui-sref="view.detail({id:list.id})">
+                        <original-tag tags="list.tags"></original-tag>
+						 <span class="video-duration"
+                               ng-if="list.content_type=='VIDEO'">{{list.video_duration | durationFix}}</span>
+                        <a ui-sref="view.detail({id:list.id})">
+                            <a class="btn btn-icon btn-play" ng-if="list.content_type=='VIDEO'">
+                                <img src="images/play.png">
+                            </a>
+                            <img class="media-object" ng-src="{{list.content_pic_url | picTrans: '120w_68h_1e_1c.png'}}"
+                                 alt="..." ng-show="list.content_pic_url">
+                            <img class="media-object"
+                                 ng-src="{{CATEGORY_THUMBNAIL[list.category.category_code].abstract | picTrans: '120w_68h_1e_1c.png'}}"
+                                 alt="..." ng-show="!list.content_pic_url">
+                        </a>
+                    </div>
+                    <div class="media-body" ui-sref="view.detail({id:list.id})">
+                        <h4 class="media-heading"><a>{{list.subject}}</a></h4>
+                        <div class="from-info">
+                            <span class="user-name">{{list.author.name}} </span>
+                            <i class="iconfont icon-vv hidden"></i>
+                            <span class="channel-name">> {{list.channel.channel_name}}</span>
+                        </div>
+                        <div vip-approve vip="list.author"></div>
+                        <div class="other-info">
+                            <span>{{list.creation_date | created}} ·</span>
+                            <span>浏览数 {{list.view_count}}</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-icon btn-load" ng-if="!viewList.last" ng-click="more()"><i
+                        class="iconfont icon-show"></i></button>
+            </div>
+        </div>
+        <button class="btn btn-collapse detail-btn" type="button"
+                aria-expanded="false" aria-controls="collapse-remind" ng-hide="noDetail" ng-click="showRemindButton()"
+                id="comment-collapse">
+            评论（{{view.total}}）
+            <i ng-class="{'iconfont icon-hide':!showRemind,'iconfont icon-show':showRemind}"></i>
+        </button>
+        <div class="collapse" id="collapse-remind" ng-hide="noDetail">
+            <div class="well">
+                <div class="remind-box">
+                    <div class="media first-media">
+                        <div class="media-left">
+                            <a ui-sref="view.subscribe({id:user.id})" ng-show="login">
+                                <img class="media-object img-circle"
+                                     ng-src="{{user.avatar | picTrans: '32w_32h_1e_1c.png'}}"
+                                     class="media-object img-circle" ng-if="user.avatar">
+                                <img class="media-object img-circle" src="images/user/user32.png"
+                                     class="media-object img-circle" ng-if="!user.avatar">
+                                <i class="iconfont icon-vv hidden"></i>
+                            </a>
+                            <div vip-approve vip="user"></div>
+                            <img class="media-object img-circle" src="images/user/user32.png" alt="..."
+                                 ng-show="!login">
+                        </div>
+                        <div class="media-body">
+                            <form name="commentForm" ng-submit="addComment(detail.id)" after-render="bindValidator">
+                                <div class="input-group">
+                                    <input type="text" name="remind-text" class="form-control" placeholder="评论"
+                                           aria-describedby="basic-addon2">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="评论"
+                                              id="commentTextarea" ng-focus="auth($event)" required="required"
+                                              ng-model="pureComment.content" name="commentText"
+                                              onpropertychange="this.style.height = this.scrollHeight + 'px';"
+                                              oninput="if(this.scrollHeight>50){this.style.height = this.scrollHeight + 'px';}"
+                                              maxlength="200"></textarea>
+                                    <div class="text-right">
+                                        <a class="btn" ng-click="close()">取消</a>
+                                        <button class="btn" type="submit" auth-required>评论</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <ul class="media-list" ng-repeat="comment in view.result" ng-if="!comment.deleted">
+                        <li class="media">
+                            <div class="media-left">
+                                <a ui-sref="view.subscribe({id:comment.commenter.id})">
+                                    <img class="media-object img-circle"
+                                         ng-src="{{comment.commenter.avatar | picTrans: '32w_32h_1e_1c.png'}}" alt="..."
+                                         ng-if="comment.commenter.avatar">
+                                    <img class="media-object img-circle" src="images/user/user32.png" alt="..."
+                                         ng-if="!comment.commenter.avatar">
+                                    <i class="iconfont icon-vv hidden"></i>
+                                </a>
+                                <div vip-approve vip="comment.commenter"></div>
+                            </div>
+                            <div class="media-body">
+                                <div class="from-info">
+                                    <a ui-sref="view.subscribe({id:comment.commenter.id})" class="user-name"></i>
+                                        {{comment.commenter.name}}</a>
+                                </div>
+                                <div class="remind-con" show-comment comment="comment">{{comment.content}}</div>
+                                <button class="btn comment-show hidden comment-show-more" ng-click="showMoreComment($event)">展开
+                                </button>
+                                <button class="btn comment-show hidden comment-show-more" ng-click="hideComment($event)">收起
+                                </button>
+                                <div class="other-info">
+                                    <span>{{comment.creation_time | created}}</span>
+                                    <button class="link-info reply-btn" ng-click="reply(comment)" auth-required>
+                                        回复
+                                    </button>
+                                    <button class="link-info reply-btn delete-btn" auth-required
+                                            ng-if="comment.mine && comment.deletable" ng-click="showDeleteDialog(comment)">
+                                       <i class="iconfont icon-ellipsis"></i>
+                                    </button>
+                                </div>
+                                <div style="position:relative">
+                                    <button class="btn comment-show " ng-show="!comment.comments.last"
+                                            ng-click="showReply(comment.id)">展开 {{comment.comments.total}}条回复
+                                    </button>
+                                    <button class="btn comment-show" ng-click="closeReplyList(comment.id)"
+                                            ng-if="comment.comments.last && comment.comments.total > 2">收起
+                                    </button>
+                                </div>
+                                <div class="media media-child" ng-repeat="child in comment.comments.result">
+                                    <div class="media-left">
+                                        <a ui-sref="view.subscribe({id:child.commenter.id})">
+                                            <img class="media-object img-circle" ng-src="images/user/user25.png"
+                                                 alt="..." ng-if="!child.commenter.avatar">
+                                            <img class="media-object img-circle"
+                                                 ng-src="{{child.commenter.avatar | picTrans: '25w_25h_1e_1c.png'}}"
+                                                 alt="..." ng-if="child.commenter.avatar">
+                                            <i class="iconfont icon-vv hidden"></i>
+                                        </a>
+                                        <div vip-approve vip="child.commenter"></div>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="from-info">
+                                            <a ui-sref="view.subscribe({id:child.commenter.id})" class="user-name">{{child.commenter.name}}</a>
+                                        </div>
+                                        <div class="remind-con" show-comment comment="child">
+                                            <span class="childReply">@{{child.reply_name}}</span>&nbsp;{{child.content}}
+                                        </div>
+                                        <button class="btn comment-show hidden comment-show-more" ng-click="showMoreComment($event)">展开
+                                        </button>
+                                        <button class="btn comment-show hidden comment-show-more" ng-click="hideComment($event)">收起
+                                        </button>
+                                        <div class="other-info">
+                                            <span>{{child.creation_time | created}}</span>
+                                            <button class="reply-btn link-info" ng-click="reply(child)"
+                                                    auth-required>
+                                                回复
+                                            </button>
+                                            <button class="link-info reply-btn delete-btn"  ng-click="showDeleteDialog(child)" auth-required
+                                                    ng-if="child.mine && child.deletable">
+                                                <i class="iconfont icon-ellipsis"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <hr/>
+                    </ul>
+                </div>
+                <div class="text-center" ng-if="!comments.last">
+                    <button class="btn btn-link" ng-show="loadingCompleted"></button>
+                    <button class="btn btn-link btn-load" ng-hide="loadingCompleted"><img src="images/loading.gif"
+                                                                                          alt=""/> 正在加载
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="no-detail cash-box" ng-show="noDetail">
+            <div class="table-box">
+                <div class="table-cell-box no-detail-img">
+                    <div class="system-info">
+                        <img src="images/Failure.png" class="center-block">
+                        <h5>内容已被作者删除</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

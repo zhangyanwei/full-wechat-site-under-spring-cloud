@@ -1,0 +1,8 @@
+<div oc-lazy-load="['module/experience/ExperienceSearchListController']">
+    <div ng-controller="ExperienceSearchListController">
+        <div ng-include="'views/common/search-box.html'"></div>
+        <div class="search-result-title">共找到{{viewList.result.length}}个<span>"{{searchKey}}"</span>的搜索结果</div>
+        <div ng-include="'views/common/list.html'"></div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

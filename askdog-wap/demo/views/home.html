@@ -1,0 +1,28 @@
+<div class="container" oc-lazy-load="['module/experience/ExperienceListController']">
+	<div ng-controller="ExperienceListController">
+		<div class="home-search-box">
+			<input type="text"placeholder="搜索经验" class="form-control" ng-focus="showSearch()">
+			<button class="btn btn-default searchButton"><i class="iconfont icon-search"></i></button>
+		</div>
+		<div class="banner">
+			<div class="img-le"><img src="images/activity/pasta.png"  alt="" /></div>
+			<div class="img-cen"><button class="button-cen" ui-sref="view.national"><img src="images/activity/theme.png"  alt="" /></button></div>
+			<div class="img-ri"><img src="images/activity/rice.png"  alt="" /></div>
+		</div>
+
+		<div ng-include="'views/common/list.html'"></div>
+		<div class="app-download clearfix" ng-hide="appDownload">
+		<div class="pull-left app-download-cancel">
+		<a  ng-click="appDownload = true"><i class="iconfont icon-close1"></i></a>
+		</div>
+		<div class="pull-left app-download-logo">
+		<img src="images/app-download-logo.png">
+		</div>
+		<div class="pull-left app-download-logo">
+		<span> ASKDOG经验分享社区</span>
+		</div>
+		<a class="btn btn-default pull-right" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.askdog.android" target="_blank">立即下载</a>
+		</div>
+	</div>
+	<ad-analytics></ad-analytics>
+</div>

@@ -1,0 +1,23 @@
+<div oc-lazy-load="['module/dialog/ToastController']">
+    <div class="sign-container dialog-container" ng-controller="ToastController">
+        <div class="modal-content">
+            <div class="modal-header" ng-if="toast.header">
+                <button type="button" class="close" ng-click="cancel()">&times;</button>
+                <div class="modal-title">{{toast.header}}</div>
+            </div>
+            <div class="modal-body text-center">
+                <div class="toast-icon toast-success" ng-if="toast.success">
+                    <span><i class="iconfont icon-success"></i></span>
+                    <span class="toast-message" ng-if="toast.message">{{toast.message}}</span>
+                </div>
+                <div class="toast-icon toast-fail" ng-if="!toast.success">
+                    <span><i class="iconfont icon-fail"></i></span>
+                    <div class="toast-message" ng-if="toast.message" ng-bind-html="toast.message | trusted"></div>
+                </div>
+
+                <div class="toast-message toast-remarks" ng-if="toast.remarks"  ng-bind-html="toast.remarks | trusted"></div>
+                <div class="qr-code-border" ng-if="toast.qrcode"> <img src="style/images/qr-code.png" /></div>
+            </div>
+        </div>
+    </div>
+</div>

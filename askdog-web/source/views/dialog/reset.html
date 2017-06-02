@@ -1,0 +1,128 @@
+<div oc-lazy-load="['module/dialog/ResetController']">
+    <div class="login-container" ng-controller="ResetController">
+
+        <div class="user-head-wrap">
+            <div class="user-head">
+                <i class="iconfont icon-dog"></i>
+            </div>
+        </div>
+
+        <div class="modal-body modal-login-body box-border" ng-show="recoverInfo.step==1">
+            <h1>忘记密码</h1>
+            <form class="form-horizontal" name="recoverStep1Form" after-render="voucherValidator">
+                <div class="form-group" ng-show="error">
+                    <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="iconfont icon-user1 form-control-feedback"></span>
+                    <input type="text" name="voucher" class="form-control"
+                           placeholder="请输入手机号/邮件地址"
+                           required="required"
+                           ng-model="recoverInfo.voucher"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">下一步</button>
+                </div>
+            </form>
+            <div class="modal-bottom-fix"></div>
+        </div>
+
+        <div class="modal-body modal-login-body box-border" ng-show="recoverInfo.type=='phone' && recoverInfo.step==2">
+            <h1>忘记密码</h1>
+            <form class="form-horizontal" name="recoverStep2Form" after-render="codeValidator">
+                <div class="form-group" ng-show="error">
+                    <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="recover-msg-title">需要验证手机有效性</div>
+                    <div class="recover-msg">验证码的短信已经发送至手机：</div>
+                    <div class="recover-msg-light">{{recoverInfo.voucher}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-7 col-fix has-feedback">
+                        <span class="iconfont icon-favourite form-control-feedback"></span>
+                        <input name="code" type="text" class="form-control"
+                               placeholder="验证码"
+                               required="required"
+                               maxlength="6"
+                               ng-model="recoverInfo.code">
+                    </div>
+                    <div class="col-sm-4 col-fix pull-right">
+                        <button class="btn btn-primary" onclick="return false;" ng-click="requireIdentifyingCode();"
+                                ng-disabled="identifyingCodeDisabled">
+                            <span ng-if="!identifyingCodeDisabled">重新发送</span>
+                            <span ng-if="identifyingCodeDisabled">等待{{countdown}}秒</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">下一步</button>
+                </div>
+            </form>
+            <div class="modal-bottom-fix"></div>
+        </div>
+
+        <div class="modal-body modal-login-body box-border" ng-show="recoverInfo.type=='phone' && recoverInfo.step==3">
+            <h1>密码重置</h1>
+            <form class="form-horizontal" name="recoverStep3Form" after-render="recoverValidator">
+                <div class="form-group" ng-show="error">
+                    <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="iconfont icon-password form-control-feedback"></span>
+                    <input type="password" name="password" id="recoverPassword" class="form-control"
+                           placeholder="新密码（不能少于6位）"
+                           required="required"
+                           ng-model="recoverInfo.password"/>
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="iconfont icon-password form-control-feedback"></span>
+                    <input type="password" name="confirmPassword" class="form-control"
+                           placeholder="确认密码（不能少于6位）"
+                           required="required"
+                           ng-model="recoverInfo.confirmPassword"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">重置密码</button>
+                </div>
+            </form>
+            <div class="modal-bottom-fix"></div>
+        </div>
+
+
+        <!--Recover success-->
+        <div class="modal-body modal-login-body box-border reg-success-modal"
+             ng-show="recoverInfo.type=='phone' && recoverInfo.step==4">
+            <div class="recovery-phone-success">
+                <div>
+                    <b>密码重置成功!</b>
+                </div>
+                <p>
+                    <a href="javascript:void(0);" class="btn btn-primary" ng-click="goSignIn()">立即登录</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="modal-body modal-login-body box-border"
+             ng-show="recoverInfo.type=='mail' && recoverInfo.step==2">
+            <h1>忘记密码</h1>
+            <div class="recover-success">
+                <p>
+                    <span>密码重置链接已经发送至</span>
+                    <br>
+                    <a href="javascript:void(0);" class="btn-link link-primary"
+                       style="cursor:default">{{recoverInfo.voucher}}</a>
+                    <br>
+                    <span>请登录邮箱点击链接重置密码。</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="close" ng-click="cancel()">
+                <i class="iconfont icon-xxxxx"></i>
+            </button>
+        </div>
+
+    </div>
+</div>

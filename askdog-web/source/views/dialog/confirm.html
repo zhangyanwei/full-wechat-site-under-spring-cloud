@@ -1,0 +1,23 @@
+<div oc-lazy-load="['module/dialog/ConfirmController']">
+    <div class="confirm-container" ng-controller="ConfirmController">
+
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div>{{confirmInfo.message}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" ng-click="cancel()">取消</button>
+                <button class="btn btn-primary" ng-click="close()">确定</button>
+            </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+            <i class="iconfont icon-xxxxx"></i>
+        </button>
+
+    </div>
+</div>
+

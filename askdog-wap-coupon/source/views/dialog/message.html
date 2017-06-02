@@ -1,0 +1,15 @@
+<div oc-lazy-load="['module/dialog/MessageController']">
+    <div class="message-container dialog-container" ng-controller="MessageController">
+        <div class="modal-content">
+            <div class="modal-header hidden">
+                <button type="button" class="close" ng-click="cancel()">&times;</button>
+                <div class="modal-title">提醒</div>
+            </div>
+            <div class="modal-body" ng-bind-html="message | trusted"></div>
+            <div class="modal-footer clearfix">
+                <button class="btn color-blue pull-left" ng-click="cancel()">取消</button>
+                <button class="btn color-alert  btn-sure" ng-click="close()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div oc-lazy-load="['module/SearchController']">
+    <div class="search-container" ng-controller="SearchController">
+        <!-- List -->
+        <div class="main-box">
+            <div class="middle-list">
+                <div class="result-bar box-border search-result">
+                    {{viewList.total}}个“<span class="color-blue">{{key}}</span>”搜索结果
+                </div>
+                <div ng-include="'views/common/list.html'"></div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+server:
+  port: 7000
+
+logging:
+  level:
+    org.springframework.security: ERROR
+
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+feign:
+  hystrix:
+    enabled: false
+
+askdog:
+  security:
+    oauth2:
+      client:
+        client-id: askdog-web-operation
+        client-secret: Fdlw&8171!Q3e
+        access-token-uri: http://192.168.1.122:8280/oauth/token
+        user-authorization-uri: http://192.168.1.122:8280/oauth/authorize
+        scope: trusted
+      resource:
+        user-info-uri: http://192.168.1.122:8280/oauth/userinfo

@@ -1,0 +1,54 @@
+<div oc-lazy-load="['module/experience/ReportController']">
+    <div class="container report" ng-controller="ReportController">
+        <div class="common-header">
+            <a href="#">
+                <i class="iconfont icon-logo pull-left"></i>
+            </a>
+            <span>举报</span>
+        </div>
+        <div class="box-border list-group nav-list-group" id="reportForm" style="margin-top:40px;">
+            <h4 class="media-heading"> 我要举报该理由是</h4>
+            <form after-render="bindValidator">
+                <div class="list-group-item clearfix">
+                    <span class="item-til">违法内容</span>
+                    <input type="radio" class="pull-right report-radio hidden" name="reportRadio" value="BREAK_LAW" ng-checked="true" id="BREAK_LAW">
+                    <label class="report-real-radio pull-right active" ng-click="toggleRadio($event)" for="BREAK_LAW"></label>
+                </div>
+                <div class="list-group-item">
+                    <span class="item-til">违规内容</span>
+                    <input type="radio"  class="pull-right report-radio hidden" name="reportRadio" value="BREAK_RULE" id="BREAK_RULE">
+                    <label class="report-real-radio pull-right" ng-click="toggleRadio($event)" for="BREAK_RULE"></label>
+                </div>
+                <div class="list-group-item">
+                    <span class="item-til">不友善内容</span>
+                    <input type="radio" class="pull-right report-radio hidden" name="reportRadio" value="VERBAL_ATTACK" id="VERBAL_ATTACK">
+                    <label class="report-real-radio pull-right" ng-click="toggleRadio($event)" for="VERBAL_ATTACK"></label>
+                </div>
+                <div class="list-group-item">
+                    <span class="item-til">广告</span>
+                    <input type="radio" class="pull-right report-radio hidden" name="reportRadio" value="ADVERTISEMENT" id="ADVERTISEMENT">
+                    <label class="report-real-radio pull-right" ng-click="toggleRadio($event)" for="ADVERTISEMENT"></label>
+                </div>
+                <div class="list-group-item">
+                    <span class="item-til">误导性内容</span>
+                    <input type="radio" class="pull-right report-radio hidden" name="reportRadio" value="UNRELATED" id="UNRELATED">
+                    <label class="report-real-radio pull-right" ng-click="toggleRadio($event)" for="UNRELATED"></label>
+                </div>
+                <div class="list-group-item">
+                    <span class="item-til">其它</span>
+                    <input type="radio" class="pull-right report-radio hidden" name="reportRadio" value="OTHER" id="OTHER">
+                    <label class="report-real-radio pull-right" ng-click="toggleRadio($event)" for="OTHER"></label>
+                </div>
+                <div class="list-group box-border nav-list-group clearfix">
+                    <div class="report-content">
+                    <textarea class="form-control" placeholder="请提供详尽的理由说明……" ng-model="reportMessage"
+                              maxlength="50" auto-height height="111"></textarea>
+                    </div>
+                    <div class="report-save clearfix">
+                        <button class="btn btn-primary pull-right report-btn" type="submit">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

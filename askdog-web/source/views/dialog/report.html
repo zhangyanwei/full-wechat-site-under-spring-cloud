@@ -1,0 +1,73 @@
+<div oc-lazy-load="['module/dialog/ReportController']">
+    <div class="report-container" ng-controller="ReportController">
+        <div class="modal-content" ng-if="!reported">
+            <div class="modal-header">
+                <h4 class="modal-title">举报</h4>
+            </div>
+            <div class="modal-body">
+                <div class="report-title">我要举报该理由是</div>
+                <form name="reportForm" class="reportForm" after-render="bindValidator">
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" name="reportOption" value="BREAK_LAW" ng-model="reportInfo.type">
+                            <span>违法内容</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" name="reporOption" value="BREAK_RULE" ng-model="reportInfo.type">
+                            <span>违规内容</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" name="reporOption" value="VERBAL_ATTACK" ng-model="reportInfo.type">
+                            <span>不友善内容</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" name="reporOption" value="ADVERTISEMENT" ng-model="reportInfo.type">
+                            <span>广告</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" name="reporOption" value="UNRELATED" ng-model="reportInfo.type">
+                            <span>误导性内容</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="radio" name="reporOption" value="OTHER" ng-model="reportInfo.type">
+                            <span>其它</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control"
+                                  placeholder="请提供详尽的理由说明"
+                                  maxlength="50"
+                                  ng-model="reportInfo.message"
+                                  auto-height height="60"></textarea>
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-content" ng-if="reported">
+            <div class="modal-header">
+                <h4 class="modal-title">举报成功</h4>
+            </div>
+            <div class="modal-body">
+                <div class="report-msg">您的举报正在审核，我们会尽快审核完成。</div>
+            </div>
+        </div>
+
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel();">
+            <i class="iconfont icon-xxxxx"></i>
+        </button>
+    </div>
+</div>

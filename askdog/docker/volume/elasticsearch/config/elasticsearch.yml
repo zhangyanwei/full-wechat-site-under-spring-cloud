@@ -1,0 +1,9 @@
+network:
+  host: 0.0.0.0
+path:
+  plugins: /usr/share/elasticsearch/data/plugins
+cluster:
+  name: ask.dog
+script:
+  inline: on
+  indexed: on

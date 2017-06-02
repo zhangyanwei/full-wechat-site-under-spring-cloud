@@ -1,0 +1,18 @@
+<div oc-lazy-load="['module/dialog/ReplyDialogController']">
+    <div class="modal-content" ng-controller="ReplyDialogController">
+        <form name="replyForm"
+              after-render="bindValidatorReply">
+            <div class="form-group">
+                            <textarea class="form-control" placeholder="@{{comment.commenter.name}}" name="ReplyText"
+                                      required="required"
+                                      ng-model="pureComment.reply_content"></textarea>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-link  link-primary" type="submit">发布</button>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-link link-info" ng-click="cancel()">取消</a>
+            </div>
+        </form>
+    </div>
+</div>

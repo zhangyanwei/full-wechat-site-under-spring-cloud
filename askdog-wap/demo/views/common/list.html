@@ -1,0 +1,44 @@
+<div class="card-list experience-list">
+    <div class="category-nav-bar" ng-if="categoryNavTabItems">
+        <ul class="nav nav-tabs">
+            <li ng-repeat="item in categoryNavTabItems" ui-sref="view-default.category({categoryCode: item.code})"
+                ui-sref-active="active">
+                <a href="javascript:void(0);">{{item.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-repeat="list in viewList.result" ng-if="viewList.total > 0" ui-sref="view.detail({id:list.id})" class="list-main">
+        <div class="list-top">
+            <original-tag tags="list.tags"></original-tag>
+				 <span class="video-duration"
+                       ng-if="list.content_type=='VIDEO'">{{list.video_duration | durationFix}}</span>
+            <a class="btn btn-icon btn-play" ng-if="list.content_type=='VIDEO'">
+                <img src = "images/play.png" class="play">
+            </a>
+            <img class="media-object" ng-src="{{list.content_pic_url | picTrans: '375w_210h_1e_1c.png'}}" alt="..." ng-if="list.content_pic_url">
+            <img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[list.category.category_code].abstract | picTrans: '375w_210h_1e_1c.png'}}"  ng-if="!list.content_pic_url">
+        </div>
+        <div class="list-body">
+            <h4 class="media-heading"  ng-bind-html="list.subject | trusted"></h4>
+        </div>
+        <div class="list-bottom">
+            <span class="channel-name">{{list.channel.channel_name }} ·</span>
+            <span>{{list.creation_date | created}} ·</span>
+            <span>浏览数 {{list.view_count}}</span>
+        </div>
+    </div>
+    <div class="text-center" ng-if="!viewList.last && !loadFail">
+        <button class="btn btn-link" ng-show="loadingCompleted"></button>
+        <button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+    </div>
+    <div class="table-box" ng-if="loadFail">
+        <div class="table-cell-box">
+            <div class="system-info" ng-click="refreshList()">
+                <i class="iconfont icon-load-error"></i>
+                <p>加载时出错</p>
+            </div>
+        </div>
+    </div>
+    <div we-share detail="listDetail"></div>
+    <ad-analytics></ad-analytics>
+</div>

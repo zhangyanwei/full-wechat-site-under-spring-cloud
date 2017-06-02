@@ -1,0 +1,180 @@
+<div oc-lazy-load="['module/ChannelController']">
+    <div class="channel-container" ng-controller="ChannelController">
+
+        <div class="main-box" ng-if="!notFound">
+            <div class="channel-box box-border">
+                <div class="media">
+                    <div class="media-left">
+                        <img class="media-object" src="images/channel/channel.png" alt="{{channelDetial.name}}"
+                             ng-if="!channelDetial.thumbnail">
+                        <img class="media-object" ng-src="{{channelDetial.thumbnail | picTrans: '120w_120h_1e_1c.png'}}"
+                             alt="{{channelDetial.name}}"
+                             ng-if="channelDetial.thumbnail">
+                        <div class="channel-pic-layer" ng-if="channelDetial.mine">
+                            <button type="button" class="btn btn-link">修改频道图片</button>
+                            <div class="layer-bg-b"></div>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{channelDetial.name}}</h4>
+                        <button class="btn btn-icon btn-edit" ng-if="channelDetial.mine"
+                                ng-click="showUpdateChannel(channelDetial.id)">
+                            <i class="iconfont icon-pen"></i>
+                        </button>
+                        <div class="media-con">
+                            {{channelDetial.description}}&nbsp;
+                        </div>
+                        <div class="from-info">
+                            <a href="#/zone/{{channelDetial.owner.id}}">
+                                <span>{{channelDetial.owner.name}}</span>
+                                <i class="iconfont icon-vv" ng-if="channelDetial.owner.tags[0] == 'VIP'"></i>
+                            </a>
+                        </div>
+                        <div class="other-info">
+                            <span>创建于 {{channelDetial.creation_time|created}}</span>
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-info btn-sm"
+                                    ng-disabled="channelDetial.mine"
+                                    ng-if="!channelDetial.subscribed"
+                                    ng-click="subscribe()"
+                                    auth-required>
+                                <i class="iconfont icon-subscribe"></i>
+                                <span>订阅频道</span>
+                            </button>
+                            <button type="button" class="btn btn-info btn-sm cancel-subscribe"
+                                    ng-if="channelDetial.subscribed"
+                                    ng-click="subscribe()"
+                                    ng-mouseover="placeHolder=true"
+                                    ng-mouseout="placeHolder=false"
+                                    ng-init="placeHolder=false"
+                                    auth-required>
+                                <i class="iconfont"
+                                   ng-class="{true:'icon-quxiaodingyue',false:'icon-yidingyue'}[placeHolder]"></i>
+                                <span>{{placeHolder? '取消订阅' : '已订阅'}}</span>
+                            </button>
+                            <button type="button" class="btn btn-info btn-info-border btn-sm">
+                                {{channelDetial.subscriber_count}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-box box-border" ng-if="viewList.total == 0">
+                <p class="no-info">
+                    <i class="iconfont icon-myshare"></i>频道还没有内容<br/>点击上方分享经验吧
+                </p>
+            </div>
+
+
+            <div class="middle-list">
+                <div class="media box-border" ng-repeat="item in viewList.result">
+                    <div class="from-channel">来自于
+                        <a href="#/category{{item.category.code | categoryLink}}"
+                           class="link-info">{{item.category.name}}</a>
+                    </div>
+                    <div class="media-left">
+                        <div ng-if="item.content.type=='VIDEO'">
+                            <original-tag tags="item.tags"></original-tag>
+                            <a class="btn btn-icon btn-play" href="#/exp/{{item.id}}">
+                                <i class="icon-play-panel"></i>
+                                <i class="iconfont icon-play02"></i>
+                            </a>
+                            <span class="video-duration">{{item.content.video.duration | durationFix}}</span>
+                        </div>
+                        <a href="#/exp/{{item.id}}">
+                            <img ng-if="item.thumbnail" class="media-object"
+                                 ng-src="{{item.thumbnail | picTrans: '197w_110h_1e_1c.png'}}"
+                                 alt="{{item.subject}}">
+                            <img ng-if="!item.thumbnail" class="media-object"
+                                 ng-src="{{CATEGORY_THUMBNAIL[item.category.code].abstract | picTrans: '197w_110h_1e_1c.png'}}"
+                                 alt="{{item.subject}}"/>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a class="subject" href="#/exp/{{item.id}}">{{item.subject}}</a>
+                        </h4>
+
+                        <div class="other-info channel-other-info pull-left">
+                            <span>{{item.creation_time|created}} ·</span>
+                            <span>浏览数 {{item.view_count}}</span>
+                        </div>
+
+                        <div ng-if="channelDetial.mine" class="dropdown channel-other-info pull-right">
+                            <a class="btn btn-link btn-sm link-info" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="iconfont icon-delete"></i>
+                                <span>删除</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dLabel">
+                                <a class="btn btn-link btn-confirm"
+                                   ng-click="deleteExperience(item.id)">
+                                    确定
+                                </a>
+                                <a class="btn btn-link btn-cancel">取消</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix text-center">
+                    <button class="btn btn-ghost" ng-click="paging()"
+                            ng-show="viewList && !viewList.last && loadingCompleted">
+                        <span>查看更多</span>
+                    </button>
+                    <button class="btn btn-ghost" ng-show="!loadingCompleted && !loadingFailed">
+                        <img src="images/loading.gif" alt="..."/>
+                        <span>正在加载</span>
+                    </button>
+                    <button class="btn btn-ghost" ng-show="loadingFailed" ng-click="refreshData()">
+                        <span>请重试</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- recommend -->
+            <div class="rig-box" ng-if="viewList.total > 0">
+                <div class="recommend panel panel-default box-border">
+                    <div class="panel-heading">相关频道</div>
+                    <div class="panel-body">
+                        <div class="media" ng-repeat="item in channelRelatedList.result">
+                            <div class="media-left">
+                                <a href="#/channel/{{item.id}}">
+                                    <img class="media-object" src="images/channel/channel.png" alt="{{item.subject}}"
+                                         ng-if="!item.channel_pic_url">
+                                    <img class="media-object"
+                                         ng-src="{{item.channel_pic_url | picTrans: '25w_25h_1e_1c.png'}}"
+                                         alt="{{item.subject}}"
+                                         ng-if="item.channel_pic_url">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="#/channel/{{item.id}}">{{item.subject}}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" ng-if="channelRelatedList && !channelRelatedList.last">
+                        <a href="javascript:void(0);" class="link-info"
+                           ng-click="channelRelatedPaging()">换一批</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-box" ng-if="notFound">
+            <div class="middle-box box-border">
+                <div class="stytem-info-box">
+                    <i class="iconfont icon-fail"></i>
+                    <p>频道已被作者删除</p>
+                </div>
+            </div>
+        </div>
+
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

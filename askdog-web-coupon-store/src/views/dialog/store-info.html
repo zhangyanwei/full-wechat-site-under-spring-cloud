@@ -1,0 +1,111 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/dialog/StoreInfoController']">
+        <div class="modal-content clearfix" ng-controller="StoreInfoController">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()">×</button>
+                <h4 class="modal-title">{{message.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" after-render="bindValidator">
+                    <div class="form-view active">
+                        <div class="form-group" ng-show="error">
+                            <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="store_name">商户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="store_name" placeholder="请填写商户名" name="storeName" ng-model="storeDetail.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="store_address">商户地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="store_address" placeholder="请填写商户详细地址" name="storeAddress" ng-model="storeDetail.address">
+                                <a id="map-holder" after-render="popover" style="cursor: pointer;"><i class="iconfont icon-address"></i>标记位置信息</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">联系方式</label>
+                            <div class="form-inline col-sm-10">
+                                <input type="text" class="form-control" placeholder="店铺前台电话" name="phone" ng-model="storeDetail.phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">联系人</label>
+                            <div class="form-inline col-sm-10">
+                                <input type="text" class="form-control" placeholder="姓名" name="contactName" ng-model="storeDetail.contacts_user_detail.name">
+                                <input type="text" class="form-control" placeholder="电话" name="contactPhone" ng-model="storeDetail.contacts_user_detail.phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">商户信息</label>
+                            <div class="form-inline col-sm-10">
+                                <input type="text" class="form-control"  placeholder="商户类别" name="storeType" ng-model="storeDetail.type">
+                                <input type="text" class="form-control"  placeholder="人均消费" name="money" ng-model="storeDetail.cpc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="store_business_time">营业时间</label>
+                            <div class="col-sm-10">
+                                <input id="store_business_time" type="text" class="form-control" ng-model="storeDetail.business_hours" name="hours">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="message.addStore">
+                            <label class="col-sm-2 control-label" for="pic_file">商户图片</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="pic_file" ng-model="storeDetail.cover_image" name="picFile"
+                                       onchange="angular.element(this).scope().videoLoad(0)" class="imageLoad">
+                                <small class="help-block">目前仅支持.jpg, jpeg, .png格式的图片</small>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="message.addStore">
+                            <label class="col-sm-2 control-label" for="pic_file">商户图片</label>
+                            <div class="col-sm-10">
+                                <input type="file"  ng-model="storeDetail.cover_image" name="picFile1"
+                                       onchange="angular.element(this).scope().videoLoad(1)" class="imageLoad">
+                                <small class="help-block">目前仅支持.jpg, jpeg, .png格式的图片</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="store_description">商户说明</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" id="store_description" ng-model="storeDetail.description" name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-view">
+                        <div class="form-group" ng-show="createError">
+                            <div class="alert alert-danger text-center alert-shake">{{createError}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="store_name">商户管理者</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input readonly type="text" class="form-control" placeholder="请创建用户"
+                                           ng-model="createdUser.nickname">
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" ng-click="createUser($event)">创建用户</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-default" ng-click="cancel()">取消</a>
+                        <a type="button" class="btn btn-default hidden" id="btn_previous" ng-click="previous()">上一步</a>
+                        <button type="submit" class="btn btn-primary" id="btn_next" ng-show="message.addStore">下一步</button>
+                        <button type="button" class="btn btn-primary hidden disabled" id="btn_add" ng-click="createStore()">添加</button>
+                        <button type="submit" class="btn btn-primary" id="btn-update" ng-show="!message.addStore">保存</button>
+                    </div>
+                </form>
+            </div>
+            <div class="store-info-map hidden" id="map-info" style="width: 100%; height: 100%;">
+                <button type="button" class="close" ng-click="closeMap()">×</button>
+                <!--<div id="map-container" style="width: 100%; height: 100%;"></div>-->
+                <!--<iframe id="mapPage" width="600px" height="875px" frameborder=0-->
+                        <!--src="http://apis.map.qq.com/tools/locpicker?search=1&type=1&key=UDRBZ-7NAHX-DPF4L-7SCMM-NIIPF-KNBKV&referer=coupon.askdog">-->
+                <!--</iframe>-->
+            </div>
+        </div>
+    </div>
+</div>

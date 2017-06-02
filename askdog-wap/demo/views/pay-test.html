@@ -1,0 +1,28 @@
+<div oc-lazy-load="['module/PayController']">
+    <div ng-controller="PayController">
+        <div class="pay cash-box" ng-hide="paySuccess">
+            <div>
+                <div class="panel-default box-border">
+                    <div class="panel-heading text-center">
+                        <h4>支付详情</h4>
+                    </div>
+                </div>
+                <div class="panel box-border">
+                    <div class="panel-heading pay-video">
+                       付费视频
+                    </div>
+                    <div class="pay-subject">
+                       {{orderInfo.subject}}
+                    </div>
+                    <div class="pay-subject pay-money">
+                        金额 {{orderInfo.price / 100}}元
+                    </div>
+                </div>
+                <div class="container pay-button">
+                    <button class="btn btn-primary btn-lg btn-block pay-btn" ng-click="pay()">立即支付</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

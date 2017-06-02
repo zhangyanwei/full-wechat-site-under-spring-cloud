@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title>华兹葡萄酒</title>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+
+    <script>
+
+        var request = function(method, url, data, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.status > 500) {
+                    window.location.href = "/#/maintenance"
+                } else if (this.readyState === 4) {
+                    callback.call(this)
+                }
+            });
+            xhr.open(method, url);
+            xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+            xhr.setRequestHeader("cache-control", "no-cache");
+            xhr.send(data);
+        };
+
+        function post(url, data, callback) {
+            request("POST", url, data, callback);
+        }
+
+        post("/api/wechat/jsapi/config", location.href.split('#')[0], function () {
+            var config = JSON.parse(this.responseText);
+            wx.config({
+                appId: config.app_id,
+                timestamp: config.timestamp,
+                nonceStr: config.nonce_str,
+                signature: config.signature,
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo',
+                    'onMenuShareQZone'
+                ]
+            });
+
+            wx.ready(function () {
+                var options = {
+                    title: '华兹葡萄酒,纯葡萄牙原装进口，绝对货真价实',
+                    imgUrl: /(\w+:\/\/[^/#?]+)(\/[^?#]*)?(?:\?([^#]*))?(?:#([^?]+))?(?:\?(.+))?/.exec(window.location.href)[1] + '/vz/logo.png',
+                    desc: '来自葡萄牙上好的栽种之地杜罗产区DOC,具有良好的国际声誉，任何产品都可溯源。',
+                    type: 'link'
+                };
+                wx.onMenuShareTimeline(options);
+                wx.onMenuShareAppMessage(options);
+                wx.onMenuShareQQ(options);
+                wx.onMenuShareWeibo(options);
+                wx.onMenuShareQZone(options);
+            });
+        });
+
+    </script>
+
+    <style>
+
+        .container {
+            text-align: center;
+            margin-top: 10%;
+        }
+
+        .shadow-h1 {
+            font-size: 2em;
+            color: #000;
+            margin-bottom: 0.3em;
+        }
+
+        h1 {
+            font-size: 1em;
+            color: #555;
+        }
+
+        h1 > a {
+            color: #333;
+        }
+
+        .title {
+            margin: 20px 0 10px;
+            color: rgba(200,50,10,1);
+            font-weight: 800;
+            border: rgba(200,50,10,1) 1px solid;
+            padding: 5px;
+        }
+
+        .intros > img {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="shadow-h1">创新是一种习惯</div>
+    <h1>
+        <a href="http://z.m.jd.com/project/details/69803.html" >京东众筹项目</a>，纯葡萄牙原装进口，绝对货真价实。
+    </h1>
+    <video src="vaz.mp4" width="100%" poster="vz/vz.png">
+        抱歉，您的浏览器不支持内嵌视频，不过不用担心，你可以直接点击<a href="vaz.mp4">视频链接</a>尝试播放。
+    </video>
+    <div class="title">详细介绍</div>
+    <div class="intros">
+        <img src="vz/1.jpg">
+        <img src="vz/2.jpg">
+        <img src="vz/3.jpg">
+        <img src="vz/4.jpg">
+        <img src="vz/5.jpg">
+        <img src="vz/6.jpg">
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<div oc-lazy-load="['module/BannerController']">
+    <div class="banner-container" ng-controller="BannerController">
+
+        <div class="banner-box" ng-show="!bannerClosed">
+            <div id="ad-carousel" class="carousel slide" data-ride="carousel" carousel>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#ad-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#ad-carousel" data-slide-to="1"></li>
+                    <li data-target="#ad-carousel" data-slide-to="2"></li>
+                    <li data-target="#ad-carousel" data-slide-to="3"></li>
+                    <!--<li data-target="#ad-carousel" data-slide-to="4"></li>-->
+                </ol>
+                <div class="carousel-inner " role="listbox">
+                    <!--<div class="item item-1 active">
+                        <a href="#/experience/share/video?activity=MOON_FESTIVAL" target="_blank" class="link">
+                            <img src="images/banner/04.png"/>
+                        </a>
+                    </div>-->
+                    <div class="item item-2">
+                        <a href="#/activity" target="_blank" class="link">
+                            <img src="images/banner/00.png"/>
+                        </a>
+                    </div>
+                    <div class="item item-3 ">
+                        <a href="javascript:void(0);" class="link">
+                            <img src="images/banner/01.png"/>
+                        </a>
+                    </div>
+                    <div class="item item-4">
+                        <a href="javascript:void(0);" class="link">
+                            <img src="images/banner/02.png"/>
+                        </a>
+                    </div>
+                    <div class="item item-5  active">
+                        <a href="javascript:void(0);" class="link">
+                            <button class="button-1" ui-sref="layout.view-footer.autumn"><img class="item-wi" src="images/banner/banner-food.png"/></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="close" ng-click="close()">
+                <i class="icon iconfont">&#xe63a;</i>
+            </div>
+        </div>
+
+    </div>
+</div>

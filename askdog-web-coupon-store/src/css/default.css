@@ -1,0 +1,583 @@
+@import url("animation.css");
+
+/*
+ * Base structure
+ */
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    font-family: "Helvetica Neue", "Helvetica, Arial", "Microsoft YaHei", "PingFang SC", "Heiti SC", 'WenQuanYi Micro Hei' !important;
+    background: #fff;
+}
+
+* {
+    transition: all 0.2s ease;
+}
+
+.donut * {
+    transition: initial;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: transparent;
+}
+
+/*
+ * Global add-ons
+ */
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.page.loading {
+    margin-top: -50px;
+}
+
+.user.avatar {
+    padding: 0;
+}
+
+.user.entry.dropdown-menu {
+    margin-top: 12px;
+    margin-right: 15px;
+}
+
+.user.entry.menu {
+    border-top: #ddd 1px solid;
+    padding-top: 5px;
+}
+
+.verify.row {
+    margin: 15px 0;
+    max-width: 642px;
+    padding: 20px;
+    border: 1px solid #f70;
+    background: #f5f5ff;
+}
+
+.coupon.history tr > td {
+    line-height: 3em;
+}
+
+.coupon.history tr > td > img {
+    height: 3em;
+}
+
+ul.products .information {
+    margin-left: 200px;
+}
+
+ul.products .information > .basic {
+    min-height: 145px;
+}
+
+ul.products .information > .basic > p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 4.5em;
+}
+
+ul.products .video-wrap {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    ul.products .video-wrap {
+        width: 200px;
+    }
+}
+
+ul.products .video-wrap > video {
+    width: 100%;
+}
+
+ul.stores .information {
+    margin-left: 170px;
+}
+
+ul.stores .information > .basic {
+    min-height: 170px;
+}
+
+ul.stores .information ul.attributes {
+    padding: 0;
+}
+
+ul.stores .information ul.attributes > li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+ul.stores .information ul.attributes > li > .glyphicon {
+    margin-right: 5px;
+}
+
+ul.stores .pic-wrap {
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    ul.stores .pic-wrap > img {
+        width: 160px;
+    }
+}
+
+ul.stores > li.item:hover > .description {
+    display: block;
+}
+
+ul.stores > li.item > .description {
+    display: none;
+    position: absolute;
+    left: 102%;
+    top: -17px;
+    width: 50%;
+}
+
+ul.stores > li.item > .description > p {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+ul.list {
+    max-width: 1400px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+ul.list > li.item {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 6px;
+    list-style-type: none;
+}
+
+ul.list > li.item:hover {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+ul.list > li.item .information .basic > h3 {
+    margin-top: 0;
+}
+
+ul.list > li.item .information .basic > .panel-footer {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    left: 15px;
+}
+
+ul.list > li.item .information .basic > .panel-footer .control-item {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+ul.list > li.item .information .basic > .panel-footer .glyphicon-qrcode {
+    top: 2px;
+}
+
+ul.list > li.item .information .basic > .panel-footer .glyphicon-qrcode > .qrcode {
+    display: none;
+    width: 180px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+ul.list > li.item .information .basic > .panel-footer .glyphicon-qrcode:hover > .qrcode {
+    display: block;
+}
+
+form .form-view {
+    position: absolute;
+    right: 1000%;
+}
+
+form .form-view.active {
+    position: static;
+}
+
+form .coupon.value {
+    margin: 0 5px;
+}
+
+.modal ul.search {
+    padding: 0;
+    margin: 15px 0 0;
+}
+
+.modal ul.search > li {
+    list-style-type: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.modal ul.search > li:hover {
+    background-color: #EEE;
+}
+
+.modal ul.search > li > img {
+    width: 30px;
+    margin-right: 5px;
+}
+
+/*
+ * Error style
+ */
+.form-group.has-error .error {
+    color: #a94442;
+    font-size: 12px;
+}
+
+/*
+ * Sidebar
+ */
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        display: block;
+        padding: 70px 20px 20px;
+        background-color: #eee;
+        width: 164px;
+        overflow: hidden;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-left: -20px;
+    margin-right: -21px;
+    margin-bottom: 20px;
+}
+
+.nav-sidebar.user {
+    margin-top: -20px;
+    margin-bottom: 0;
+    padding: 10px 20px;
+}
+
+.nav-sidebar > li > a {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #333;
+}
+
+.nav-sidebar > .active > a {
+    color: #fff;
+    background-color: #428bca;
+}
+
+.nav-sidebar > .active > a:focus {
+    text-decoration: none;
+    background-color: #428bca;
+}
+
+/*
+ * Main content
+ */
+.main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-left: 40px;
+        padding-right: 40px;
+        margin-left: 160px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.placeholders h4 {
+    margin-bottom: 0;
+}
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+.placeholder img {
+    border-radius: 50%;
+}
+
+.btn {
+    border: none;
+    outline: none !important;
+    box-shadow: 0px 1px 2px #bbb;
+    padding: 7px 12px;
+}
+
+.btn-default {
+    background-color: #eee;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #f70;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #f90;
+    border: none;
+}
+
+.btn-primary:active, .btn-primary:focus {
+    color: #fff;
+    background-color: #f70 !important;
+    border: none;
+}
+
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #f70;
+    border-right: 5px solid #555;
+}
+
+a {
+    color: #f70;
+}
+
+a:hover {
+    color: #f40;
+}
+
+nav.pagination-wrapper {
+    text-align: center;
+}
+
+.pagination > .active > a {
+    background: #f70;
+    border-color: #f70;
+}
+
+.pagination > .active > a:hover {
+    background: #f90;
+    border-color: #f90;
+}
+
+.modal-header {
+    border-bottom: none;
+    background: #f70;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+}
+
+.store-tile {
+    position: relative;
+    display: inline-block;
+    height: 150px;
+    overflow: hidden;
+    vertical-align: top;
+    float: left;
+    box-shadow: 0px 2px 8px #555;
+    margin: 6px;
+}
+
+.store-tile:hover {
+    cursor: pointer;
+}
+
+.store-tile .store-name {
+    color: #fc0;
+    font-size: 20px;
+    padding: 8px 0px;
+    display: block;
+    text-shadow: 0px 1px 2px #000;
+}
+
+.store-tile .store-cover {
+    height: 150px;
+    width: 150px;
+    z-index: 10;
+    float: left;
+}
+
+.store-tile .store-toolbar {
+    position: absolute;
+    width: 0;
+    left: 0;
+    padding: 10px 0px;
+    height: 100%;
+    background: #000;
+}
+
+.store-toolbar-item {
+    color: #ec5;
+    margin: 3px 6px;
+    float: right;
+}
+
+.store-toolbar-item:hover {
+    color: #f70;
+    transform: rotate(45deg);
+}
+
+.store-tile:hover .store-toolbar {
+    width: 26px;
+}
+
+.store-tile .store-description {
+    background: #222;
+    color: #ec5;
+    padding: 0px 12px;
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+}
+
+.store-tile .store-description-item {
+    padding: 8px 0px;
+    border-bottom: 1px dashed #555;
+}
+
+.store-tile .store-description-item:last-child {
+    border: none;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(200, 200, 200, 1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 150, 0, 0.9);
+}
+
+.modal-backdrop ~ #main {
+    filter: blur(10px);
+    transition: filter 0.5s ease;
+}
+
+.input-group .input-group-btn {
+    vertical-align: top;
+}
+
+.pure-modal {
+    text-align: center;
+}
+
+.form-control {
+    border: none;
+    outline: 0;
+    padding: 6px;
+    background: transparent;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    border-bottom: 1px solid #aaa;
+    border-radius: 0px;
+}
+
+.form-control:focus,
+.form-control:active,
+.form-control:hover,
+.input-group-addon:focus,
+.input-group-addon:hover,
+.has-success .input-group-addon:focus,
+.has-success .input-group-addon:hover,
+.has-success .form-control:focus,
+.has-success .form-control:hover {
+    color: #f70;
+    box-shadow: none;
+    border-bottom: 1px solid #f70;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background: transparent;
+}
+
+.has-success .form-control,
+.has-success .input-group-addon {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #aaa;
+}
+
+.has-success .input-group-addon {
+    color: #555;
+    background: transparent;
+}
+
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label {
+    color: inherit;
+}
+
+.has-feedback .form-control {
+    padding-right: 6px;
+}
+
+.input-group-addon {
+    padding: 5px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    border-radius: 0px;
+}
+
+.has-error .form-control,
+.has-error .input-group-addon,
+.has-error .form-control:focus {
+    border: none;
+    color: #f55;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    background: #fdd;
+}
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+    color: #333;
+}

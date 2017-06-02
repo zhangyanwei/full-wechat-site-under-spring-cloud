@@ -1,0 +1,110 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/StoreController','lib/swiper/css/swiper.css']">
+        <div class="store-container" ng-controller="StoreController">
+            <div class="business">
+                <div class="business-contain">
+                    <div class="business-item store-contain" ng-show="loadingCompleted">
+                        <div class="video-layout" ng-if="detail.special_product">
+                            <video-view content="detail.special_product"></video-view>
+                            <div class="store-video-time">
+                                {{::detail.special_product.video.source.duration | durationFix}}
+                            </div>
+                        </div>
+
+                        <div ng-if="!detail.special_product" class="store-nothing"><i class="iconfont icon-shipin"></i>该餐厅还没有上传视频</div>
+                        <div class="clearfix info-block">
+                            <div class="store-name-detail">
+                                <div class="store-name">{{::detail.name}}</div>
+                                <i class="iconfont icon-feature">
+                                    <div class="store-feature">{{::detail.type}}</div>
+                                </i>
+                                <i class="iconfont icon-money">
+                                    <div class="store-money">{{::detail.cpc}}/人</div>
+                                </i>
+                            </div>
+
+
+                            <a class="pull-right store-coupon" auth-required="!!detail.coupon_normal" ng-click="receiveCoupon(detail.id)"
+                               ng-if="detail.special_product && detail.special_product.coupons.length > 0">
+                                <div class="block">
+                                    <div class="centered">
+                                        <div class="store-coupon-normal" ng-if="detail.coupon_normal">领取￥{{::detail.coupon_normal}}优惠券</div>
+                                        <div class="store-coupon-forwarded" ng-if="detail.coupon_forwarded" ng-style="!detail.coupon_normal && {'font-size': '14px'}">转发领取{{::detail.coupon_forwarded}}元优惠券</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="store-vote pull-right" ng-if="detail.special_product">
+                                <a class="store-detail-vope" href="javascript:void(0);" ng-click="vote()" auth-required>
+                                    <i class="iconfont" ng-class="{true:'icon-praise1',false:'icon-praise'}[detail.special_product.vote== 'UP']" ng-style="voteAnimation"></i><br>
+                                    <span>{{detail.special_product.statistics.up_vote_count}}</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="clearfix business-detail info-block">
+                            <table width="100%">
+                                <tr>
+                                    <td width="85%">
+                                        <div class="store-address"
+                                             map-location
+                                             location="detail.location"
+                                             name="detail.name"
+                                             address="detail.address">
+                                            <i class="iconfont icon-place"></i>
+                                            {{::detail.address}}
+                                        </div>
+                                    </td>
+                                    <td width="15%">
+                                        <div class="store-phone "><a href="tel:{{::detail.phone}}"><i
+                                                class="iconfont icon-tel"></i></a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="event-banner" ng-repeat="event in detail.events" ui-sref="layout.view.event({id: event.id})">
+                            <div class="event-banner-background">
+                                <div class="event-banner-inner">
+                                    <span class="event-banner-name">{{::event.name}}</span>
+                                    <div class="event-action">
+                                        <div class="event-action-splitter"></div>
+                                        <span>抢</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="store-time">营业时间</div>
+                            <div class="store-time-detail">{{::detail.business_hours}}</div>
+                        </div>
+                        <div ng-if="detail.special_product.pictures.length > 0" class="store-dish-contain info-block">
+                            <div class="store-time">菜品推荐</div>
+                            <div class="store-dish-recommend">
+                                <div class="swiper-container" swiper swiper-container=".swiper-container">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" ng-repeat="item in detail.special_product.pictures"
+                                             style="position: relative;background-size: cover;background-position: center;background-color: #eee"
+                                             ng-style="{'background-image':'url({{::item.url | picTrans: '191h_1e_1c.png'}})'}">
+                                            <div class="special-name" ng-if="item.name!= ''">
+                                                <span class="special-span">{{::item.name}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                                <div class="store-recommend-none" ng-if="detail.special_product.pictures.length == 0">
+                                    <i class="iconfont icon-wenjianjia"></i>
+                                    该商家暂时没有菜品推荐
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!loadingCompleted">
+                        <div class="loading"> <span></span> <span></span> <span></span> <span></span> <span></span> </div>
+                    </div>
+                </div>
+            </div>
+            <wechat-share option="wxShareOption()" shared="wxShared()" link-callback="initWxShare(link)"></wechat-share>
+        </div>
+    </div>
+</div>

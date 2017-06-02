@@ -1,0 +1,51 @@
+<div oc-lazy-load="['module/store/ProductManagementController']">
+    <div class="row" ng-controller="ProductManagementController">
+        <div class="main a-fadeinR">
+            <h1 class="page-header">商品管理</h1>
+            <div>
+                <button type="button" class="btn btn-default btn-primary" ng-click="openCreateModal()">添加商品</button>
+            </div>
+            <ul class="products list">
+                <li class="item" ng-repeat="item in data.result">
+                    <div class="pull-left video-wrap">
+                        <video ng-src="{{item.video.transcode_videos[0].url | trustSrc}}"
+                               controls="controls">
+                            您的浏览器不支持视频预览，建议您使用360，百度，QQ等最新浏览器
+                        </video>
+                    </div>
+                    <div class="row information">
+                        <div class="col-md-6 col-sm-12 hidden-xs basic">
+                            <h3>{{item.name}}</h3>
+                            <p>{{item.description}}</p>
+                            <div class="panel-footer">
+                                创建日期：创建日期：{{item.creation_time|date:'yyyy/MM/dd'}}
+                                <div class="pull-right ">
+                                    <a class="control-item" ng-click="updateStore(item.id)">修改</a>
+                                    <a class="control-item" ng-click="deleteProduct(item.id)">删除</a>
+                                    <div class="glyphicon glyphicon-qrcode" ng-if="item.deleted == false">
+                                        <div class="qrcode thumbnail">
+                                            <qr-code width="170" height="170" text="'/#/detail/' + item.id"></qr-code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden-sm hidden-xs">
+                            <div class="row" ng-repeat="coupon in item.coupons">
+                                <div class="alert alert-success">
+                                    <span class="label label-warning" ng-if="coupon.type=='NORMAL'">普通</span>
+                                    <span class="label label-danger" ng-if="coupon.type=='FORWARDED'">转发</span>
+                                    {{coupon.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <nav class="pagination-wrapper">
+                <ul ng-if="data.total" uib-pagination boundary-links="true" total-items="data.total" items-per-page="data.size" ng-model="page" ng-change="goPage(page - 1)" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </nav>
+        </div>
+    </div>
+</div>

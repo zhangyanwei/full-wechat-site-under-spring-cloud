@@ -1,0 +1,141 @@
+<div oc-lazy-load="['module/my/MyChannelController']">
+    <div ng-controller="MyChannelController" class="my-channels" style="margin-top:43px">
+     <div class="common-header">
+            <a href="#">
+                <i class="iconfont icon-logo pull-left"></i>
+            </a>
+            <span>{{detail.name}}</span>
+        </div>
+    <div ng-hide="updateMyChannel">
+    	<div class="mychannel box-border" >
+            <div class="media channel-card" ng-click="updateChannel(detail)">
+                <div class="media-left">
+
+                    <img ng-src="{{detail.thumbnail | picTrans: '58w_58h_1e_1c.png'}}" class="media-object" alt="" ng-if="detail.thumbnail"/>
+                    <img src="images/channel58.png" class="media-object" alt="" ng-if="!detail.thumbnail"/>
+                </div>
+                <div class="channel-body">
+                    <h4 class="media-heading">{{detail.name}}</h4>
+                    <div class="from-info" ng-show="!detail.mine">
+                        <a class="user-name">{{detail.owner.name}}</a> <i class="iconfont icon-vv hidden"></i>
+
+                    </div>
+                      <div vip-approve vip="detail.owner"></div>
+                    <div class="other-info">
+                        <span>创建于{{detail.creation_time | date:"yyyy/MM/dd"}}</span>
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            <button type="button" class="btn btn-info subscribe" ng-show="!detail.mine && !detail.subscribed" ng-click="subscribeChannel()" auth-required><i class="iconfont icon-dingyue"></i>订阅频道</button>
+                            <button type="button" class="btn btn-info subscribe cancel-subscribe" ng-show="!detail.mine && detail.subscribed" ng-click="cancelSubscribe()"><i class="iconfont icon-noun6156cc"></i>已订阅</button>
+                            <button type="button" class="btn btn-info subscribe  disabled" ng-show="detail.mine"><i class="iconfont icon-dingyue"></i>订阅频道</button>
+                            <button type="button" class="btn btn-info btn-info-border subscribe-count">{{detail.subscriber_count}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div we-share detail="shareDetail"></div><hr>
+            <div class="channel-abstract" ng-show="detail.description">
+                    <a class="link-channel-abstract" role="button"  aria-expanded="false" aria-controls="collapseExample"
+                         ng-click="showDescription()" id="showDetail">
+                       <i class="iconfont icon-show"></i>
+                    </a>
+
+                    <div class="collapse" id="collapseExample" ng-click="hideDescription()">
+                        <div class="well">
+                            {{detail.description}}
+                        </div>
+                    </div>
+                </div>
+    	</div>
+        <ad-analytics></ad-analytics>
+    </div>
+    <div class=" card-list" ng-hide="updateMyChannel">
+        <div class="container card-list card-list-empty" ng-if="viewList.total == 0">
+           <div class="system-info">
+               <i class="iconfont icon-myshare"></i>
+               <p ng-show="detail.mine">频道还没有内容</p>
+                <p ng-show="!detail.mine">他还未发布任何经验</p>
+           </div>
+       </div>
+        <div class=" card-list experience-list">
+        <div ng-repeat="list in viewList.result" ng-if="viewList.total > 0" ui-sref="view.detail({id:list.id})" class="list-main">
+            <div class="list-top">
+                <original-tag tags="list.tags"></original-tag>
+				 <span class="video-duration"
+                       ng-if="list.content.type=='VIDEO'">{{list.content.video.duration | durationFix}}</span>
+                    <img src = "images/play.png" ng-if="list.content.type=='VIDEO'" class='btn-play'>
+                <img class="media-object" ng-src="{{list.thumbnail | picTrans: '120w_68h_1e_1c.png'}}" alt="..." ng-if="list.thumbnail">
+                <img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[list.category.category_code].abstract | picTrans:'120w_68h_1e_1c.png'}}"  ng-if="!list.thumbnail">
+            </div>
+            <div class="list-body">
+                <h4 class="media-heading"><a>{{list.subject}}</a></h4>
+            </div>
+            <div class="list-bottom">
+                <span class="channel-name">{{detail.name }} ·</span>
+                <span>{{list.creation_time | created}} ·</span>
+                <span>浏览数 {{list.view_count | count}}</span>
+
+                <button ng-click="deleteExperience(experience.id)" class="btn-mychannel" ng-show="detail.mine"><i class="iconfont icon-ellipsis"></i></button>
+            </div>
+        </div>
+        </div>
+
+           <div class="clearfix text-center" ng-if="!viewList.last">
+               <button class="btn btn-link" ng-show="loadingCompleted"></button>
+               <button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+           </div>
+       </div>
+
+           <!-- Modal -->
+
+        <div ng-show="updateMyChannel">
+            <ul class="list-group nav-list-group" ng-hide="updateTitle || updateDescription" >
+            <li class="list-group-item">
+                <button class="btn btn-link" type="button" ng-click="updateTitle = true">
+                    修改标题
+                    <i class="iconfont icon-you"></i>
+                </button>
+            </li>
+             <li class="list-group-item">
+                <button class="btn btn-link" type="button" ng-click="updateDescription = true">
+                    修改描述
+                    <i class="iconfont icon-you"></i>
+                </button>
+             </li>
+         </ul>
+            <div class="container" ng-show="updateTitle" >
+             <div class="reset-box box-border">
+                <form  role="form" class="form-horizontal" after-render="bindValidator" ng-submit="ChannelUpdate()">
+                    <div class="form-group">
+                        <label class=" col-xs-4 control-label" for="">修改标题</label>
+                         <div class="title-input"><input type="text" class="form-control" placeholder="" ng-model="detail.name"  maxlength="14"
+                                name='channelName' required>
+                             <i class="iconfont icon-close1" ng-click="detail.name=''"></i>
+                          </div>
+
+                    </div>
+                    <div class="form-group form-group-last">
+                        <div class=""><button class="btn btn-primary pull-right">保存</button></div>
+                    </div>
+                </form>
+               </div>
+            </div>
+            <div class="container" ng-show="updateDescription" >
+                 <div class="reset-box box-border">
+                    <form  role="form" class="form-horizontal" after-render="bindValidator" ng-submit="ChannelUpdate()">
+                        <div class="form-group form-group-description">
+                            <label class="control-label" for="">修改描述</label>
+                             <div class="title-input"> <textarea class="form-control" rows="5" ng-model="detail.description" auto-height height="111"></textarea>
+                                <i class="iconfont icon-close1" ng-click="detail.description=''"></i>
+                             </div>
+                        </div>
+                        <div class="form-group form-group-last">
+                            <div class=""><button class="btn btn-primary pull-right">保存</button></div>
+                        </div>
+                    </form>
+                   </div>
+             </div>
+        </div>
+        </div>
+    </div>
+</div>
+

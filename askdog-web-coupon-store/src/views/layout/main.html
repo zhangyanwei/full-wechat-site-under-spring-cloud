@@ -1,0 +1,29 @@
+<div>
+
+    <div ng-include="'views/common/header.html'"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar a-fadein" ng-if="userinfo">
+                <ul class="nav nav-sidebar" ng-if="hasAnyRole(['ADMIN', 'AGENT_ADMIN', 'AGENT_EMPLOYEE'])">
+                    <li ui-sref-active="active"><a ui-sref="admin.store()">商户管理</a></li>
+                    <li ui-sref-active="active"><a ui-sref="admin.dashboard()">商户数据</a></li>
+                </ul>
+
+                <ul class="nav nav-sidebar" ng-if="$state.includes('store')">
+                    <li ui-sref-active="active"><a ui-sref="store.employee({'storeId': $stateParams.storeId})">员工管理</a></li>
+                    <li ui-sref-active="active"><a ui-sref="store.verify({'storeId': $stateParams.storeId})">优惠券核销</a></li>
+                    <li ui-sref-active="active"><a ui-sref="store.dashboard({'storeId': $stateParams.storeId})">优惠券使用状况</a></li>
+                    <li ui-sref-active="active"><a ui-sref="store.history({'storeId': $stateParams.storeId})">优惠券核销记录</a></li>
+                    <li ng-if="hasAnyRole(['ADMIN'])" ui-sref-active="active"><a ui-sref="store.product({'storeId': $stateParams.storeId})">商品管理</a></li>
+                    <li ng-if="hasAnyRole(['ADMIN'])" ui-sref-active="active"><a ui-sref="store.coupon({'storeId': $stateParams.storeId})">优惠券管理</a></li>
+                    <li ng-if="hasAnyRole(['ADMIN'])" ui-sref-active="active"><a ui-sref="store.event({'storeId': $stateParams.storeId})">活动管理</a></li>
+                </ul>
+            </div>
+            <div class="main-content" style="overflow-x: hidden" ui-view>
+                <div>模块加载中...</div>
+            </div>
+        </div>
+    </div>
+
+</div>

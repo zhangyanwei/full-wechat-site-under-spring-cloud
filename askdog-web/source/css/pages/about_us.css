@@ -1,0 +1,456 @@
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    list-style: outside none none;
+}
+
+/*  关于我们  */
+#main {
+    overflow-y: hidden;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-container .pagination {
+    position: absolute;
+    left: 10px;
+    top: 80px;
+    z-index: 9999;
+}
+
+.swiper-pagination-switch {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    background: #555;
+    margin: 0 0px 10px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.swiper-active-switch {
+    background: #fff;
+}
+
+.swiper-container .swiper-slide {
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    color: #fff;
+}
+
+.swiper-container .swiper-slide p {
+    margin: 0;
+    padding: 0;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-left {
+    display: block;
+    position: relative;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-right {
+    display: block;
+    position: relative;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-main {
+    display: block;
+    position: relative;
+}
+
+/**layout**/
+.swiper-container .swiper-wrapper .swiper-slide.page-1 .box-left {
+    text-align: center;
+    background: #f3f4f9;
+    height: 100%;
+    width: 60%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-1 .box-right {
+    text-align: left;
+    background: #36aae0;
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-2 .box-left {
+    background: #36aae0;
+    text-align: left;
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-2 .box-right {
+    background: #f3f4f9;
+    text-align: center;
+    height: 100%;
+    width: 60%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-3 .box-left {
+    text-align: center;
+    background: #f3f4f9;
+    height: 100%;
+    width: 60%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-3 .box-right {
+    text-align: left;
+    background: #36aae0;
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-4 .box-main {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-title {
+    position: absolute;
+    left: 70px;
+    top: 20%;
+    overflow: hidden;
+    line-height: 50px;
+    max-width: 220px;
+    opacity: 0;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-content {
+    position: absolute;
+    left: 70px;
+    top: 70%;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 30px;
+    width: 380px;
+    opacity: 0;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-title span {
+    border-bottom: 4px solid #b9d41c;
+    padding: 0 0 9px;
+    font-size: 45px;
+    line-height: 50px;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-title label {
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-main .about-logo {
+    display: block;
+    line-height: 1.0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left: -20%;
+    text-align: center;
+    width: 40%;
+    opacity: 0;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-main .about-font {
+    display: block;
+    font-size: 14px;
+    line-height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    top: 50%;
+    width: 400px;
+    opacity: 0;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-main .about-logo .icon-logo {
+    display: block;
+    font-size: 11em;
+    opacity: .8;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide .box-main .about-logo .icon-askdogask {
+    display: block;
+    font-size: 19em;
+}
+
+/**animate**/
+.swiper-container .swiper-wrapper .swiper-slide.page-1 .img-box img {
+    width: 33%;
+    margin-top: 18%;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-2 .img-box img {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-3 .img-box img {
+    width: 50%;
+    margin-top: 10%;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide.page-4 .img-box img {
+    width: 100%;
+}
+
+.img-bigger {
+    transform: scale(1.1) rotate(0.01deg);
+}
+
+.img-start {
+    transition: all 1s ease 0s;
+}
+
+.font-fall-start {
+    animation: font-fall 500ms;
+    -moz-animation: font-fall 500ms; /* Firefox */
+    -webkit-animation: font-fall 500ms; /* Safari and Chrome */
+    -o-animation: font-fall 500ms; /* Opera */
+    animation-fill-mode: forwards;
+}
+
+.font-rise-start {
+    animation: font-rise 500ms;
+    -moz-animation: font-rise 500ms; /* Firefox */
+    -webkit-animation: font-rise 500ms; /* Safari and Chrome */
+    -o-animation: font-rise 500ms; /* Opera */
+    animation-fill-mode: forwards;
+}
+
+.about-logo-fall-start {
+    animation: about-logo-fall 500ms;
+    -moz-animation: about-logo-fall 500ms; /* Firefox */
+    -webkit-animation: about-logo-fall 500ms; /* Safari and Chrome */
+    -o-animation: about-logo-fall 500ms; /* Opera */
+    animation-fill-mode: forwards;
+}
+
+.last-rise-start {
+    animation: last-rise 500ms;
+    -moz-animation: last-rise 500ms; /* Firefox */
+    -webkit-animation: last-rise 500ms; /* Safari and Chrome */
+    -o-animation: last-rise 500ms; /* Opera */
+    animation-fill-mode: forwards;
+}
+
+@keyframes font-fall {
+    from {
+        top: 25%;
+        opacity: 0
+    }
+    to {
+        top: 30%;
+        opacity: 1
+    }
+}
+
+@-moz-keyframes font-fall /* Firefox */
+{
+    from {
+        top: 25%;
+        opacity: 0
+    }
+    to {
+        top: 30%;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes font-fall /* Safari and Chrome */
+{
+    from {
+        top: 25%;
+        opacity: 0
+    }
+    to {
+        top: 30%;
+        opacity: 1
+    }
+}
+
+@-o-keyframes font-fall /* Opera */
+{
+    from {
+        top: 25%;
+        opacity: 0
+    }
+    to {
+        top: 30%;
+        opacity: 1
+    }
+}
+
+@keyframes font-rise {
+    from {
+        top: 57%;
+        opacity: 0
+    }
+    to {
+        top: 52%;
+        opacity: 1
+    }
+}
+
+@-moz-keyframes font-rise /* Firefox */
+{
+    from {
+        top: 57%;
+        opacity: 0
+    }
+    to {
+        top: 52%;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes font-rise /* Safari and Chrome */
+{
+    from {
+        top: 57%;
+        opacity: 0
+    }
+    to {
+        top: 52%;
+        opacity: 1
+    }
+}
+
+@-o-keyframes font-rise /* Opera */
+{
+    from {
+        top: 57%;
+        opacity: 0
+    }
+    to {
+        top: 52%;
+        opacity: 1
+    }
+}
+
+@keyframes about-logo-fall {
+    from {
+        top: 15%;
+        opacity: 0
+    }
+    to {
+        top: 20%;
+        opacity: 1
+    }
+}
+
+@-moz-keyframes about-logo-fall /* Firefox */
+{
+    from {
+        top: 15%;
+        opacity: 0
+    }
+    to {
+        top: 20%;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes about-logo-fall /* Safari and Chrome */
+{
+    from {
+        top: 15%;
+        opacity: 0
+    }
+    to {
+        top: 20%;
+        opacity: 1
+    }
+}
+
+@-o-keyframes about-logo-fall /* Opera */
+{
+    from {
+        top: 15%;
+        opacity: 0
+    }
+    to {
+        top: 20%;
+        opacity: 1
+    }
+}
+
+@keyframes last-rise {
+    from {
+        top: 60%;
+        opacity: 0
+    }
+    to {
+        top: 50%;
+        opacity: 1
+    }
+}
+
+@-moz-keyframes last-rise /* Firefox */
+{
+    from {
+        top: 60%;
+        opacity: 0
+    }
+    to {
+        top: 50%;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes last-rise /* Safari and Chrome */
+{
+    from {
+        top: 60%;
+        opacity: 0
+    }
+    to {
+        top: 50%;
+        opacity: 1
+    }
+}
+
+@-o-keyframes last-rise /* Opera */
+{
+    from {
+        top: 60%;
+        opacity: 0
+    }
+    to {
+        top: 50%;
+        opacity: 1
+    }
+}

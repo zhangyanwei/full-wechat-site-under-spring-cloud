@@ -1,0 +1,155 @@
+<div oc-lazy-load="['module/VideoController']">
+    <div class="share-container" ng-controller="VideoController">
+
+        <div class="main-box" ng-if="!notFound">
+
+            <div class="middle-box vedio-upload" ng-hide="choiced">
+                <div class="jumbotron box-border text-center">
+                    <div class="form-group" ng-if="fileError">
+                        <div class="alert alert-warning text-center alert-shake">{{fileError}}</div>
+                    </div>
+                    <p><i class="iconfont icon-shangchuan"></i></p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="javascript:void(0);" role="button"
+                           ng-click="choiceVideo()">上传视频</a>
+                    </p>
+                    <p>
+                        <span class="hidden">试试 把视频拖进来吧</span>
+                        <b>视频支持的格式mp4、mov、avi</b>
+                    </p>
+                </div>
+            </div>
+
+            <div class="middle-box share-channel-box" ng-show="choiced">
+                <div class="panel panel-default box-border">
+                    <div class="panel-heading">本地上传</div>
+                    <div class="panel-body">
+                        <div class="vedio-pic-progress">
+                            <div class="vedio-pic">
+                                <video id="video-player" width="100%">
+                                    您的浏览器不支持 video。
+                                </video>
+                                <div class="layer-delete">
+                                    <div class="layer-delete-bg"></div>
+                                    <button type="button" class="btn btn-link close-upload" ng-click="reChoiceVideo()">
+                                        <i class="iconfont icon-close1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                     aria-valuenow="0"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="vedio-upload-info">
+                                <div class="col-xs-4 col-md-4 text-left">
+                                    <span id="percentage"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vedio-upload-form">
+                            <form name="videoForm" after-render="bindValidator">
+                                <div class="form-group hidden">
+                                    <input type="file" name="file" id="video-file" multiple
+                                           onchange="angular.element(this).scope().videoLoad()"/>
+                                </div>
+                                <div class="form-group" ng-show="error">
+                                    <div class="alert alert-warning text-center alert-shake">{{error}}</div>
+                                </div>
+                                <div class="form-group">
+                                    <input name="subject" type="text" class="form-control" placeholder="标题"
+                                           ng-model="pureExperience.subject">
+                                </div>
+                                <div class="form-group">
+                                    <div class="btn-group btn-menu pull-left">
+                                        <button class="btn dropdown-toggle btn-select" aria-expanded="false"
+                                                aria-haspopup="true" data-toggle="dropdown" type="button">
+                                            <span ng-if="!pureExperience.channel_name">选择频道</span>
+                                            <span ng-if="pureExperience.channel_name">{{pureExperience.channel_name}}</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li ng-repeat="item in ownedChannels">
+                                                <a href="javascript:void(0);"
+                                                   ng-click="channelSelect(item)">{{item.name}}</a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <a href="javascript:void(0);"
+                                                   ng-click="showCreateChannel()" auth-required>创建新频道</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group categories-select btn-menu pull-right">
+                                        <button type="button" class="btn dropdown-toggle btn-select"
+                                                data-toggle="dropdown">
+                                            <span ng-if="!pureExperience.category_name">选择分类</span>
+                                            <span ng-if="pureExperience.category_name">{{pureExperience.category_name}}</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li class="drop-menu-item" ng-repeat="item in sysCategories">
+                                                <a href="javascript:void(0);"
+                                                   ng-mouseover="categoryOver(item,$event)">{{item.name}}</a>
+                                                <span class="caret"></span>
+                                                <ul class="drop-sub-menu" ng-show="item.displayChildren">
+                                                    <li ng-repeat="child in item.children">
+                                                        <a href="javascript:void(0);"
+                                                           ng-click="categorySelect(child,$event)">{{child.name}}</a>
+                                                    </li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <div class="corner"></div>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-6 pull-right text-right">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="priceRadio" id="priceRadio1"
+                                                   value="0" ng-model="pureExperience.content.price">
+                                            免费
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="priceRadio" id="priceRadio2"
+                                                   value="1" ng-model="pureExperience.content.price">
+                                            1元
+                                        </label>
+                                        <!--<label class="radio-inline">
+                                            <input type="radio" name="priceRadio" id="priceRadio3"
+                                                   value="10" ng-model="pureExperience.content.price">
+                                            10元
+                                        </label>-->
+                                    </div>
+                                    <!--<div class="col-sm-6 pull-right">
+                                        <input type="text" class="form-control" id="" placeholder="任意定价"
+                                               ng-model="pureExperience.content.price">
+                                    </div>-->
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary pull-right" type="submit"
+                                            ng-disabled="!uploadComplete || prevented" auth-required>发布
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-box" ng-if="notFound">
+            <div class="middle-box box-border">
+                <div class="stytem-info-box">
+                    <i class="iconfont icon-fail"></i>
+                    <p>抱歉，没有找到您要访问的内容</p>
+                </div>
+            </div>
+        </div>
+
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

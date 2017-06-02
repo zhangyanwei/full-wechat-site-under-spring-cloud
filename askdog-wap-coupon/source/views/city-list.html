@@ -1,0 +1,21 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/CityListController']">
+        <div class="city-list-container" ng-controller="CityListController">
+            <div ng-if="address">
+                <div class="current-location">当前城市</div>
+                <div class="current-location-city"  ng-click="selectAddress(address)">{{::address.name}}</div>
+            </div>
+            <div>
+                <div class="all-location">请选择您所在城市</div>
+                <div class="all-location-city" ng-click="selectAddress()">
+                    全国
+                </div>
+                <div class="all-location-city"
+                     ng-repeat="item in areas"
+                     ng-click="selectAddress(item)">
+                    {{::item.name}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

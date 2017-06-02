@@ -1,0 +1,38 @@
+<div oc-lazy-load="['module/my/ChannelController']">
+	<div class="channel-list " ng-controller="ChannelController" style="margin-top:43px">
+		<div class="common-header">
+			<a href="#">
+				<i class="iconfont icon-logo pull-left"></i>
+			</a>
+			<span>{{channelTitle}}</span>
+		</div>
+		<div class="card-list" ng-if="viewList.total == 0">
+			<div class="system-info">
+				<i class="iconfont icon-dingyue"></i>
+				<p ng-show="subscribe">当前没有频道订阅</p>
+				<p ng-show="channel">当前没有频道</p>
+			</div>
+		</div>
+		<div class="media channel-card"  ng-repeat="channel in viewList.result" ng-if="viewList.total > 0">
+			<a ui-sref="view.myChannel({id:channel.id})">
+				<div class="media-left">
+					<img ng-src="{{channel.thumbnail | picTrans: '78w_78h_1e_1c.png'}}" class="media-object" alt="" ng-if="channel.thumbnail"/>
+					<img src="images/channel.png" class="media-object" alt="" ng-if="!channel.thumbnail"/>
+				</div>
+				<div class="channel-body">
+					<h4 class="media-heading">{{channel.name}}</h4>
+					<div class="other-info">
+						<span>订阅数 {{channel.subscriber_count}}</span>
+					</div>
+				</div>
+			</a>
+			<button class="btn-icon" ng-click="deleteIcon(channel.id)"
+					ng-show="deleteMyChannel"><i class="iconfont icon-ellipsis"></i></button>
+		</div>
+		<div class="clearfix text-center" ng-if="!viewList.last">
+			<button class="btn btn-link" ng-show="loadingCompleted"></button>
+			<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+		</div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

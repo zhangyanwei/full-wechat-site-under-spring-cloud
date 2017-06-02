@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+
+.coupon-detail-item {
+    margin: 20px 20px;
+}
+
+.coupon-detail-item .panel-head {
+    height: 19px;
+}
+
+.coupon-detail-item .panel-body {
+    padding: 6px 0 16px 0;
+}
+
+.coupon-detail-item .panel-body .row {
+    margin: 0;
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 30px;
+    color: #5f5f5f;
+}
+
+.coupon-detail-item .panel-body .store-name {
+    word-break: break-all;
+    max-width:75%;
+    margin: 0;
+    font-size: 16px;
+    line-height: 30px;
+    color: #325779;
+    padding:0 15px;
+}
+
+.coupon-detail-item .coupon-detail-code {
+    color: #ff0000;
+}
+
+/*.panel-head-upgraud + .panel-body .coupon-no {*/
+    /*text-decoration: line-through;*/
+/*}*/
+
+.panel-head-upgraud + .panel-body .row,
+.panel-head-upgraud + .panel-body .coupon-detail-code ,
+.panel-head-upgraud + .panel-body .cash-detail-address,
+.panel-head-upgraud + .panel-body .cash-detail-phone a{
+    color: #8792a4 !important;
+}
+.cash-detail-address{
+    word-break: break-all;
+    padding:5px 15px 0 15px;
+    font-size:16px;
+    color:#5f5f5f;
+}
+
+.store-header{
+    border-bottom: 2px dashed #d8d8d8;
+    margin-bottom: 10px;
+    padding-bottom:6px;
+}
+
+.store-coupon-use{
+    color:#ff7b00 !important;
+}
+
+.coupon-detail-address{
+    min-height:23px;
+}
+
+.cash-detail-phone a{
+    color:#5f5f5f;
+}

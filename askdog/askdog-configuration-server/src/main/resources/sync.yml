@@ -1,0 +1,42 @@
+server:
+  port: 8180
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+feign:
+  hystrix:
+    enabled: false
+
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  freemarker:
+    checkTemplateLocation: false
+  cloud:
+    stream:
+      bindings:
+        index:
+          destination: topic.index
+          group: sync
+      kafka:
+        bindings:
+          index:
+            consumer:
+              start-offset: earliest
+        binder:
+          brokers: dev.ask.dog
+          zkNodes: dev.ask.dog
+
+askdog:
+  elasticsearch:
+    settings:
+      cluster.name: ask.dog
+    hosts:
+      - address: 192.168.99.100
+        port: 9300

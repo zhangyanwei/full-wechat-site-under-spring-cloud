@@ -1,0 +1,75 @@
+
+/****************** autumn activity *******************/
+.autumn-container .banner-container {
+    background: #d61c4f;
+    text-align: center;
+}
+
+.autumn-container .container .autumn-main {
+    width: 960px;
+    margin: 15px auto;
+}
+
+.autumn-container .container .autumn-main .middle-list {
+    width: 100%;
+}
+
+.autumn-container .container .autumn-main .middle-list .media {
+    padding: 0;
+}
+
+.autumn-container .container .autumn-main .autumn-ranking {
+    width: 108px;
+    text-align: center;
+    color: #8792a4;
+    font-size: 16px;
+    padding-right: 0;
+    line-height: 142px;
+}
+
+.autumn-container .container .autumn-main .media-left {
+    position: relative;
+}
+
+.autumn-container .container .autumn-main .media-left img {
+    width: 197px;
+    height: 110px;
+    margin: 16px 0;
+}
+
+.autumn-container .container .autumn-main .media-body {
+    padding-top: 59px;
+}
+
+.autumn-container .container .autumn-main .media-body .media-heading {
+    width: 404px;
+    overflow: hidden;
+    margin: 0 39px 0 0;
+    height: 48px;
+}
+
+.autumn-container .container .autumn-main .media-body .media-heading .subject {
+    width: 404px;
+}
+
+.autumn-container .container .autumn-main .media-body span {
+    color: #e9993d;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+}
+
+.autumn-container .container .autumn-main .media-body i {
+    padding-right: 6px;
+}
+
+.autumn-container .container .autumn-main .media-left .btn-play {
+    position: absolute;
+    top: 55px;
+    left: 84px;
+}
+
+.autumn-container .container .autumn-main .media-left .video-duration {
+    position: absolute;
+    bottom: 19px;
+    top: auto;
+}

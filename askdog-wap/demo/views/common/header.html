@@ -1,0 +1,21 @@
+<header>
+    <div oc-lazy-load="['module/header/HeaderController']">
+        <div class="search-container" ng-controller="HeaderController">
+            <div class="header-icon clearfix">
+                <a href="#" class="logo clearfix">
+                    <i class="iconfont icon-logo pull-left"></i>
+                    <i class="iconfont icon-askdog pull-left"></i>
+                </a>
+                <ul class="nav nav-tabs header-nav pull-right" role="tablist">
+                    <li role="presentation" ui-sref-active="active" ui-sref="view-default.index">
+                        <a>热门</a>
+                    </li>
+                    <li role="presentation" ng-repeat="item in sysCategories" ui-sref-active="active"
+                        ui-sref="view-default.category({categoryCode:item.code})">
+                        <a>{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

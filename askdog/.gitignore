@@ -1,0 +1,6 @@
+*.iml
+*.class
+**/target
+/.idea/
+/docker/volume/elasticsearch/config/scripts
+/docker/volume/elasticsearch/data/elasticsearch

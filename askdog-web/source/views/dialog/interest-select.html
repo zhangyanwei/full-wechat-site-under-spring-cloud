@@ -1,0 +1,32 @@
+<div oc-lazy-load="['module/dialog/InterestDialogController']">
+    <div class="channel-container" ng-controller="InterestDialogController">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">选择分类，订阅您喜欢的频道</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5-1" ng-repeat="item in categories" ng-click="selectItem(item.code)">
+                        <div class="thumbnail">
+                            <span class="arrow-selected active" ng-if="item.selected">
+                                <i class="iconfont icon-correct"></i>
+                            </span>
+                            <img ng-src="{{item.thumbnail}}" alt="{{item.name}}">
+                            <div class="caption">
+                                <h3>{{item.name}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <button class="btn btn-info" ng-disabled="!selected" ng-click="subscribe()">订阅</button>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+            <i class="iconfont icon-xxxxx"></i>
+        </button>
+
+    </div>
+</div>

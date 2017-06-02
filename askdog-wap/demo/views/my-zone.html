@@ -1,0 +1,59 @@
+<div oc-lazy-load="['module/my/MyZoneController']">
+	<div ng-controller="MyZoneController">
+		<div class=" myzone">
+			<div class="jumbotron box-border">
+				<div class="user-pic-box" auth-required>
+					<img ng-src="{{userInfo.avatar |picTrans: '60w_60h_1e_1c'}}" class="img-circle" alt="" ng-if="userInfo.avatar" ui-sref="view.profile"/>
+					<img src="images/user/user60.png" class="img-circle" alt="" ng-if="!userInfo.avatar && userSelf" ui-sref="view.profile"/>
+					<img src="images/user/user60.png" class="img-circle" alt="" ng-if="!userSelf"/>
+					<i class="iconfont icon-v hidden"></i>
+				</div>
+				<div vip-approve vip="userInfo"></div>
+					<h2><span>{{userInfo.name}}</span></h2>
+					<span class="iconfont icon-edit" ng-show="userInfo" ui-sref="view.profile"></span>
+				<p class="land1" ng-show="!userInfo" auth-required>登录</p>
+				<p ng-show="userInfo && !userInfo.signature">让知识触手可及</p>
+				<p ng-show="userInfo && userInfo.signature">{{userInfo.signature}}</p>
+			</div>
+			<div class="list-group box-border nav-list-group" >
+				<a class="list-group-item" ui-sref="view.channel({channel:'channel'})" auth-required>
+					<i class="iconfont icon-play"></i>
+					<span>我的频道</span>
+					<i class="iconfont icon-you"></i>
+				</a><hr class="hr1">
+				<a class="list-group-item" ui-sref="view.channel({channel:'subscribe'})" auth-required>
+					<i class="iconfont icon-dingyue"></i>
+					<span>订阅频道</span>
+					<i class="iconfont icon-you"></i>
+				</a><hr class="hr1">
+				<a class="list-group-item" ui-sref="view.history()" auth-required>
+					<i class="iconfont icon-cookies01"></i>
+					<span>历史浏览</span>
+					<i class="iconfont icon-you"></i>
+				</a>
+			</div>
+			<div class="list-group box-border nav-list-group" >
+				<a class="list-group-item" ui-sref="view.notice" auth-required>
+					<i class="iconfont icon-remind"></i>
+					<div class="round" ng-if="notice.notice_count > 0">●</div>
+					<span>我的消息</span>
+					<i class="iconfont icon-you"></i>
+				</a>
+			</div>
+			<div class="list-group box-border nav-list-group" >
+				<a class="list-group-item" ui-sref="view.income" auth-required>
+					<i class="iconfont icon-income"></i>
+					<span>我的收入</span>
+					<i class="iconfont icon-you"></i>
+				</a><hr class="hr1">
+				<a class="list-group-item" ui-sref="view.securityCenter()" ng-if="!wechat" auth-required>
+					<i class="iconfont icon-anquan"></i>
+					<span>安全中心</span>
+					<i class="iconfont icon-you"></i>
+				</a>
+			</div>
+			<button class="btn btn-lg box-border btn-block box-wid" ng-click="outLogin()" ng-hide="wechat || !userSelf">退出登录</button>
+			<ad-analytics></ad-analytics>
+		</div>
+	</div>
+</div>

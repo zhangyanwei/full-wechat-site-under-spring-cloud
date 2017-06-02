@@ -1,0 +1,1645 @@
+PUT askdog_v1
+{
+  "index": {
+    "analysis": {
+      "analyzer": {
+        "pinyin_analyzer": {
+          "tokenizer": "my_pinyin",
+          "filter": ["word_delimiter","nGram"]
+        }
+      },
+      "tokenizer": {
+        "my_pinyin": {
+          "type": "pinyin",
+          "first_letter": "prefix",
+          "padding_char" : " "
+        }
+      }
+    }
+  }
+}
+
+
+PUT askdog_v1/experience/_mapping
+{
+  "experience": {
+    "_all": {
+      "enabled": false
+    },
+    "_source": {
+      "enabled": true
+    },
+    "dynamic": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "subject": {
+        "type": "multi_field",
+        "fields": {
+          "subject_pinyin": {
+            "type": "string",
+            "index": "analyzed",
+            "store": "no",
+            "term_vector": "with_positions_offsets",
+            "search_analyzer": "pinyin_analyzer",
+            "analyzer": "pinyin_analyzer"
+          },
+          "subject_ik": {
+            "type": "string",
+            "index": "analyzed",
+            "store": "no",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "boost": 50
+          },
+          "primitive": {
+            "type": "string",
+            "index": "analyzed",
+            "store": "yes",
+            "analyzer": "keyword"
+          }
+        }
+      },
+      "anonymous": {
+        "type": "boolean",
+        "index": "not_analyzed"
+      },
+      "state": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "creation_date": {
+        "type": "date",
+        "format": "epoch_millis",
+        "index": "not_analyzed"
+      },
+      "user_labels": {
+        "type": "string",
+        "index": "analyzed",
+        "analyzer": "whitespace"
+      },
+      "hot_score": {
+        "type": "double",
+        "index": "not_analyzed"
+      },
+      "operation_score": {
+        "type": "double",
+        "index": "not_analyzed"
+      },
+      "view_count": {
+        "type": "long",
+        "index": "not_analyzed"
+      },
+      "content_text": {
+        "type": "string",
+        "index": "analyzed",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word"
+      },
+      "content_pic_url": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "content_type": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "category": {
+        "properties": {
+          "category_code": {
+            "type": "string",
+            "index": "not_analyzed",
+            "fields": {
+              "analyzed_code": {
+                "type": "string",
+                "analyzer": "standard",
+                "index": "analyzed"
+              }
+            }
+          },
+          "category_name": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "channel": {
+        "properties": {
+          "channel_id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "channel_name": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "channel_thumbnail": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "author": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "name": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "avatar_url": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "vip": {
+            "type": "boolean",
+            "index": "not_analyzed"
+          }
+        }
+      }
+    }
+  }
+}
+
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "askdog_v1",
+        "alias": "askdog"
+      }
+    }
+  ]
+}
+
+PUT askdog_v1/channel/_mapping
+{
+  "_all": {
+    "enabled": false
+  },
+  "_source": {
+    "enabled": true
+  },
+  "dynamic": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "subject": {
+      "type": "multi_field",
+      "fields": {
+        "subject_pinyin": {
+          "type": "string",
+          "index": "analyzed",
+          "store": "no",
+          "term_vector": "with_positions_offsets",
+          "analyzer": "pinyin_analyzer",
+          "search_analyzer": "pinyin_analyzer"
+        },
+        "subject_ik": {
+          "type": "string",
+          "index": "analyzed",
+          "store": "no",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "boost": 50
+        },
+        "primitive": {
+          "type": "string",
+          "index": "analyzed",
+          "store": "yes",
+          "analyzer": "keyword"
+        }
+      }
+    },
+    "followed_count": {
+      "type": "long",
+      "index": "not_analyzed"
+    },
+    "channel_pic_url": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "operation_score": {
+      "type": "double",
+      "index": "not_analyzed"
+    }
+  }
+}
+
+
+PUT askdog_v1/user/_mapping
+{
+  "_all": {
+    "enabled": false
+  },
+  "_source": {
+    "enabled": true
+  },
+  "dynamic": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "name": {
+      "type": "multi_field",
+      "fields": {
+        "name_pinyin": {
+          "type": "string",
+          "index": "analyzed",
+          "store": "no",
+          "term_vector": "with_positions_offsets",
+          "analyzer": "pinyin_analyzer",
+          "search_analyzer": "pinyin_analyzer"
+        },
+        "name_ik": {
+          "type": "string",
+          "index": "analyzed",
+          "store": "no",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "boost": 50
+        },
+        "primitive": {
+          "type": "string",
+          "index": "analyzed",
+          "store": "yes",
+          "analyzer": "keyword"
+        }
+      }
+    },
+    "followed_total_count": {
+      "type": "long",
+      "index": "not_analyzed"
+    },
+    "user_pic_url": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "operation_score": {
+      "type": "double",
+      "index": "not_analyzed"
+    }
+  }
+}
+
+【频道推荐】
+POST /_search/template/channel_recommend
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}8{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match_all": {}
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "channel"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "followed_count",
+      "id",
+      "subject",
+      "channel_pic_url"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['followed_count'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【用户推荐】
+POST /_search/template/user_recommend
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}8{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match_all": {}
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "user"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "name",
+      "user_pic_url"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['followed_total_count'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+
+【创建时相似问题搜索】
+POST /_search/template/experience_similar
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<mark>"
+      ],
+      "post_tags": [
+        "</mark>"
+      ],
+      "require_field_match": true,
+      "fields": {
+        "subject.subject_ik": {
+          "number_of_fragments": 1,
+          "no_match_size": 20,
+          "fragment_size": 20
+        }
+      },
+      "encoder": "html"
+    },
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}5{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "multi_match": {
+                  "query": "{{key}}",
+                  "fields": [
+                    "subject.subject_pinyin",
+                    "subject.subject_ik"
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "subject",
+      "id",
+      "category",
+      "content_type"
+    ]
+  }
+}
+
+【搜索相似】
+POST /_search/template/query_similar
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<mark>"
+      ],
+      "post_tags": [
+        "</mark>"
+      ],
+      "require_field_match": true,
+      "fields": {
+        "subject.subject_ik": {
+          "number_of_fragments": 1,
+          "no_match_size": 20,
+          "fragment_size": 20
+        }
+      },
+      "encoder": "html"
+    },
+    "size": "{{size}}{{^size}}5{{/size}}",
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "multi_match": {
+                  "query": "{{key}}",
+                  "fields": [
+                    "subject.subject_pinyin",
+                    "subject.subject_ik"
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "subject",
+      "id",
+      "category",
+      "content_type"
+    ]
+  }
+}
+
+【全文搜索】
+POST /_search/template/experience_search
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<mark>"
+      ],
+      "post_tags": [
+        "</mark>"
+      ],
+      "require_field_match": false,
+      "fields": {
+        "subject.subject_ik": {
+          "number_of_fragments": 1,
+          "no_match_size": 80,
+          "fragment_size": 80
+        },
+        "content_text": {
+          "number_of_fragments": 1,
+          "no_match_size": 100,
+          "fragment_size": 100
+        }
+      },
+       "encoder":"html"
+    },
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "function_score": {
+                  "field_value_factor": {
+                    "field": "hot_score",
+                    "modifier": "log1p",
+                    "factor": 2,
+                    "missing": 0
+                  },
+                  "query": {
+                    "multi_match": {
+                      "query": "{{key}}",
+                      "fields": [
+                        "subject.subject_pinyin",
+                        "subject.subject_ik",
+                        "content_text"
+                      ]
+                    }
+                  },
+                  "boost_mode": "sum"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "creation_date",
+      "view_count",
+      "content_text",
+      "channel",
+      "content_pic_url",
+      "author",
+      "category",
+      "content_type"
+      ]
+  }
+}
+
+【热门分享取序号】
+POST /_search/template/experience_hot_distinction_ids
+{
+  "template": {
+    "from": "{{from}}",
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "filtered": {
+                  "query": {
+                    "match_all": {}
+                  },
+                  "filter": {
+                    "term": {
+                      "content_type": "{{contentType}}"
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['hot_score'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+
+【分享详细页右侧相关】
+POST /_search/template/experience_related
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}20{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "{{subject}}",
+                        "fields": [
+                          "subject^5",
+                          "content_text"
+                        ]
+                      }
+                    },
+                    {
+                      "match": {
+                        "category.category_code.analyzed_code": "{{categoryCode}}"
+                      }
+                    }
+                  ],
+                  "must_not": {
+                    "term": {
+                      "id": "{{experience_id}}"
+                    }
+                  },
+                  "minimum_number_should_match": 1,
+                  "boost": 1.2
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "creation_date",
+      "view_count",
+      "content_text",
+      "channel",
+      "content_pic_url",
+      "author",
+      "category",
+      "content_type"
+    ]
+  }
+}
+
+【最新分享取序号】
+PUT _search/template/experience_newest_ids
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}10{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "filtered": {
+                  "query": {
+                    "match_all": {}
+                  },
+                  "filter": {
+                    "bool": {
+                      "must_not": {
+                        "terms": {
+                          "channel.channel_id": [
+                            "{{#exclusiveIds}}",
+                            "{{.}}",
+                            "{{/exclusiveIds}}"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "sort": [
+      {
+        "creation_date": {
+          "unmapped_type": "date",
+          "order": "desc"
+        }
+      }
+    ],
+    "_source": [
+      "id"
+    ]
+  }
+}
+
+【经验为我推荐】
+PUT _search/template/experience_recommend
+{
+  "template": {
+    "from": "{{from}}",
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "function_score": {
+                  "query": {
+                    "bool": {
+                      "should": [
+                        {
+                          "match": {
+                            "category.category_code.analyzed_code": "{{categoryCodes}}"
+                          }
+                        },
+                        {
+                          "match_all": {}
+                        }
+                      ]
+                    }
+                  },
+                  "functions": [
+                    {
+                      "script_score": {
+                        "script": {
+                          "inline": "_score +(log(1+_source.hot_score)+weight*(_source.operation_score==null?0:_source.operation_score))",
+                          "params": {
+                            "weight": 10
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "boost_mode": "sum"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "creation_date",
+      "view_count",
+      "content_text",
+      "channel",
+      "category",
+      "content_pic_url",
+      "author",
+      "category",
+      "content_type"
+    ]
+  }
+}
+
+【集合取序号】
+PUT _search/template/experience_category_distinction_set_ids
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}10{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "filtered": {
+                  "query": {
+                    "match_all": {}
+                  },
+                  "filter": {
+                    "and": {
+                      "filters": [
+                        {
+                          "terms": {
+                            "category.category_code": [
+                              "{{#categoryCodeList}}",
+                              "{{.}}",
+                              "{{/categoryCodeList}}"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "content_type": "{{contentType}}"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['hot_score'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ],
+    "_source": [
+      "id"
+    ]
+  }
+}
+
+【为我推荐取序号(首选)】
+PUT _search/template/experience_recommend_distinction_ids
+{
+  "template": {
+    "from": "{{from}}",
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "function_score": {
+                  "query": {
+                    "filtered": {
+                      "query": {
+                        "bool": {
+                          "should": [
+                            {
+                              "match": {
+                                "category.category_code.analyzed_code": "{{categoryCodes}}"
+                              }
+                            },
+                            {
+                              "match_all": {}
+                            }
+                          ]
+                        }
+                      },
+                      "filter": {
+                        "term": {
+                          "content_type": "{{contentType}}"
+                        }
+                      }
+                    }
+                  },
+                  "functions": [
+                    {
+                      "script_score": {
+                        "script": {
+                          "inline": "_score +(log(1+_source.hot_score))",
+                          "params": {
+                            "weight": 10
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "boost_mode": "sum"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id"
+    ]
+  }
+}
+
+【分类列表取序号】
+PUT _search/template/experience_category_distinction_ids
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}10{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "filtered": {
+                  "query": {
+                    "match_all": {}
+                  },
+                  "filter": {
+                    "and": {
+                      "filters": [
+                        {
+                          "term": {
+                            "category.category_code": "{{categoryCode}}"
+                          }
+                        },
+                        {
+                          "term": {
+                            "content_type": "{{contentType}}"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['hot_score'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ],
+    "_source": [
+      "id"
+    ]
+  }
+}
+
+【分类列表取序号通过时间】
+PUT _search/template/experience_category_distinction_ids_bytime
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}10{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "filtered": {
+                  "query": {
+                    "match_all": {}
+                  },
+                  "filter": {
+                    "and": {
+                      "filters": [
+                        {
+                          "term": {
+                            "category.category_code": "{{categoryCode}}"
+                          }
+                        },
+                        {
+                          "term": {
+                            "content_type": "{{contentType}}"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "(doc['creation_date'].getValue().intdiv(86400000))"
+          },
+          "order": "desc"
+        }
+      },
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['hot_score'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ],
+    "_source": [
+      "id"
+    ]
+  }
+}
+
+【所属频道经验】
+PUT _search/template/experience_channel
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}10{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "filtered": {
+                  "query": {
+                    "match_all": {}
+                  },
+                  "filter": {
+                    "term": {
+                      "channel.channel_id": "{{channel_id}}"
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "sort": [
+      {
+        "creation_date": {
+          "unmapped_type": "date",
+          "order": "desc"
+        }
+      }
+    ],
+    "_source": [
+      "id"
+    ]
+  }
+}
+
+【频道主页右侧相关】
+POST /_search/template/channel_related
+{
+  "template": {
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "size": "{{size}}{{^size}}20{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "must": [
+                    {
+                      "match": {
+                        "subject.subject_ik": "{{subject}}"
+                      }
+                    }
+                  ],
+                  "must_not": {
+                    "term": {
+                      "id": "{{channel_id}}"
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "channel"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "channel_pic_url"
+    ]
+  }
+}
+
+【通过序号取列表】
+PUT _search/template/experience_id
+{
+  "template": {
+    "from": "{{from}}",
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "ids": {
+                  "type": "experience",
+                  "values": [
+                    "{{#experienceId}}",
+                    "{{.}}",
+                    "{{/experienceId}}"
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "creation_date",
+      "view_count",
+      "channel",
+      "content_pic_url",
+      "author",
+      "category",
+      "content_type",
+      "operation_score"
+    ]
+  }
+}
+
+【运营用户关键词搜索】
+POST /_search/template/user_search
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<mark>"
+      ],
+      "post_tags": [
+        "</mark>"
+      ],
+      "require_field_match": false,
+      "fields": {
+        "name.name_ik": {
+          "number_of_fragments": 1,
+          "no_match_size": 50,
+          "fragment_size": 50
+        }
+      },
+       "encoder":"html"
+    },
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "query": {
+                  "match": {
+                    "name.name_ik": "{{key}}"
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "user"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "name",
+      "operation_score",
+      "user_pic_url",
+      "followed_total_count",
+      "modified"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['followed_total_count'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【运营频道关键词搜索】
+POST /_search/template/channel_search
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<mark>"
+      ],
+      "post_tags": [
+        "</mark>"
+      ],
+      "require_field_match": false,
+      "fields": {
+        "subject.subject_ik": {
+          "number_of_fragments": 1,
+          "no_match_size": 50,
+          "fragment_size": 50
+        }
+      },
+       "encoder":"html"
+    },
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match": {
+                  "subject.subject_ik": "{{key}}"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "channel"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "operation_score",
+      "channel_pic_url",
+      "hot_score",
+      "followed_count",
+      "modified"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['followed_count'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+
+【运营经验关键词搜索】
+POST /_search/template/exp_search
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<mark>"
+      ],
+      "post_tags": [
+        "</mark>"
+      ],
+      "require_field_match": false,
+      "fields": {
+        "subject.subject_ik": {
+          "number_of_fragments": 1,
+          "no_match_size": 50,
+          "fragment_size": 50
+        }
+      },
+       "encoder":"html"
+    },
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match": {
+                  "subject.subject_ik": "{{key}}"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "operation_score",
+      "hot_score",
+      "content_pic_url",
+      "modified",
+      "category.category_code"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['hot_score'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+
+
+【运营全局用户搜索】
+POST /_search/template/user_total_search
+{
+  "template": {
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "query": {
+                  "match_all": {}
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "user"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "name",
+      "operation_score",
+      "user_pic_url",
+      "followed_total_count",
+      "modified"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['followed_total_count'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【运营全局频道搜索】
+POST /_search/template/channel_total_search
+{
+  "template": {
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                 "match_all": {}
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "channel"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "operation_score",
+      "channel_pic_url",
+      "hot_score",
+      "followed_count",
+      "modified"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['followed_count'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【运营经验全局搜索】
+POST /_search/template/exp_total_search
+{
+  "template": {
+    "size": "{{size}}",
+    "from": "{{from}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match_all": {}
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "experience"
+            }
+          }
+        ]
+      }
+    },
+    "_source": [
+      "id",
+      "subject",
+      "operation_score",
+      "hot_score",
+      "content_pic_url",
+      "modified",
+      "category.category_code"
+    ],
+    "sort": [
+      {
+        "_script": {
+          "type": "number",
+          "script": {
+            "inline": "doc['operation_score'].value > 0 ? doc['operation_score'].value : doc['hot_score'].value"
+          },
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+
+
+
+

@@ -1,0 +1,17 @@
+<div oc-lazy-load="['module/common/SidebarController']">
+    <div class="sidebar-container" ng-controller="SidebarController">
+        <div class="nav-bar">
+            <ul class="nav nav-pills nav-stacked box-border">
+                <li role="presentation" ui-sref="layout.view-profile.profile" ui-sref-active="active" auth-required>
+                    <a href="javascript:void(0);"><i class="iconfont icon-home"></i>个人信息</a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-profile.account" ui-sref-active="active" auth-required>
+                    <a href="javascript:void(0);"><i class="iconfont icon-income"></i>我的收入</a>
+                </li>
+                <li role="presentation" ui-sref="layout.view-profile.security" ui-sref-active="active" auth-required>
+                    <a href="javascript:void(0);"><i class="iconfont icon-anquan"></i>安全中心</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

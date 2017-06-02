@@ -1,0 +1,26 @@
+<div oc-lazy-load="['module/activity/RankingListController']">
+    <div class="container card-list ranking-list" ng-controller="RankingListController">
+        <div class="media" ng-repeat="list in viewList.result">
+            <div class="ranking-number pull-left">{{$index + 1}}</div>
+            <div class="media-left">
+				 <span class="video-duration">{{list.duration | durationFix}}</span>
+                <a class="btn btn-icon btn-play">
+                    <img src = "images/play.png" class="play">
+                </a>
+                <img class="media-object" ng-src="{{list.thumbnail | picTrans: '120w_68h_1e_1c.png'}}" alt="..." ng-if="list.thumbnail">
+                <img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[list.category.category_code].abstract | picTrans: '120w_68h_1e_1c.png'}}"  ng-if="!list.thumbnail">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading"><a>{{list.subject}}</a></h4>
+                <div class="other-info">
+                    <span>{{list.up_vote_count}}个赞</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" ng-if="!viewList.last && !loadFail">
+            <button class="btn btn-link" ng-show="loadingCompleted"></button>
+            <button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

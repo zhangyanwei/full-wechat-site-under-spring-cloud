@@ -1,0 +1,31 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/store/EventManagementController']">
+        <div class="row" ng-controller="EventManagementController">
+            <div class="main a-fadeinR">
+                <h1 class="page-header">活动管理 <small>(点击活动查看详细)</small></h1>
+                <button style="margin-bottom: 20px;" type="button" class="btn btn-default btn-primary" ng-click="createEvent()">添加活动</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning" ng-if="errorMessage">{{errorMessage}}</div>
+                        <div class="store-tile" ng-repeat="item in data.result">
+                            <img class="store-cover" ng-src="{{item.poster + '@150h_1e_1c.png'}}" alt="">
+                            <div class="store-toolbar">
+                                <span class="store-toolbar-item" ng-click="updateEvent(item, $event)"><span class="glyphicon glyphicon-edit"></span></span>
+                                <span class="store-toolbar-item" ng-click="deleteEvent(item.id, $event)"><span class="glyphicon glyphicon-trash"></span></span>
+                            </div>
+                            <div class="store-description">
+                                <div class="store-description-item"><span class="store-name">{{item.name}}</span></div>
+                                <div class="store-description-item">活动时间： {{item.period}}</div>
+                                <div class="store-description-item">参与人数： {{item.user_coupon_count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="pagination-wrapper">
+                    <ul ng-if="data.total" uib-pagination boundary-links="true" total-items="data.total" items-per-page="data.size" ng-model="page" ng-change="goPage(page - 1)" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

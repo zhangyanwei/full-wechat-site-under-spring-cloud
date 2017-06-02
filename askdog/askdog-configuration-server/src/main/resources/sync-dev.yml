@@ -1,0 +1,50 @@
+server:
+  port: 8180
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+spring:
+  batch:
+    initializer:
+      enabled: false
+    job:
+      enabled: true
+  redis:
+    host: dev.ask.dog
+    port: 6379
+  data:
+    mongodb:
+      host: dev.ask.dog
+      database: ask-dog
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dev.ask.dog:5432/ask.dog
+    username: dog
+    password: askdog
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  freemarker:
+    checkTemplateLocation: false
+
+askdog:
+  base-url: http://dev.ask.dog
+  location:
+    key: EIGBZ-WMIWF-M4TJ7-NPBLX-TO4SS-GHB3U
+    base-url: http://apis.map.qq.com
+    ip-location: '${askdog.location.base-url}/ws/location/v1/ip?ip={ip}&key=${askdog.location.key}&output=json'
+    geo-location: '${askdog.location.base-url}/ws/geocoder/v1/?location={lat},{lng}&key=${askdog.location.key}&get_poi={poi}&coord_type=5&output=json'
+    nearby-distance: 50 #kilometers
+    nearby-limit: 1000
+    rencent-limit: 100
+    rate-distance: 50 #kilometers
+  elasticsearch:
+    settings:
+      cluster.name: ask.dog
+    hosts:
+      - address: dev.ask.dog
+        port: 9300

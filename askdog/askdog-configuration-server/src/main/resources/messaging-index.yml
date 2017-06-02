@@ -1,0 +1,26 @@
+server:
+  port: 9101
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  cloud:
+    stream:
+      bindings:
+        event:
+          destination: topic.event
+          group: messaging-index
+        index:
+          destination: topic.index
+          group: messaging-index
+      kafka:
+        bindings:
+          event:
+            consumer:
+              start-offset: earliest
+          index:
+            consumer:
+              start-offset: earliest
+        binder:
+          brokers: dev.ask.dog
+          zkNodes: dev.ask.dog

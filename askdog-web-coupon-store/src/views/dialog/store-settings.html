@@ -1,0 +1,27 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/dialog/StoreSettingController']">
+        <div class="modal-content clearfix" ng-controller="StoreSettingController">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()">×</button>
+                <h4 class="modal-title">{{message.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" after-render="bindValidator">
+                    <div class="form-view active">
+                        <div class="form-group" ng-show="error">
+                            <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="enable_posId">核销时绑定商户流水号？</label>
+                            <input id="enable_posId" ng-model="setting.require_pos_id" type="checkbox" style="position: absolute;margin-left: 5px;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-default" ng-click="cancel()">取消</a>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

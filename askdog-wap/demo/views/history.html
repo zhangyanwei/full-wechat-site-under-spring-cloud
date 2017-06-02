@@ -1,0 +1,51 @@
+<div oc-lazy-load="['module/my/HistoryController']">
+	<div class="common-header">
+		<a href="#">
+			<i class="iconfont icon-logo pull-left"></i>
+		</a>
+		<span>历史浏览</span>
+		<!--<a class="pull-right common-header-button iconfont icon-delete"></a>-->
+	</div>
+	<div class=" card-list history" ng-controller="HistoryController">
+		<div class="channel-box box-border" ng-if="viewList.total == 0">
+			<p class="no-info">
+				<i class="iconfont icon-myshare"></i>还没有内容<br/>
+			</p>
+		</div>
+		<div class="media" ng-repeat="list in viewList.result" ng-repeat="list in viewList.result" ng-if="viewList.total > 0" ui-sref="index.detail({id:list.id})">
+			<!-- <p class="from-channel">来自于 {{list.category.name}}</p>  -->
+			<div class="media-left">
+				<original-tag tags="list.tags"></original-tag>
+				<a >
+					 <span class="video-duration"
+						   ng-if="list.content.type=='VIDEO'">{{list.content.video.duration | durationFix}}</span>
+					<!--<a class="btn btn-icon btn-play" ng-if="list.content.type=='VIDEO'">
+						<img src="images/play.png">
+					</a>-->
+					<img class="media-object" ng-src="{{CATEGORY_THUMBNAIL[list.category.code].abstract | picTrans: '120w_68h_1e_1c.png'}}" ng-if="!list.thumbnail">
+					<img class="media-object" ng-src="{{list.thumbnail | picTrans: '120w_68h_1e_1c.png'}}" alt="..." ng-if="list.thumbnail">
+				</a>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading"><a >{{list.subject}}</a></h4>
+				<div class="from-info">
+					<span class="channel-name">{{list.channel.name}}</span>
+				</div>
+				<div vip-approve vip="list.author"></div>
+				<div class="other-info">
+					<span>浏览数 {{list.view_count}}</span>
+				</div>
+
+				<!--<button class="btn btn-icon btn-more pull-right" ng-hide="experienceDetail.mine" ng-inint="reportActive=false;" ng-click="reportActive=!reportActive">-->
+					<!--<i class="pull-left iconfont1 iconfont icon-ellipsis"></i>-->
+				<!--</button>-->
+
+			</div>
+		</div>
+		<div class="clearfix text-center" ng-if="!viewList.last">
+			<button class="btn btn-link" ng-show="loadingCompleted"></button>
+			<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+		</div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

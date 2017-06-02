@@ -1,0 +1,191 @@
+<div oc-lazy-load="['module/ProfileController']">
+    <div class="profile-container" ng-controller="ProfileController">
+        <div class="main-box">
+
+            <div class="middle-box personal-box">
+
+                <div class="alert alert-warning text-center alert-shake" ng-if="error">{{error}}</div>
+
+                <div class="media box-border">
+                    <div class="media-left"
+                         ng-mouseover="selectShow=true"
+                         ng-mouseout="selectShow=false"
+                         ng-init="selectShow=false;uploadCompleted=true">
+                        <div class="avatar-pic-layer" ng-show="selectShow || !uploadCompleted">
+                            <a class="btn btn-link" ng-show="selectShow"
+                               ng-click="openImageCropDialog()" auth-required>修改头像</a>
+                            <img src="images/loading.gif" alt="..." ng-show="!uploadCompleted"/>
+                            <div class="layer-bg-b"></div>
+                        </div>
+                        <img class="media-object img-circle"
+                             ng-src="{{(personalInfo.avatar || 'images/user/avatar.png') | picTrans : '60w_60h_1e_1c.png'}}"
+                             alt="...">
+                        <i class="iconfont icon-vv" ng-if="personalInfo.tags[0] == 'VIP'"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="user-box">
+                            <span class="user-name">{{personalInfo.name}}</span>
+                        </div>
+                        <p ng-if="personalInfo.mail">{{personalInfo.mail}}</p>
+                        <p ng-if="!personalInfo.mail">{{personalInfo.phone}}</p>
+                    </div>
+                </div>
+
+                <div class="panel panel-default box-border pull-left">
+                    <div class="panel-heading">
+                        <span>个人资料</span>
+                        <i class="iconfont icon-pen btn-edit pull-right" ng-click="toggleInfo()" auth-required></i>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal info-box info-panel">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">用户名</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">{{personalInfo.name}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">性别</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <span ng-if="personalInfo.gender=='MALE'">男</span>
+                                        <span ng-if="personalInfo.gender=='FEMALE'">女</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">手机号</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">{{personalInfo.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">职业</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">{{personalInfo.occupation}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">学校</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">{{personalInfo.school}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">专业</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">{{personalInfo.major}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">所在地区</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        {{personalInfo.address.province}}
+                                        {{personalInfo.address.city}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="form-horizontal edit-form info-form" after-render="bindValidator">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">用户名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="name" class="form-control" placeholder="请输入用户名"
+                                           ng-model="personalInfo.name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">性别</label>
+                                <div class="radio col-sm-8">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineRadio1" value="MALE"
+                                               ng-model="personalInfo.gender">
+                                        男
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineRadio2" value="FEMALE"
+                                               ng-model="personalInfo.gender">
+                                        女
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">手机号</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="phone" class="form-control" placeholder="请填写手机号"
+                                           ng-model="personalInfo.phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">职业</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="请填写职业"
+                                           ng-model="personalInfo.occupation">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">学校</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="请填写学校"
+                                           ng-model="personalInfo.school">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">专业</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="请填写专业"
+                                           ng-model="personalInfo.major">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">所在地区</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="请填写所在省"
+                                           ng-model="personalInfo.address.province">
+                                    <input type="text" class="form-control" placeholder="请填写所在城市"
+                                           style="margin-top: 25px;"
+                                           ng-model="personalInfo.address.city">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-sm">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default box-border pull-right">
+                    <div class="panel-heading">
+                        <span>个性签名</span>
+                        <i class="iconfont icon-pen btn-edit pull-right" ng-click="toggleSignature()" auth-required></i>
+                    </div>
+                    <div class="panel-body">
+                        <div class="autograph-info info-box signature-panel">
+                            {{personalInfo.signature}}
+                        </div>
+                        <form class="form-horizontal edit-form signature-form" after-render="bindSignatureValidator">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <textarea class="form-control" rows="3" name="signature"
+                                              onpropertychange="this.style.height = this.scrollHeight + 'px';"
+                                              oninput="if(this.scrollHeight>100){this.style.height = this.scrollHeight + 'px';}"
+                                              ng-model="personalInfo.signature">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-sm">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

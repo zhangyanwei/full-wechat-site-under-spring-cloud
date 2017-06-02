@@ -1,0 +1,31 @@
+<footer>
+    <div oc-lazy-load="['module/header/FooterController']">
+        <div ng-controller="FooterController">
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <a class="btn-success btn-more" ng-click="showDialog()"><i class="iconfont icon-more"></i></a>
+                <div class="container-fluid">
+                    <div class="row">
+                        <a ui-sref="view-default.index" ui-sref-active="active">
+                            <i class="iconfont icon-home"></i>
+                            首页
+                        </a>
+                        <a ui-sref="view-profile.subscribe" ui-sref-active="active" auth-required>
+                            <i class="iconfont icon-dingyue"></i>
+                            订阅
+                        </a>
+                        <span></span>
+                        <a ui-sref-active="active" ui-sref="view-profile.find">
+                            <i class="iconfont icon-tuijian"></i>
+                            发现
+                        </a>
+                        <a ui-sref="view-profile.zone()" ui-sref-active="active">
+                            <i class="iconfont icon-user"></i>
+                            个人
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,77 @@
+<div oc-lazy-load="['module/HistoryController']">
+    <div class="history-container" ng-controller="HistoryController">
+
+        <div class="main-box">
+
+            <div class="list-container">
+
+                <div class="no-box box-border" ng-if="viewList.total == 0">
+                    <p class="no-info">
+                        <i class="iconfont icon-myshare"></i>还没有内容<br/>
+                    </p>
+                </div>
+
+                <div class="middle-list">
+                    <div class="media box-border" ng-repeat="item in viewList.result">
+                        <div class="from-channel">来自于
+                            <a href="#/category{{item.category.code | categoryLink}}" class="link-info">{{item.category.name}}</a>
+                        </div>
+                        <div class="media-left">
+                            <div ng-if="item.content.type=='VIDEO'">
+                                <original-tag tags="item.tags"></original-tag>
+                                <a class="btn btn-icon btn-play" href="#/exp/{{item.id}}" target="_blank">
+                                    <i class="icon-play-panel"></i>
+                                    <i class="iconfont icon-play02"></i>
+                                </a>
+                                <span class="video-duration">{{item.content.video.duration | durationFix}}</span>
+                            </div>
+                            <a href="#/exp/{{item.id}}" target="_blank">
+                                <img ng-if="item.thumbnail" class="media-object"
+                                     ng-src="{{item.thumbnail | picTrans: '197w_110h_1e_1c.png'}}"
+                                     alt="...">
+                                <img ng-if="!item.thumbnail"
+                                     ng-src="{{CATEGORY_THUMBNAIL[item.category.code].abstract | picTrans: '197w_110h_1e_1c.png'}}"/>
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a class="subject" href="#/exp/{{item.id}}" target="_blank"
+                                   ng-bind-html="item.subject | trusted"></a>
+                            </h4>
+                            <div class="from-info">
+                                <a href="#/zone/{{item.author.id}}" class="user-name" target="_blank">
+                                    <span>{{item.author.name}}</span>
+                                    <i class="iconfont icon-vv" ng-if="item.author.tags[0] == 'VIP'"></i>
+                                </a>
+                                <span class="arrow">></span>
+                                <a class="channel-name" href="#/channel/{{item.channel.id}}" target="_blank">
+                                    {{item.channel.name}}
+                                </a>
+                            </div>
+                            <div class="other-info">
+                                <span>{{item.creation_time|created}} ·</span>
+                                <span>浏览数 {{item.view_count}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-footer clearfix text-center">
+                        <button class="btn btn-ghost" ng-click="paging()"
+                                ng-show="viewList && !viewList.last && loadingCompleted">
+                            <span>查看更多</span>
+                        </button>
+                        <button class="btn btn-ghost" ng-show="!loadingCompleted && !loadingFailed">
+                            <img src="images/loading.gif" alt="..."/>
+                            <span>正在加载</span>
+                        </button>
+                        <button class="btn btn-ghost" ng-show="loadingFailed" ng-click="refreshData()">
+                            <span>请重试</span>
+                        </button>
+                    </div>
+                </div>
+                <horn-top></horn-top>
+            </div>
+
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

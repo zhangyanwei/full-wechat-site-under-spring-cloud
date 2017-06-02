@@ -1,0 +1,16 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/FollowController']">
+        <div class="follow-container" ng-controller="FollowController" ng-init="close = false" ng-show="show">
+            <div class="" style="width:4%;color: #8792a4;margin-left:3%;margin-right:3%;float: left;" ng-click="close = true">
+                <i class="iconfont icon-close1" ></i>
+            </div>
+            <div class="wenzi">关注"惠券"，更多商家优惠等您拿</div>
+            <div class=" text-right">
+                <a class="btn btn-default btn-icon-more" ui-sref="layout.view.qr-code">
+                    <i class="iconfont icon-more"></i>
+                    关注
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

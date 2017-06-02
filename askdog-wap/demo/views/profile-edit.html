@@ -1,0 +1,20 @@
+<div  oc-lazy-load="['module/my/ProfileEditController']">
+    <div ng-controller="ProfileEditController">
+        <div class="reset-box box-border profile">
+            <form  role="form" after-render="bindValidator" class="form-horizontal" >
+                <div class="common-header">
+                    <a href="#">
+                        <i class="iconfont icon-logo pull-left"></i>
+                    </a>
+                    <span>个性签名</span>
+                    <button class="pull-right common-header-button" type="submit">保存</button>
+                </div>
+                <div class="form-group form-group-signature" >
+                    <div> <textarea class="form-control" rows="5" ng-model="personalInfo.signature" auto-height height="111"></textarea>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="fragment-container" wechat-share>
+    <div oc-lazy-load="['module/HomeController']">
+        <div class="home-container" ng-controller="HomeController">
+            <div class="business">
+                <div class="business-contain">
+                    <div class="business-item clearfix" ng-repeat="item in viewList.result" ng-if="viewList.result.length > 0 ">
+                        <a ui-sref="layout.view.store({'id':item.id})">
+                            <div class="store-thumbnail" style="background-size: cover;background-position: center; background-color: #eee;"
+                                 ng-style="{'background-image':'url({{item.cover_image | picTrans: '191h_1e_1c.png'}})'}">
+                                <div ng-show="item.distance != -1"
+                                     class="store-distance"
+                                     map-location=""
+                                     location="item.location"
+                                     name="item.name"
+                                     address="item.address">
+                                    <span class="glyphicon glyphicon-map-marker"></span> {{::item.distance | distance}}
+                                </div>
+                                <div class="store-events">
+                                    <span class="store-event" ng-repeat="event in item.events">{{::event}}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div style="padding:10px; clear: both; float: left; width:100%;">
+                        <div class="store-name-detail">
+                            <div class="store-name">{{::item.name}}</div>
+                            <div class="store-attrs">
+                                <div class="store-attr">
+                                    <i class="iconfont icon-feature"></i>
+                                    <span>{{::item.type}}</span>
+                                </div>
+                                <div class="store-attr">
+                                    <i class="iconfont icon-money"></i>
+                                    <span>{{::item.cpc}}/人</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="pull-right" ui-sref="layout.view.store({'id':item.id})" ng-if="item.coupons.length > 0">
+                            <div class="receive-coupon">领取&nbsp;￥{{::totalDiscount(item.coupons)}}优惠券</div>
+                        </a>
+                        </div>
+                    </div>
+                    <!--<div class="caption">-->
+                    <!--<div class="store-name">{{item.name}}</div>-->
+                    <!--</div>-->
+                    <div class="store-empty" ng-if="viewList.total==0 || viewList.result.length == 0 ">
+                        <div class="empty-font">
+                            <i class="iconfont icon-wenjianjia"></i>
+                        </div>
+                        暂时没有商家信息
+                    </div>
+                    <div class="store-empty" ng-if="loadFailed">
+                        <a ng-click="reload()" style="color:#8792A4;">加载失败，请重试</a>
+                    </div>
+
+                    <div ng-if="viewList && !viewList.last" class="text-center color-silver">
+                        <div style="display: inline-block">
+                            <i class="iconfont icon-more1" style="display: block;transform: rotateZ(-90deg);"></i>
+                            向上拖拽加载更多
+                        </div>
+                    </div>
+                    <div ng-if="loading === undefined || loading" class="loading"> <span></span> <span></span> <span></span> <span></span> <span></span> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

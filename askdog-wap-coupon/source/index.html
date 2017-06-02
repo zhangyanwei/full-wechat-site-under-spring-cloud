@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="expires" content="0">
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title>惠券 - 让美味更优惠</title>
+
+    <link rel="shortcut icon" href="style/images/favicon.ico" type="image/ico">
+    <link rel="icon" href="style/images/favicon.ico" type="image/x-icon">
+
+    <!-- build:css -->
+    <link href="style/css/loading.css?v=1" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style/iconfont/iconfont.css" rel="stylesheet">
+    <link href="style/css/askdog.css?v=1" rel="stylesheet">
+    <!-- end build -->
+
+</head>
+
+<body>
+
+<!-- Main view  -->
+<div ui-view class="content-wrap">
+    <div class="loading"> <span></span> <span></span> <span></span> <span></span> <span></span> </div>
+</div>
+
+<!-- build:js -->
+<script src="lib/require.js" data-main="script/main.js"></script>
+<!-- endbuild -->
+<script>
+    // window._DOMAIN = "http://coupon.askdog.com";
+
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?15042487321";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+    require.config({
+        urlArgs: function (id, url) {
+            var args = 'v=1';
+            return (url.indexOf('?') === -1 ? '?' : '&') + args;
+        }
+    });
+</script>
+
+</body>
+</html>

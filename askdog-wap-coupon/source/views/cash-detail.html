@@ -1,0 +1,52 @@
+<div class="fragment-container" oc-lazy-load="['module/CashDetailController']" >
+    <div ng-controller="CashDetailController">
+
+        <div ng-if="cashDetail == null">
+            <div class="loading"><span></span> <span></span> <span></span> <span></span> <span></span></div>
+        </div>
+
+        <div ng-show="cashDetail != null" class="cash-detail-container">
+            <div class="coupon-list-item">
+                <div class="coupon-value">{{::cashDetail.rule}}元</div>
+                <div class="coupon-info">
+                    <div class="coupon-info-storename">{{::cashDetail.store_basic.name}}</div>
+                    <div class="coupon-info-type">{{::cashDetail.name}}</div>
+                    <div class="coupon-info-expire">
+                        <span ng-if="cashDetail.coupon_state == 'NOT_USED'">有效期至：{{::cashDetail.expire_time | date:"yyyy.MM.dd"}}</span>
+                        <span ng-if="cashDetail.coupon_state == 'USED'">使用日期：{{::cashDetail.use_time | date:"yyyy.MM.dd"}}</span>
+                        <span ng-if="cashDetail.coupon_state == 'EXPIRED'">过期日期：{{::cashDetail.expire_time | date:"yyyy.MM.dd"}}</span>
+                    </div>
+                </div>
+                <div class="coupon-watermark"> 券 </div>
+                <div class="coupon-arrow"></div>
+                <div class="tag-bg" ng-class="{'used': item.coupon_state == 'USED' || item.coupon_state == 'EXPIRED'}"> </div>
+                <div class="tag-text">
+                    <span ng-if="cashDetail.coupon_state == 'NOT_USED'">未使用</span>
+                    <span ng-if="cashDetail.coupon_state == 'USED'">已使用</span>
+                    <span ng-if="cashDetail.coupon_state == 'EXPIRED'">已过期</span>
+                </div>
+            </div>
+            <div class="coupon-bridge"></div>
+            <div class="coupon-list-item">
+                <div class="coupon-info" style="height: auto; padding: 20px 0px; text-align:center;">
+                    <qr-code width="170" height="170" text="qrcode_url"></qr-code>
+                </div>
+            </div>
+            <div class="coupon-bridge" style="top: 371px; left: 55px;"></div>
+            <div class="coupon-list-item">
+                <div class="coupon-info" style="height: auto;padding: 15px; text-align: left;">
+                    <div ng-show="cashDetail.coupon_description" class="coupon-dashed">
+                        使用说明：{{::cashDetail.coupon_description}}
+                    </div>
+                    <div class="coupon-dashed">
+                        抵值券编号：{{::cashDetail.id}}
+                    </div>
+                    <div class="coupon-dashed">
+                        最终解释权归商家所有
+                    </div>
+                </div>
+            </div>
+            <div ng-show="cashDetail.coupon_state == 'NOT_USED'" style="text-align: center;color:#f60;font-size: 13px;">向店家出示此二维码即可立享优惠 <span class="glyphicon glyphicon-gift"></span> </div>
+        </div>
+    </div>
+</div>

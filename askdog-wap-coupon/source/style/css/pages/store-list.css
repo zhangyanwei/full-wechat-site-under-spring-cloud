@@ -1,0 +1,546 @@
+.business .business-contain .store-thumbnail {
+    height: 191px;
+    width: 100%;
+    position: relative;
+}
+
+.business .business-contain .store-events {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #fff;
+}
+
+.business .business-contain .store-events .store-event {
+    background-color: rgba(223, 122, 141, 0.7);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.business .business-contain .store-distance {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: #fff;
+    color: #f70;
+    padding: 2px 7px;
+    border-radius: 15px;
+    opacity: 0.9;
+    z-index: 10;
+}
+
+.business .business-contain .detail-img {
+    height: 293px;
+    width: 100%;
+}
+
+/*.business .business-contain .business-item {*/
+/*position: relative;*/
+/*}*/
+.business .business-contain .business-item .store-video-time {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 6px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.business .business-contain .business-item .caption {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0.85));
+    display: table;
+}
+
+.business .business-contain .business-item .store-name-detail {
+    float: left;
+    max-width: 50%;
+}
+
+.business-contain .text-center .icon-dingweiweikaiqi{
+    font-size:72px;
+    color:#c2c8d8;
+    margin-top:114px;
+    line-height: 72px;
+    display:inline-block;
+    padding-bottom: 34px;
+}
+
+.business-contain .text-center .btn-fail{
+    font-size:16px;
+    color:#5f5f5f;
+    line-height: 32px;
+}
+
+.business .business-contain .business-item .store-name-detail .store-name {
+    color: #1a1a1a;
+    word-break: break-all;
+    display: table-cell;
+    vertical-align: middle;
+    letter-spacing: 1px;
+    font-size: 16px;
+    padding-bottom: 7px;
+    font-weight: bold;
+}
+
+.business .business-contain .business-item .store-name-detail .icon-feature {
+    color: #ff7b00;
+    float: left;
+    font-size: 18px;
+}
+
+.business .business-contain .business-item .store-name-detail .store-feature {
+    font-size: 12px;
+    margin-top: -22px;
+    color: #5f5f5f;
+    padding-left: 23px;
+    position: relative;
+}
+
+.business .business-contain .business-item .store-name-detail .icon-money {
+    color: #ff7b00;
+    float: left;
+    font-size: 18px;
+    padding-left: 10px;
+
+}
+
+.business .business-contain .business-item .store-name-detail .store-money {
+    font-size: 12px;
+    margin-top: -22px;
+    color: #5f5f5f;
+    padding-left: 23px;
+}
+
+.business .business-contain .business-item .receive-coupon {
+    background-color: #ff7b00;
+    color: #fff;
+    border-radius: 39px 0 0 46px;
+    float: right;
+    text-align: center;
+    font-size: 14px;
+    height: 46px;
+    line-height: 46px;
+    letter-spacing: 1px;
+    padding-left: 20px;
+    padding-right: 13px;
+    position: relative;
+    right:-10px;
+}
+
+.business .business-contain .store-contain .business-store {
+    padding: 12px 0px 6px 10px;
+    font-size: 18px;
+    position: relative;
+    word-break: break-all;
+    max-width: 46%;
+}
+
+.business .business-contain .store-contain .business-store .icon-mobile {
+    position: absolute;
+    top: 18px;
+    left: 23px;
+}
+
+.business .business-contain .store-contain .business-store .iconfont {
+    font-size: 18px;
+    color: #ff7b00;
+    padding-right: 6px;
+}
+
+.business-store-name {
+    color: #1a1a1a;
+}
+
+.business .business-contain .business-item .business-detail {
+    color: #ff7b00;
+    position: relative;
+}
+
+.business .business-contain .business-item .store-phone {
+    text-align: center;
+    line-height: 48px;
+}
+
+.business .business-contain .business-item .store-phone .iconfont {
+    font-size: 20px;
+    color: #ff7b00;
+}
+
+.business .business-contain .business-item .store-phone a {
+    color: #5f5f5f;
+}
+
+.business .business-contain .business-item .store-phone a:focus, .business .business-contain .business-item .store-phone a:hover {
+    text-decoration: none;
+}
+
+.business .business-contain .business-item .store-phone .icon-mobile {
+    position: absolute;
+    left: 20px;
+    bottom: 25px;
+}
+
+.business .business-contain .store-contain {
+    margin: 0;
+    color: #5f5f5f;
+    background: #eee;
+}
+
+.business .business-contain .business-item-time {
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px;
+    background: #000000;
+    line-height: 12px;
+    border-radius: 4px;
+}
+
+.business .business-contain .store-detail .store-detail-img {
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 123px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.business .business-contain .store-detail-title {
+    padding: 12px 8px 12px 9px;
+    /*border-bottom: 1px solid #406b94;*/
+    color: #1a1a1a;
+    font-size: 20px;
+    position: relative;
+    word-break: break-all;
+}
+
+.business .business-contain .store-detail-describe {
+    padding: 23px 8px 23px 9px;
+    color: #5f5f5f;
+    border-bottom: 1px solid #e2e7f2;
+    word-break: break-all;
+}
+
+.business .business-contain .store-detail-info {
+    padding: 25px 8px 24px 9px;
+    color: #5f5f5f;
+    position: relative;
+    word-break: break-all;
+    line-height: 30px;
+}
+
+.business .business-contain .store-detail-info a {
+    color: #5f5f5f;
+    padding-bottom: 80px;
+    padding-top: 9px;
+}
+
+.business .business-contain .store-detail-info .icon-address {
+    position: absolute;
+    top: 25px;
+    left: 9px;
+    font-size: 14px;
+}
+
+.business .business-contain .store-detail-info .icon-mobile {
+    position: absolute;
+    bottom: 24px;
+    left: 9px;
+    font-size: 14px;
+}
+
+.business .business-contain .store-detail-title .store-detail-vope {
+    position: absolute;
+    top: 13px;
+    right: 9px;
+    font-size: 12px;
+    color: #325779;
+    padding: 3px 5px 3px 7px;
+    background: #75addc;
+    border-radius: 4px;
+}
+
+.business .business-contain .store-detail-title .iconfont {
+    padding-right: 3px;
+    color: #325779;
+}
+
+.business .business-contain .store-detail-button {
+    text-align: center;
+    padding: 15px;
+}
+
+.business .business-contain .store-detail-button .btn-receive {
+    background: #c1c1c1;
+}
+
+.business .business-contain .store-detail-button .store-detail-init {
+    padding-top: 10px;
+    margin: 0;
+    font-size: 15px;
+    color: #337ab7;
+}
+
+.business .business-contain .store-detail-button .receive {
+    background: #20b5ff;
+    border: none;
+    color: #fff;
+    padding: 10px 26px;
+    font-size: 15px;
+    outline: none;
+}
+
+.business .business-contain .text-center .loading {
+    width: 20px;
+}
+
+.detail-footer {
+    height: 55px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-size: 100% 100%;
+    color: #d7335f;
+    line-height: 55px
+}
+
+.detail-footer-cen {
+    width: 295px;
+    height: 55px;
+    margin: 0 auto;
+}
+
+.detail-footer-cen .detail-footer-icon {
+    font-size: 26px;
+}
+
+.detail-footer-cen .detail-footer-number {
+    font-size: 44px;
+}
+
+.detail-footer-cen .detail-footer-content {
+    font-size: 10px;
+    padding-top: 14px;
+    border-left: 1px dashed #E4D51B;
+    color: rgba(215, 51, 95, 0.62);
+    line-height: 14px;
+    margin-right: 5px;
+    padding-left: 5px;
+}
+
+.detail-footer-cen .detail-footer-receive {
+    color: #fff;
+    font-size: 18px;
+    height: 33px;
+    background: #d7335f;
+    border-radius: 2px;
+    padding: 0 9px;
+    margin-top: -28px;
+}
+
+.detail-footer-cen.detail-footer-coupon {
+    font-size: 16px;
+}
+
+.store-list {
+    position: relative;
+}
+
+.store-list .business-item .icon-play02 {
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    font-size: 48px;
+    color: #fff;
+    transform: translate(-50%);
+    line-height: 48px;
+}
+
+.store-list .store-list-title {
+    height: 42px;
+    color: #fff;
+    text-align: center;
+    line-height: 42px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    font-size: 15px;
+}
+
+.video-layout {
+    position: relative;
+}
+
+.store-coupon:hover, .store-coupon:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.text-center .btn-load img {
+    width: 20px;
+}
+
+.btn-load {
+    color: #8792A4;
+}
+
+.store-empty {
+    padding-top: 25%;
+    text-align: center;
+    color: #8792A4;
+    font-size: 14px;
+}
+
+.store-empty .iconfont {
+    font-size: 30px;
+}
+
+.store-empty .empty-font {
+    padding-bottom: 27px;
+    color: #8792A4;
+}
+
+.store-coupon {
+    height: 55px;
+    background: #ff7b00;
+    border-radius: 39px 0 0 50px;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    right: -10px;
+}
+
+.store-coupon-normal {
+    font-size: 14px;
+}
+
+.store-coupon-forwarded {
+    font-size: 10px;
+}
+
+.store-vote {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    position: relative;
+    min-width: 20px;
+}
+
+@media screen and (max-width: 373px){
+    .store-vote {
+        display: none;
+    }
+}
+
+.store-vote .iconfont {
+    font-size: 18px;
+    color: #ff7b00;
+    line-height: 18px;
+    position: absolute;
+    top: 0;
+    left: 3px;
+}
+
+.store-vote a {
+    color: #ff7b00;
+    text-decoration: none;
+}
+
+.store-type {
+    font-size: 12px;
+    color: #5f5f5f;
+    line-height: 18px;
+    padding-top: 6px;
+    padding-bottom: 12px;
+}
+
+.store-time {
+    color: #fff;
+    font-size: 14px;
+    width: 68px;
+    border-radius: 4px;
+    background: #ff7b00;
+    margin-bottom: 10px;
+    padding: 4px 6px 4px 6px;
+}
+
+.store-time-detail {
+    line-height: 26px;
+}
+
+.store-type .icon-money {
+    position: relative;
+    padding-left: 40px;
+}
+
+.store-address {
+    border-right: 1px solid #e2e7f2;
+    position: relative;
+    word-break: break-all;
+    padding: 0px 5px 0px 23px;
+}
+
+.store-nothing {
+    height: 191px;
+    text-align: center;
+    line-height: 191px;
+    border-bottom: 2px solid #e2e7f2;
+}
+
+.store-address .iconfont {
+    font-size: 18px;
+    color: #ff7b00;
+    padding-right: 9px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: -3px;
+}
+
+.store-recommend-none {
+    height: 191px;
+    line-height: 191px;
+}
+
+.store-dish-recommend {
+    text-align: center;
+}
+
+.store-dish-recommend .swiper-container {
+    width: 100%;
+    height: 191px;
+    z-index: 0;
+}
+
+.store-dish-contain {
+}
+
+.special-name {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #fff;
+    padding: 0 3px;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.info-block {
+    padding: 10px;
+    margin-bottom: 7px;
+    background: #fff;
+    box-shadow: 0px 1px 1px #ddd;
+}

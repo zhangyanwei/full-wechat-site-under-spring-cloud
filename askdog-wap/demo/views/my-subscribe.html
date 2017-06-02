@@ -1,0 +1,90 @@
+<div oc-lazy-load="['module/my/MySubscribeController']">
+	<div class=" mybook" ng-controller="MySubscribeController">
+		<div class="jumbotron">
+			<div class="user-pic-box">
+				<img src="images/user-pic.png" class="img-circle" alt="" ng-if="!subscribeUser.avatar"/>
+				<img ng-src="{{subscribeUser.avatar |picTrans: '60w_60h_1e_1c'}}" class="img-circle" alt="" ng-if="subscribeUser.avatar"/>
+				<i class="iconfont icon-v hidden"></i>
+			</div>
+			<div vip-approve vip="subscribeUser"></div>
+			<h2>{{subscribeUser.name}}</h2>
+			<p ng-show="subscribeUser.signature">{{subscribeUser.signature}}</p>
+			<p ng-show="!subscribeUser.signature">让知识触手可及</p>
+		</div>
+		<div class="tab-box">
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active" ><a href="#mychannel-list" id="myChannel" aria-controls="mychannel-list" role="tab" data-toggle="tab" ><span ng-show="myChannel">我的频道({{viewList.total}})</span><span ng-show="!myChannel">{{subscribeUser.name}}的频道({{viewList.total}})</span></a></li>
+				<li role="presentation" ><a href="#mybook-list" id="mySubscribe" aria-controls="mybook-list" role="tab" data-toggle="tab" ng-click="showMoreSubscribe()"><span ng-show="myChannel">我的订阅({{view.total}})</span><span ng-if="!myChannel && view">{{subscribeUser.name}}的订阅({{view.total}})</span>
+					<span ng-if="!myChannel && !view">{{subscribeUser.name}}的订阅({{total}})</span></a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content" >
+				<div role="tabpanel" class="tab-pane active card-list" id="mychannel-list" >
+					<div class="system-info" ng-if="viewList.total == 0" ng-show="myChannel">
+						<i class="iconfont icon-wenjianjia" ></i>
+						<p>还没有创建任何频道</p>
+					</div>
+					<div class="system-info" ng-if="viewList.total == 0" ng-show="!myChannel">
+						<i class="iconfont icon-wenjianjia"></i>
+						<p>他还没有订阅任何频道</p>
+					</div>
+					<div class="media" ng-repeat="channel in viewList.result" ng-if="viewList.total > 0 && viewList.total">
+						<div class="media-left">
+							<a ui-sref="view.myChannel({id:channel.id})">
+								<img class="media-object" ng-src="{{channel.thumbnail |picTrans: '78w_78h_1e_1c'}}" alt="..."  ng-if="channel.thumbnail">
+								<img class="media-object" src="images/channel.png" alt="..." ng-if="!channel.thumbnail">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading"><a ui-sref="view.myChannel({id:channel.id})">{{channel.name}}</a></h4>
+							<div class="other-info">
+								<!--<button class="btn btn-info"  ng-click="subscribeChannel(channel.id)" ng-show="!channel.mine && !channel.subscribed"><i class="iconfont icon-home"></i> 订阅频道</button>-->
+								<!--<button class="btn btn-info" ng-click="cancelSubscribe(channel.id)" ng-show="!channel.mine && channel.subscribed"><i class="iconfont icon-anonymous"></i> 取消订阅</button>-->
+								<span>订阅数 {{channel.subscriber_count}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix text-center" ng-if="!viewList.last && viewList">
+						<button class="btn btn-link" ng-show="loadingCompleted"></button>
+						<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane card-list" id="mybook-list" >
+					<div class="system-info" ng-if="view.total == 0" ng-show="myChannel">
+						<i class="iconfont icon-dingyue"></i>
+						<p>当前没有频道订阅</p>
+					</div>
+					<div class="system-info" ng-if="view.total == 0" ng-show="!myChannel">
+						<i class="iconfont icon-wenjianjia"></i>
+						<p>他还没有订阅任何频道</p>
+					</div>
+					<div class="media" ng-repeat="channel in view.result" ng-if="view.total > 0 && view.total">
+						<div class="media-left">
+							<a ui-sref="view.myChannel({id:channel.id})" >
+								<img class="media-object" ng-src="{{channel.thumbnail |picTrans: '78w_78h_1e_1c'}}" alt="..." ng-if="channel.thumbnail">
+								<img class="media-object" src="images/channel.png" alt="..." ng-if="!channel.thumbnail">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading"><a ui-sref="view.myChannel({id:channel.id})">{{channel.name}}</a></h4>
+							<div class="other-info">
+								<!--<button class="btn btn-info disabled"ng-show="channel.mine"><i class="iconfont icon-home"></i> 订阅频道</button>-->
+								<!--<button class="btn btn-info"  ng-click="subscribeChannel(channel.id)" ng-show="!channel.mine && !channel.subscribed"><i class="iconfont icon-home"></i> 订阅频道</button>-->
+								<!--<button class="btn btn-info" ng-click="cancelSubscribe(channel.id)" ng-show="!channel.mine && channel.subscribed"><i class="iconfont icon-anonymous"></i> 取消订阅</button>-->
+								<span>订阅数 {{channel.subscriber_count}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix text-center" ng-if="!view.last && view">
+						<button class="btn btn-link" ng-show="subscribeLoadingCompleted"></button>
+						<button class="btn btn-link btn-load"  ng-hide="subscribeLoadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div we-share detail="mySubscribeDetail"></div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

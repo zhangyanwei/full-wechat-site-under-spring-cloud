@@ -1,0 +1,56 @@
+<div oc-lazy-load="['module/my/PsdResetController']">
+    <div class="container-fluid user-login-box pwd-reset-box" ng-controller="PsdResetController">
+        <div class="common-header">
+            <a href="#">
+                <i class="iconfont icon-logo pull-left"></i>
+            </a>
+            <span>密码重置</span>
+        </div>
+        <div class="alert alert-info" role="alert" ng-if="status == 'verifying'">
+            <i class="iconfont icon-waiting loading-rotate"></i>正在验证链接的有效性，请稍后。
+        </div>
+        <div class="alert alert-warning" role="alert" ng-if="status == 'invalid'">
+            无法验证您的请求，请确认链接是否正确或者已经过期。
+        </div>
+        <div class="user-pic" ng-show="status == 'valid'"><i class="iconfont icon-logo"></i></div>
+        <form name="resetForm" ng-submit="reset(resetForm)" ng-show="status == 'valid'" after-render="bindValidator">
+            <div class="form-group " >
+                <label>邮箱</label>
+                <input type="text" class="form-control"  placeholder="" required="required" ng-model="userInfo.mail" name="mailAddress">
+            </div>
+            <div class="form-group new-password" >
+                <label>新密码</label>
+                <input type="password" class="form-control"  placeholder="" required="required" ng-model="userInfo.password" name="newPassword" id="newPassword">
+                <i class="iconfont icon-close1 close-pwd" ng-click="cancelNewPassword()"></i>
+                <i class="iconfont icon-favourite" ng-click="showNewPassword()"></i>
+            </div>
+            <div class="form-group new-password">
+                <label>确认密码</label>
+                <input type="password" class="form-control"  placeholder="" required="required"  name="againPassword" ng-model="againPassword" id="againPassword">
+                <i class="iconfont icon-close1 close-pwd" ng-click="cancelAgainPassword()"></i>
+                <i class="iconfont icon-favourite" ng-click="showAgainPassword()"></i>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg" type="submit">重置</button>
+            </div>
+        </form>
+        <div class="table-box" ng-if="status == 'succeed'">
+            <div class="table-cell-box" >
+                <div class="system-info">
+                    <i class="iconfont icon-logo"></i>
+                    <b>密码重置成功</b>
+                    <a ui-sref="index.login({hash: '/'})">马上登录</a>
+                </div>
+            </div>
+        </div>
+        <div class="table-box" ng-if="status == 'failed'">
+            <div class="table-cell-box">
+                <div class="system-info">
+                    <i class="iconfont icon-logo"></i>
+                    <b>密码重置失败</b>
+                </div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

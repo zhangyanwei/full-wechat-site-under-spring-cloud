@@ -1,0 +1,76 @@
+<div oc-lazy-load="['module/my/SecurityCenterController']">
+	<div class="common-header">
+		<a href="#">
+			<i class="iconfont icon-logo pull-left"></i>
+		</a>
+		<span>安全中心</span>
+	</div>
+	<div class="safe-center-box safe-center" ng-controller="SecurityCenterController">
+		<ul class="list-group nav-list-group" ng-hide="updatePasswordSuccess || showPasswordForm">
+			<li class="list-group-item">
+				<button class="btn btn-link" type="button" ng-click="showModal()">
+					绑定微信
+					<i class="iconfont icon-you" ng-if="!bind"></i>
+					<span class="color-blue pull-right" ng-if="!bind">未绑定</span>
+					<span class="weixin-pic" ng-if="bind"><img ng-src="{{userAvatar.avatar | picTrans: '40w_40h_1e_1c'}}" alt="{{userAvatar.nick_name}}" class="img-circle"/>
+						<!--<i class="iconfont icon-vv"></i>-->
+					</span>
+
+				</button>
+			</li>
+			<li class="list-group-item" ng-if="!thirdLogin">
+				<button class="btn btn-link" type="button" ng-click="showForm()">
+					修改密码
+					<i class="iconfont icon-you"></i>
+				</button>
+			</li>
+		</ul>
+		<div ng-show="showPasswordForm">
+			<div class="reset-box box-border" style="margin-top:0">
+				<form class="form-horizontal" after-render="bindValidator">
+					<div class="form-group" ng-show="error">
+						<div class="alert alert-danger text-center alert-shake">{{error}}</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-4 control-label" >原密码</label>
+						<div class=" "><input type="password" class="form-control required" ng-model="oldPassword" name="oldPassword"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-4 control-label">新密码</label>
+						<div class=" "><input type="password" class="form-control required" ng-model="newPassword" name="newPassword" id="newPassword" ></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-4 control-label" >确认新密码</label>
+						<div class=" "><input type="password" class="form-control required" ng-model="againPassword" name="againPassword"></div>
+					</div>
+					<div class="form-group form-group-last">
+						<div class=""><button class="btn btn-primary pull-right">保存</button></div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="modal fade out-Modal footer-modal" id="bindWeChat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						请到Web、App绑定微信
+					</div>
+					<div class="modal-footer">
+						<div class="btn-group" role="group" aria-label="...">
+							<button class="btn btn-default color-blue" data-dismiss="modal" type="button">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="table-box" ng-show="updatePasswordSuccess">
+			<div class="table-cell-box">
+				<div class="system-info">
+					<i class="iconfont icon-logo"></i>
+					<b>密码修改成功</b>
+				</div>
+			</div>
+		</div>
+		<ad-analytics></ad-analytics>
+	</div>
+</div>

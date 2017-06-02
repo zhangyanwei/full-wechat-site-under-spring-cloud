@@ -1,0 +1,117 @@
+<div class="container card-list" oc-lazy-load="['module/my/MyIncomeController']">
+	<div class="common-header">
+		<a href="#">
+			<i class="iconfont icon-logo pull-left"></i>
+		</a>
+		<span>我的收入</span>
+	</div>
+	<div class=" income-box" ng-controller="MyIncomeController">
+		<div ng-hide="incomeDetail || cashList">
+			<div class="jumbotron">
+				<p>可提现金额</p>
+				<h1>{{revenue.balance / 100| currency :'￥'}}</h1>
+				<a class="btn btn-primary btn-sm" role="button" ng-click="cash()"><i class="iconfont icon-tixian"></i> 提现</a><br>
+				<p style="margin:11px 0 0 0;font-size:12px" ng-if="revenue.locked > 0">
+					有部分提现金额未达到提现条件<br>暂时无法提取
+
+				</p>
+			</div>
+			<div class="list-group box-border nav-list-group">
+				<a class="list-group-item" ng-click="incomeDetail = true">
+					<i class="iconfont icon-income"></i>
+					<span>收入明细</span>
+					<i class="iconfont icon-you"></i>
+				</a>
+				<a class="list-group-item" ng-click="cashList = true">
+					<i class="iconfont icon-tixian-list"></i>
+					<span>提现记录</span>
+					<i class="iconfont icon-you"></i>
+				</a>
+			</div>
+		</div>
+		<div ng-show="incomeDetail">
+			<div class=" income-box">
+				<div class="jumbotron">
+					<p>累计总收入</p>
+					<h1>{{revenue.total / 100| currency :'￥'}}</h1>
+				</div>
+				<div class="box-border">
+					<ul class="list-group in-out-list-group">
+						<li class="list-group-item"  ng-repeat="income in viewList.result" ng-if="viewList.total > 0">
+							<h2><b>{{income.experience_title}}</b>被<a ui-sref="view.subscribe({id:income.payer.id})">{{income.payer.name}}</a>观看</h2>
+							<p>
+								<span class="in-time">{{income.income_time | date:"yyyy/MM/dd"}} {{income.income_time | date:"hh:mm"}}</span>
+								<span class="plus-value">+{{income.amount / 100 |number:2}} <i class="iconfont icon-activepageicon5" ng-if="income.extra_way=='*2'"></i></span>
+							</p>
+						</li>
+						<hr />
+					</ul>
+				</div>
+			</div>
+			<div class="text-center" ng-if="!viewList.last">
+				<button class="btn btn-link" ng-click="incomeMore()" ng-show="loadingCompleted">查看更多</button>
+				<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+			</div>
+			<div class="system-info system-info-empty" ng-if='viewList.total == 0'>
+				<i class="iconfont icon-shipin"></i><i>=</i><i class="iconfont icon-income color-blue" ></i>
+				<p>您还没有收入<br />发布一个视频经验赚取您的第一桶金</p>
+			</div>
+		</div>
+		<div ng-show="cashList">
+			<div class=" cash-box">
+				<div class="jumbotron">
+					<p>累计提现金额</p>
+					<h1>{{revenue.withdrawal_total / 100| currency :'￥'}}</h1>
+				</div>
+				<div class="box-border">
+					<ul class="list-group in-out-list-group" ng-if="view.total > 0 ">
+						<li class="list-group-item" ng-repeat="item in view.result">
+							<h2>提现到微信号<b>{{item.withdrawal_to_alias}}</b></h2>
+							<p>
+								<span class="in-time">{{item.withdrawal_time | date:"yyyy/MM/dd"}} {{item.withdrawal_time | date:"hh:mm"}}</span>
+								<span class="plus-value">-{{item.withdrawal_amount / 100 |number:2}}</span>
+							</p>
+						</li>
+						<hr />
+					</ul>
+				</div>
+				<div class="text-center" ng-if="!view.last">
+					<button class="btn btn-link" ng-click="withdrawMore()" ng-show="loadingCompleted">查看更多</button>
+					<button class="btn btn-link btn-load"  ng-hide="loadingCompleted"><img src="images/loading.gif" alt=""/> 正在加载</button>
+				</div>
+				<div class="system-info system-no-cash" ng-if="view.total == 0">
+					<i class="iconfont icon-income2"></i>
+					<p>您还没有提现记录<br />发布一个视频经验赚取您的第一桶金</p>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade out-Modal footer-modal" id="bind-weChat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						请到web端绑定微信
+					</div>
+					<div class="modal-footer">
+						<div class="btn-group" role="group" aria-label="...">
+							<button class="btn btn-default color-blue" data-dismiss="modal" type="button">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade status-modal" id="no-income" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="status-modal-bg"></div>
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<i class="iconfont icon-success"></i>
+						<p>当前没有收入无法提现</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ad-analytics></ad-analytics>
+	</div>
+	</div>
+</div>

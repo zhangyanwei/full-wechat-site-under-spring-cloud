@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+
+    <!-- build:css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/iconfont/iconfont.css" rel="stylesheet">
+    <link href="/css/common.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- endbuild -->
+</head>
+
+<body>
+<!-- Main view  -->
+<div ui-view></div>
+
+<!-- build:js -->
+<script src="/lib/require.js" data-main="/js/pay.js"></script>
+<script>
+    require.config({
+        urlArgs: function(id, url) {
+            var args = 'v=P03';
+            return (url.indexOf('?') === -1 ? '?' : '&') + args;
+        }
+    });
+</script>
+<!-- endbuild -->
+</body>
+</html>

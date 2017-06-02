@@ -1,0 +1,46 @@
+<div oc-lazy-load="['module/NoticeController']">
+    <div class="notice-container" ng-controller="NoticeController">
+
+        <div class="main-box">
+
+            <div class="no-box box-border" ng-if="viewList.total == 0">
+                <p class="no-info">
+                    <i class="iconfont icon-myshare"></i>暂无通知<br/>
+                </p>
+            </div>
+
+            <div class="middle-list notice-box">
+                <div class="panel panel-default box-border" ng-repeat="item in viewList.result">
+                    <div class="panel-heading">{{item.group_date.y}}.{{item.group_date.m}}.{{item.group_date.d}}</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="child in item.group_data">
+                                <a href="#/zone/{{child.content.user.id}}"
+                                   class="user-link">{{child.content.user.name}}</a>
+                                <b>{{child.content.typeName}}了</b>
+                                <a href="{{child.content.link}}" class="content-link">{{child.content.target.description}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clearfix text-center">
+                    <button class="btn btn-ghost" ng-click="paging()"
+                            ng-show="viewList && !viewList.last && loadingCompleted">
+                        <span>查看更多</span>
+                    </button>
+                    <button class="btn btn-ghost" ng-show="!loadingCompleted && !loadingFailed">
+                        <img src="images/loading.gif" alt="..."/>
+                        <span>正在加载</span>
+                    </button>
+                    <button class="btn btn-ghost" ng-show="loadingFailed" ng-click="refreshData()">
+                        <span>请重试</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+
+    </div>
+</div>

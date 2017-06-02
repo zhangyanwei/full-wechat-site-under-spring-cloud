@@ -1,0 +1,44 @@
+<div oc-lazy-load="['module/store/CouponManagementController']">
+    <div class="row" ng-controller="CouponManagementController">
+        <div class="main a-fadeinR">
+            <h1 class="page-header">优惠券管理</h1>
+            <div>
+                <button type="button" class="btn btn-default btn-primary" ng-click="createCoupon()">创建优惠券
+                </button>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>券名</th>
+                            <th>规则</th>
+                            <th>类型</th>
+                            <th>创建日期</th>
+                            <th>消费有效时长(天)</th>
+                            <th>优惠券有效期</th>
+                            <th>使用人数</th>
+                            <th>领取人数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.result">
+                            <td>{{item.name}}</td>
+                            <td>+{{item.rule}}</td>
+                            <td ng-if="item.type == 'NORMAL'">普通优惠券</td>
+                            <td ng-if="item.type == 'FORWARDED'">转发优惠券</td>
+                            <td>{{item.creation_time | date:"yyyy年MM月dd日"}}</td>
+                            <td>{{item.consume_expires / (1000 * 3600 * 24)}}</td>
+                            <td>{{item.expire_time_from | date:"yyyy年MM月dd日"}} ~ {{item.expire_time_to | date:"yyyy年MM月dd日"}}</td>
+                            <td>{{item.use_count}} ({{item.use_count | percent:item.not_use_count + item.use_count}}%)</td>
+                            <td>{{0 + item.not_use_count + item.use_count}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav class="pagination-wrapper">
+                <ul ng-if="data.total" uib-pagination boundary-links="true" total-items="data.total" items-per-page="data.size" ng-model="page" ng-change="goPage(page - 1)" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </nav>
+        </div>
+    </div>
+</div>

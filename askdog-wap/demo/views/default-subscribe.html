@@ -1,0 +1,33 @@
+<div oc-lazy-load="['module/channel/CategoriesController']">
+    <div class="container" ng-controller="CategoriesController">
+        <div class="select-box default-subscribe-box">
+            <h2>选择分类，订阅您喜欢的频道</h2>
+            <div class="form-group" ng-show="error">
+                <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-xs-4" ng-repeat = 'category in categories' ng-click="selectItem(category.code)">
+                    <div class="thumbnail">
+                        <span class="arrow-selected active" ng-if="category.selected"><i class="iconfont icon-success"></i></span>
+                        <img ng-src="{{category.thumbnail}}" alt="{{category.name}}">
+                        <div class="caption">
+                            <h3>{{category.name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button class="btn btn-info btn-lg btn-block" ng-click="subscribe()">订阅</button>
+                <button class="btn btn-link btn-lg btn-block" ng-click="returnToMain()">跳过</button>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>
+<script>
+    $(function(){
+        var height = $(document).height();
+        $(".select-box").css('height',height);
+        $(".select-box").css('background','#fff');
+    });
+</script>

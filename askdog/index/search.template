@@ -1,0 +1,986 @@
+PUT askdog_v1
+{
+  "settings": {},
+  "mappings": {
+    "questions": {
+      "_all": {
+        "enabled": false
+      },
+      "_source": {
+        "enabled": true
+      },
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "subject": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "store": true
+        },
+        "content": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "store": true
+        },
+        "answer_count": {
+          "type": "long",
+          "index": "not_analyzed"
+        },
+        "anonymous": {
+          "type": "boolean",
+          "index": "not_analyzed"
+        },
+        "create_time": {
+          "type": "date",
+          "format": "epoch_millis",
+          "index": "not_analyzed"
+        },
+        "labels": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "whitespace"
+        },
+        "content_all": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "store": true
+        },
+        "answer_score": {
+          "type": "double",
+          "index": "not_analyzed"
+        },
+        "hot_score": {
+          "type": "double",
+          "index": "not_analyzed"
+        },
+        "up_votes": {
+          "type": "long",
+          "index": "not_analyzed"
+        },
+        "down_votes": {
+          "type": "long",
+          "index": "not_analyzed"
+        },
+        "views": {
+          "type": "long",
+          "index": "not_analyzed"
+        },
+        "state": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "language": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "location": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "experience": {
+          "type": "boolean",
+          "index": "not_analyzed"
+        },
+        "qr_link": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "author": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "name": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "avatar": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "best_answer": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "type": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "content_text": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "content_pic": {
+              "type": "nested",
+              "properties": {
+                "picture_url": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "description": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                }
+              }
+            },
+            "create_time": {
+              "type": "date",
+              "format": "epoch_millis",
+              "index": "not_analyzed"
+            },
+            "score": {
+              "type": "double",
+              "index": "not_analyzed"
+            },
+            "anonymous": {
+              "type": "boolean",
+              "index": "not_analyzed"
+            },
+            "answerer": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "name": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "avatar": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                }
+              }
+            },
+            "up_vote_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            },
+            "down_vote_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            },
+            "favorite_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            },
+            "share_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            }
+          }
+        },
+        "newest_answer": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "type": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "content_text": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "content_pic": {
+              "type": "nested",
+              "properties": {
+                "picture_url": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "description": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                }
+              }
+            },
+            "create_time": {
+              "type": "date",
+              "format": "epoch_millis",
+              "index": "not_analyzed"
+            },
+            "score": {
+              "type": "double",
+              "index": "not_analyzed"
+            },
+            "anonymous": {
+              "type": "boolean",
+              "index": "not_analyzed"
+            },
+            "answerer": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "name": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "avatar": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                }
+              }
+            },
+            "up_vote_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            },
+            "down_vote_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            },
+            "favorite_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            },
+            "share_count":{
+              "type":"long",
+              "index":"not_analyzed"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+      "index": "askdog_v1",
+      "alias": "askdog"
+      }
+    }
+  ]
+}
+
+GET /askdog/questions/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+【搜索下拉框相似问题】
+POST /_search/template/similar
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<em>"
+      ],
+      "post_tags": [
+        "</em>"
+      ],
+      "require_field_match": true,
+      "fields": {
+        "subject": {
+          "number_of_fragments": 1,
+          "no_match_size": 20,
+          "fragment_size": 20
+        }
+      }
+    },
+    "size": "{{size}}{{^size}}5{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match": {
+                  "subject": "{{key}}"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "_source": [
+      "subject",
+      "id",
+      "answer_count",
+      "experience"
+    ]
+  }
+}
+
+【搜索】
+POST /_search/template/search
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<em>"
+      ],
+      "post_tags": [
+        "</em>"
+      ],
+      "require_field_match": false,
+      "fields": {
+        "subject": {
+          "number_of_fragments": 1,
+          "no_match_size": 80,
+          "fragment_size": 80
+        },
+        "content_all": {
+          "number_of_fragments": 1,
+          "no_match_size": 100,
+          "fragment_size": 100
+        }
+      }
+    },
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "function_score": {
+                  "field_value_factor": {
+                    "field": "answer_score",
+                    "modifier": "log1p",
+                    "factor": 2,
+                    "missing": 0
+                  },
+                  "query": {
+                    "multi_match": {
+                      "query": "{{key}}",
+                      "fields": [
+                        "subject^2",
+                        "content_all"
+                      ]
+                    }
+                  },
+                  "boost_mode": "sum"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "from": "{{from}}",
+    "_source": [
+      "id",
+      "subject",
+      "answer_count",
+      "create_time",
+      "views",
+      "content_all",
+      "experience"
+    ]
+  }
+}
+
+【最新问题】
+POST /_search/template/question_new
+{
+  "template": {
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "match": {
+                        "content_all": {
+                          "analyzer": "whitespace",
+                          "query": "{{labels}}"
+                        }
+                      }
+                    },
+                    {
+                      "match_all": {
+                        "boost": 0.2
+                      }
+                    }
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "script_fields": {
+      "best_answer.answerer": {
+        "script": "_source.best_answer==null || _source.best_answer.anonymous?null:_source.best_answer.answerer"
+      },
+      "author": {
+        "script": "_source.anonymous?null:_source.author"
+      },
+      "best_answer.content": {
+        "script": {
+          "inline": "_source.best_answer==null ?null : ( _source.best_answer.type=='TEXT'?(_source.best_answer.content_text==null?null:(_source.best_answer.content_text.length()>400?_source.best_answer.content_text.substring(0,400):_source.best_answer.content_text)):['_list':_source.best_answer.content_pic])",
+          "lang": "groovy"
+        }
+      }
+    },
+    "from": "{{from}}",
+    "_source": [
+      "id",
+      "subject",
+      "up_votes",
+      "views",
+      "answer_count",
+      "create_time",
+      "anonymous",
+      "best_answer.id",
+      "best_answer.type",
+      "best_answer.anonymous",
+      "best_answer.create_time",
+      "best_answer.up_vote_count",
+      "best_answer.down_vote_count",
+      "best_answer.favorite_count",
+      "best_answer.share_count",
+      "experience"
+    ],
+    "sort": [
+      {
+        "create_time": {
+          "unmapped_type": "long",
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【热门问题】
+POST /_search/template/question_hot
+{
+  "template": {
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "match": {
+                        "content_all": {
+                          "analyzer": "whitespace",
+                          "query": "{{labels}}"
+                        }
+                      }
+                    },
+                    {
+                      "match_all": {
+                        "boost": 0.2
+                      }
+                    }
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "script_fields": {
+      "best_answer.answerer": {
+        "script": "_source.best_answer==null || _source.best_answer.anonymous?null:_source.best_answer.answerer"
+      },
+      "author": {
+        "script": "_source.anonymous?null:_source.author"
+      },
+      "best_answer.content": {
+        "script": {
+          "inline": "_source.best_answer==null ?null : ( _source.best_answer.type=='TEXT'?(_source.best_answer.content_text==null?null:(_source.best_answer.content_text.length()>400?_source.best_answer.content_text.substring(0,400):_source.best_answer.content_text)):['_list':_source.best_answer.content_pic])",
+          "lang": "groovy"
+        }
+      }
+    },
+    "from": "{{from}}",
+    "_source": [
+      "id",
+      "subject",
+      "up_votes",
+      "views",
+      "answer_count",
+      "create_time",
+      "anonymous",
+      "best_answer.id",
+      "best_answer.type",
+      "best_answer.anonymous",
+      "best_answer.create_time",
+      "best_answer.up_vote_count",
+      "best_answer.down_vote_count",
+      "best_answer.favorite_count",
+      "best_answer.share_count",
+      "experience"
+    ],
+    "sort": [
+      {
+        "hot_score": {
+          "unmapped_type": "double",
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【最新回答】
+POST /_search/template/answer_new
+{
+  "template": {
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "match": {
+                        "content_all": {
+                          "analyzer": "whitespace",
+                          "query": "{{labels}}"
+                        }
+                      }
+                    },
+                    {
+                      "match_all": {
+                        "boost": 0.2
+                      }
+                    }
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "script_fields": {
+      "author": {
+        "script": "_source.anonymous?null:_source.author"
+      },
+      "newest_answer.content": {
+        "script": {
+          "inline": "_source.newest_answer==null ?null : ( _source.newest_answer.type=='TEXT'?(_source.newest_answer.content_text==null?null:(_source.newest_answer.content_text.length()>400?_source.newest_answer.content_text.substring(0,400):_source.newest_answer.content_text)):['_list':_source.newest_answer.content_pic])",
+          "lang": "groovy"
+        }
+      },
+      "newest_answer.answerer": {
+        "script": "_source.newest_answer==null || _source.newest_answer.anonymous?null:_source.newest_answer.answerer"
+      }
+    },
+    "from": "{{from}}",
+    "_source": [
+      "id",
+      "subject",
+      "up_votes",
+      "views",
+      "answer_count",
+      "create_time",
+      "anonymous",
+      "experience",
+      "newest_answer.id",
+      "newest_answer.type",
+      "newest_answer.anonymous",
+      "newest_answer.create_time"
+    ],
+    "sort": [
+      {
+        "newest_answer.create_time": {
+          "unmapped_type": "long",
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【首页】
+POST /_search/template/trends
+{
+  "template": {
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "match": {
+                        "content_all": {
+                          "analyzer": "whitespace",
+                          "query": "{{labels}}"
+                        }
+                      }
+                    },
+                    {
+                      "match_all": {
+                        "boost": 0.2
+                      }
+                    }
+                  ]
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "script_fields": {
+      "best_answer.answerer": {
+        "script": "_source.best_answer==null || _source.best_answer.anonymous?null:_source.best_answer.answerer"
+      },
+      "author": {
+        "script": "_source.anonymous?null:_source.author"
+      },
+      "best_answer.content": {
+        "script": {
+          "inline": "_source.best_answer==null ?null : ( _source.best_answer.type=='TEXT'?(_source.best_answer.content_text==null?null:(_source.best_answer.content_text.length()>400?_source.best_answer.content_text.substring(0,400):_source.best_answer.content_text)):['_list':_source.best_answer.content_pic])",
+          "lang": "groovy"
+        }
+      }
+    },
+    "from": "{{from}}",
+    "_source": [
+      "id",
+      "subject",
+      "up_votes",
+      "views",
+      "answer_count",
+      "create_time",
+      "anonymous",
+      "experience",
+      "best_answer.id",
+      "best_answer.type",
+      "best_answer.anonymous",
+      "best_answer.create_time",
+      "best_answer.up_vote_count",
+      "best_answer.down_vote_count",
+      "best_answer.favorite_count",
+      "best_answer.share_count"
+    ],
+    "sort": [
+      {
+        "hot_score": {
+          "unmapped_type": "long",
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+
+【等我回答】
+POST /_search/template/waiting_answer
+{
+  "template": {
+    "size": "{{size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "function_score": {
+                  "functions": [
+                    {
+                      "script_score": {
+                        "script": {
+                          "inline": "_score+(log(_source.create_time)+1/(_source.answer_count+0.05))",
+                          "params": {}
+                        }
+                      }
+                    }
+                  ],
+                  "query": {
+                    "bool": {
+                      "should": [
+                        {
+                          "match": {
+                            "labels": "{{user_labels}}"
+                          }
+                        },
+                        {
+                          "match_all": {
+                            "boost": 0.2
+                          }
+                        }
+                      ],
+                      "boost": 1
+                    }
+                  },
+                  "boost_mode": "multiply"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "script_fields": {
+      "best_answer.answerer": {
+        "script": "_source.best_answer==null || _source.best_answer.anonymous?null:_source.best_answer.answerer"
+      },
+      "author": {
+        "script": "_source.anonymous?null:_source.author"
+      },
+      "best_answer.content": {
+        "script": {
+          "inline": "_source.best_answer==null ?null : ( _source.best_answer.type=='TEXT'?(_source.best_answer.content_text==null?null:(_source.best_answer.content_text.length()>131?_source.best_answer.content_text.substring(0,130):_source.best_answer.content_text)):['_list':_source.best_answer.content_pic])",
+          "lang": "groovy"
+        }
+      }
+    },
+    "from": "{{from}}",
+    "_source": [
+      "id",
+      "subject",
+      "up_votes",
+      "views",
+      "answer_count",
+      "create_time",
+      "anonymous",
+      "experience",
+      "best_answer.id",
+      "best_answer.type",
+      "best_answer.anonymous",
+      "best_answer.create_time",
+      "best_answer.up_vote_count",
+      "best_answer.down_vote_count",
+      "best_answer.favorite_count",
+      "best_answer.share_count"
+    ]
+  }
+}
+
+【提问下拉框相似问题】
+POST /_search/template/similar_question
+{
+  "template": {
+    "highlight": {
+      "pre_tags": [
+        "<em>"
+      ],
+      "post_tags": [
+        "</em>"
+      ],
+      "require_field_match": true,
+      "fields": {
+        "subject": {
+          "number_of_fragments": 1,
+          "no_match_size": 20,
+          "fragment_size": 20
+        }
+      }
+    },
+    "size": "{{size}}{{^size}}3{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "match": {
+                  "subject": "{{key}}"
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "_source": [
+      "subject",
+      "id",
+      "answer_count",
+      "experience"
+    ]
+  }
+}
+
+【问题详细页右侧相关】
+POST /_search/template/question_related
+{
+  "template": {
+    "size": "{{size}}{{^size}}5{{/size}}",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "indices": {
+              "indices": [
+                "askdog"
+              ],
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "match": {
+                              "subject": "{{subject}}"
+                            }
+                          }
+                        ],
+                        "boost": 2
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "query": "{{question_labels}}",
+                              "fields": [
+                                "subject^3",
+                                "labels^2",
+                                "content_all"
+                              ]
+                            }
+                          }
+                        ],
+                        "boost": 1
+                      }
+                    },
+                    {
+                      "match_all": {
+                        "boost": 0.2
+                      }
+                    }
+                  ],
+                  "must_not": {
+                    "term": {
+                    "id": "{{question_id}}"
+                    }
+                  }
+                }
+              },
+              "no_match_query": "none"
+            }
+          },
+          {
+            "type": {
+              "value": "questions"
+            }
+          }
+        ]
+      }
+    },
+    "from": "{{from}}{{^from}}0{{/from}}",
+    "_source": [
+      "subject",
+      "id",
+      "answer_count",
+      "experience"
+    ]
+  }
+}
+

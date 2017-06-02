@@ -1,0 +1,99 @@
+<div oc-lazy-load="['module/SecurityController']">
+    <div class="category-container" ng-controller="SecurityController">
+
+        <div class="main-box">
+            <div class="middle-box safe-box">
+                <div class="panel box-border">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#weixin-login" aria-controls="weixin-login" role="tab" data-toggle="tab">绑定微信</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#psd-reset" aria-controls="psd-reset" role="tab" data-toggle="tab">修改密码</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="weixin-login">
+                            <p class="text-center" ng-if="!isBind">
+                                <span>扫码绑定微信账号</span>
+                                <img ng-src="{{bind_token_link}}" ng-click="generateQRCode()"/>
+                            </p>
+
+                            <div class="personal-box" ng-if="isBind" ng-repeat="item in accounts">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img class="media-object img-circle"
+                                             ng-src="{{item.avatar | picTrans: '60w_60h_1e_1c.png'}}"
+                                             alt="{{item.nick_name}}">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="col-sm-6">
+                                            <span class="user-name">{{item.nick_name}}</span>
+                                            <p>{{item.account_name}}</p>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <div class="btn-group">
+                                                <button class="btn btn-default  btn-ghost" ng-click="unbind(item)">
+                                                    解除绑定
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="psd-reset">
+                            <form class="form-horizontal" name="amend-form" after-render="bindValidator">
+                                <div class="form-group" ng-show="error">
+                                    <div class="alert alert-danger text-center alert-shake">{{error}}</div>
+                                </div>
+                                <div class="form-group" ng-show="info">
+                                    <div class="alert alert-info text-center alert-shake">{{info}}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">原密码</label>
+                                    <div class="col-sm-5">
+                                        <input name="origin_password" type="password" class="form-control"
+                                               placeholder="输入原密码"
+                                               required="required"
+                                               ng-focus="error='';info=''"
+                                               ng-model="amendPassword.origin_password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">新密码</label>
+                                    <div class="col-sm-5">
+                                        <input id="password" name="new_password" type="password" class="form-control"
+                                               placeholder="输入新密码"
+                                               required="required"
+                                               ng-focus="error='';info=''"
+                                               ng-model="amendPassword.new_password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">确认密码</label>
+                                    <div class="col-sm-5">
+                                        <input name="confirm_password" type="password" class="form-control"
+                                               placeholder="输入确认密码"
+                                               required="required"
+                                               ng-focus="error='';info=''"
+                                               ng-model="amendPassword.confirm_password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <button type="submit" class="btn btn-primary">确认修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ad-analytics></ad-analytics>
+    </div>
+</div>

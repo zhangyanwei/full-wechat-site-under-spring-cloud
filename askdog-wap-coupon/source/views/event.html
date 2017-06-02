@@ -1,0 +1,81 @@
+<div class="fragment-container">
+    <div oc-lazy-load="['module/EventController']">
+        <div class="padding-top:50px" ng-controller="EventController">
+            <div class="business" ng-cloak>
+                <div class="business-contain">
+                    <div class="business-item store-contain" ng-if="loaded && detail">
+                        <div class="video-layout" ng-if="detail.video">
+                            <video-view content="detail" cover="poster"></video-view>
+                            <div class="store-video-time">
+                                {{::detail.video.source.duration | durationFix}}
+                            </div>
+                        </div>
+
+                        <div class="clearfix info-block info-block-without-space">
+                            <div class="store-name-detail">
+                                <div class="store-name">{{::detail.store.name}}</div>
+                                <i class="iconfont icon-feature">
+                                    <div class="store-feature">{{::detail.store.type}}</div>
+                                </i>
+                                <i class="iconfont icon-money">
+                                    <div class="store-money">{{::detail.store.cpc}}/人</div>
+                                </i>
+                            </div>
+                            <div class="store-vote pull-right" ng-if="detail.coupons.length > 0" style="display: inline-block;">
+                                <div style="color: #ff7b00">
+                                    <img style="height: 15px; width:auto;" src="../style/images/coupon_active.png">
+                                    <br>
+                                    <span>{{detail.user_coupon_count}}人领取</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix business-detail info-block info-block-without-line">
+                            <table width="100%">
+                                <tr>
+                                    <td width="80%">
+                                        <div class="store-address"
+                                             map-location
+                                             location="detail.store.location"
+                                             name="detail.store.name"
+                                             address="detail.store.address">
+                                            <i class="iconfont icon-place"></i>
+                                            {{::detail.store.address}}
+                                        </div>
+                                    </td>
+                                    <td width="20%">
+                                        <div class="store-phone "><a href="tel:{{::detail.store.phone}}"><i
+                                                class="iconfont icon-tel"></i></a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="event-name">
+                            <h1>{{detail.name}}</h1>
+                            <span>活动详情</span>
+                        </div>
+                        <div class="info-block info-block-without-space">
+                            <div class="store-time">体验套餐</div>
+                            <pre class="event-description">{{detail.content}}</pre>
+                        </div>
+                        <div class="info-block info-block-without-space">
+                            <div class="store-time">活动时间</div>
+                            <div class="store-time-detail">{{::detail.period}}</div>
+                        </div>
+                        <div class="info-block info-block-without-space">
+                            <div class="store-time">活动说明</div>
+                            <pre class="event-description">{{detail.description}}</pre>
+                        </div>
+                        <div style="margin: 10px;" ng-if="detail.coupons.length > 0">
+                            <button class="btn btn-circle" auth-required ng-click="wantCoupon(detail.coupons[0].id)">立即抢！</button>
+                        </div>
+                    </div>
+                    <div ng-if="loaded && !detail" ng-click="refresh()" class="store-nothing" style="border: none;">获取活动详细失败，请重试</div>
+                    <div ng-if="!loaded">
+                        <div class="loading"><span></span> <span></span> <span></span> <span></span> <span></span></div>
+                    </div>
+                </div>
+            </div>
+            <wechat-share option="wxShareOption()" link-callback="initWxShare(link)"></wechat-share>
+        </div>
+    </div>
+</div>
